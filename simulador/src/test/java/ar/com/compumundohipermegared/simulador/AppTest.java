@@ -1,5 +1,6 @@
 package ar.com.compumundohipermegared.simulador;
 
+import junit.framework.AssertionFailedError;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
@@ -31,8 +32,50 @@ public class AppTest
     /**
      * Rigourous Test :-)
      */
-    public void testApp()
+    public void testsumar()
     {
-        assertTrue( true );
+    	int number = 33;
+    	int otherNumber=alu.plus(number, 0);
+        assertEquals(number, otherNumber);
+        
+        otherNumber= alu.plus(number, number);
+        assertEquals(number*2, otherNumber);
+        
+        otherNumber= alu.plus(number, -1);
+        assertEquals(number-1, otherNumber);
+        
+    }
+    public void testRestar()
+    {
+    	int number = 33;
+    	int otherNumber=alu.minus(number, 0);
+        assertEquals(number, otherNumber);
+        
+        otherNumber= alu.minus(number, number);
+        assertEquals(0, otherNumber);
+        
+        otherNumber= alu.minus(number, -1);
+        assertEquals(number+1, otherNumber);
+        
+    }
+    public void testMultiplicar()
+    {
+    	int number = 33;
+    	int otherNumber=alu.multi(number, number);
+        assertEquals(number*number, otherNumber);
+        
+        otherNumber= alu.multi(number, 0);
+        assertEquals(0, otherNumber);
+        
+        otherNumber= alu.multi(number, -1);
+        assertEquals(number - number - number, otherNumber);
+        
+    }
+    public void testDividir()
+    {
+    	int number = 33;
+    	int otherNumber=alu.div(number, number);
+        assertEquals(1, otherNumber);
+        
     }
 }
