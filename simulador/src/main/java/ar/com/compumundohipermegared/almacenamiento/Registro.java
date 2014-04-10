@@ -1,4 +1,4 @@
-package almacenamiento;
+package ar.com.compumundohipermegared.almacenamiento;
 
 public class Registro {
 	
@@ -23,14 +23,14 @@ public class Registro {
 		return tamanio;
 	}
 	
-	public void cargarPos(int pos, int dato) throws LimiteExcedidoVectorException{
+	public void cargarRegistro(int pos, int dato) throws LimiteExcedidoVectorException{
 		if( pos >= tamanio || pos < 0 ) throw new LimiteExcedidoVectorException();
 		Celda celda = vcelda[pos];
 		celda.setCelda(dato);
 		
 	}
 	
-	public int getDatoPos(int pos) throws LimiteExcedidoVectorException{
+	public int getDatoRegistro(int pos) throws LimiteExcedidoVectorException{
 		if( pos >= tamanio || pos < 0 ) throw new LimiteExcedidoVectorException();
 		Celda celda = vcelda[pos];
 		return celda.getCelda();

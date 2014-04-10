@@ -1,5 +1,6 @@
-package almacenamiento;
+package ar.com.compumundohipermegared.almacenamiento;
 
+import ar.com.compumundohipermegared.almacenamiento.Celda;
 import junit.framework.TestCase;
 
 public class CeldaTest extends TestCase {

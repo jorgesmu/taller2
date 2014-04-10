@@ -1,5 +1,6 @@
 package ar.com.compumundohipermegared.simulador;
 
+
 public class Alu {
 	
 	public static int plus(int number, int othernumber){

@@ -1,4 +1,4 @@
-package almacenamiento;
+package ar.com.compumundohipermegared.almacenamiento;
 
 public class LimiteExcedidoVectorException extends Exception{
 
