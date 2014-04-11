@@ -1,6 +1,6 @@
 package ar.com.compumundohipermegared.almacenamiento;
 
-public class LimiteExcedidoVectorException extends Exception{
+public class LimiteExcedidoAreaRegistroException extends Exception{
 
 	/**
 	 * 

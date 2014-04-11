@@ -1,44 +1,53 @@
 package ar.com.compumundohipermegared.almacenamiento;
 
+import java.util.Vector;
+
 
 
 public class Memoria {
 	
-	private Celda[][] mCelda;
-	private int tamanio;
+	private Vector< Vector <Celda> > mCelda;
+	static private int TAMANIO = 16;
 	
-	public Memoria(int tam){
-		tamanio = tam;
-		mCelda = new Celda[tamanio][tamanio];
+	public Memoria(){
+		mCelda = new Vector<Vector<Celda>>(TAMANIO);
 		this.crearVacio();	
 		
 	}
 	
 	private void crearVacio(){
 		
-		for( int i = 0 ; i < tamanio; i++ ){
-			for ( int j = 0 ; j < tamanio ; j++ ){
+		for( int i = 0 ; i < TAMANIO; i++ ){
+			
+			Vector<Celda> vCelda = new Vector<Celda>(TAMANIO);
+			
+			for ( int j = 0 ; j < TAMANIO ; j++ ){
 				Celda celda = new Celda();
-				mCelda[i][j] = celda;
+				vCelda.add(celda);
+								
 			}
-		}				
+			mCelda.add(vCelda);
+;		}				
 	}
 	
 	public int getTamanio(){
-		return tamanio;
+		return TAMANIO;
 		
 	}
 	
-	public void cargarMemoria(int fila, int columna, int dato){
-		Celda celda = mCelda[fila][columna];
-		celda.setCelda(dato);
+	public void cargarMemoria(int fila, int columna, char dato){
+		Vector<Celda> vCelda = mCelda.get(fila);
+		Celda celda = vCelda.get(columna);
+		celda.setDato(dato);
 			
 	}
 
-	public int getDatoMemoria(int fila, int columna){
-		Celda celda = mCelda[fila][columna];
+	public char getDatoMemoria(int fila, int columna) {
+		Vector<Celda> vCelda = mCelda.get(fila);
 		
-		return celda.getCelda();
+		Celda celda = vCelda.get(columna);
+		
+		return celda.getDato();
 	}
 
 }

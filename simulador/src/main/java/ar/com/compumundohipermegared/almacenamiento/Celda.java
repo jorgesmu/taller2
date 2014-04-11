@@ -1,15 +1,7 @@
 package ar.com.compumundohipermegared.almacenamiento;
 
-public class Celda {
+public class Celda extends UnidadDato{
 	
-	private int dato;
 	
-	public void setCelda(int info){
-		dato = info;
-	}
-	
-	public int getCelda(){
-		return dato;
-	}
 	
 }

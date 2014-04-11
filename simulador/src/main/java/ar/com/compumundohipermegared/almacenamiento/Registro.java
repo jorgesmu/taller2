@@ -1,40 +1,5 @@
 package ar.com.compumundohipermegared.almacenamiento;
 
-public class Registro {
-	
-	private Celda[] vcelda;
-	private int tamanio;
-	
-	public Registro(int tam){
-		tamanio = tam;
-		vcelda = new Celda[tamanio];
-		this.crearVacio();
-	}		
-	
-	private void crearVacio(){
-		
-		for( int i = 0 ; i < tamanio; i++ ){
-			Celda celda = new Celda();
-			vcelda[i] = celda;
-		}		
-	}
-	
-	public int getTamanio(){
-		return tamanio;
-	}
-	
-	public void cargarRegistro(int pos, int dato) throws LimiteExcedidoVectorException{
-		if( pos >= tamanio || pos < 0 ) throw new LimiteExcedidoVectorException();
-		Celda celda = vcelda[pos];
-		celda.setCelda(dato);
-		
-	}
-	
-	public int getDatoRegistro(int pos) throws LimiteExcedidoVectorException{
-		if( pos >= tamanio || pos < 0 ) throw new LimiteExcedidoVectorException();
-		Celda celda = vcelda[pos];
-		return celda.getCelda();
-		
-	}
+public class Registro extends UnidadDato{
 
 }

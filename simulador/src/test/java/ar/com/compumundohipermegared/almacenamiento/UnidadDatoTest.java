@@ -3,26 +3,26 @@ package ar.com.compumundohipermegared.almacenamiento;
 import ar.com.compumundohipermegared.almacenamiento.Celda;
 import junit.framework.TestCase;
 
-public class CeldaTest extends TestCase {
+public class UnidadDatoTest extends TestCase {
 	
 	 public void testCargarCelda(){
-	    	int dato = 15;
+	    	char dato = 'a';
 	    	
 	    	Celda celda = new Celda();
-	    	celda.setCelda(dato);
+	    	celda.setDato(dato);
 	    	
-	    	assertEquals( dato , celda.getCelda() );	    	
+	    	assertEquals( dato , celda.getDato() );	    	
 	}
 	
 	 public void testCargarCeldaConVariosValores(){
-		 int primerDato = 10;
-		 int ultimoDato = 20;
+		 char primerDato = 'a';
+		 char ultimoDato = 'z';
 		 
 		 Celda celda = new Celda();
-		 celda.setCelda(primerDato);
-		 celda.setCelda(ultimoDato);
+		 celda.setDato(primerDato);
+		 celda.setDato(ultimoDato);
 		 
-		 assertEquals( ultimoDato , celda.getCelda() );
+		 assertEquals( ultimoDato , celda.getDato() );
 		 		 
 	 }
 }
