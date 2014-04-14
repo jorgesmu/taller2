@@ -27,7 +27,7 @@ public class Memoria {
 								
 			}
 			mCelda.add(vCelda);
-;		}				
+		}				
 	}
 	
 	public int getTamanio(){
@@ -35,14 +35,21 @@ public class Memoria {
 		
 	}
 	
-	public void cargarMemoria(int fila, int columna, char dato){
+	public void cargarMemoria(int fila, int columna, char dato) throws  LimiteExcedidoMemoriaException  {
+		
+		if( fila >= TAMANIO || fila < 0) throw new LimiteExcedidoMemoriaException();
+		if( columna >= TAMANIO || columna < 0) throw new LimiteExcedidoMemoriaException();
+		
 		Vector<Celda> vCelda = mCelda.get(fila);
 		Celda celda = vCelda.get(columna);
 		celda.setDato(dato);
 			
 	}
 
-	public char getDatoMemoria(int fila, int columna) {
+	public char getDatoMemoria(int fila, int columna) throws  LimiteExcedidoMemoriaException {
+		if( fila >= TAMANIO || fila < 0) throw new LimiteExcedidoMemoriaException();
+		if( columna >= TAMANIO || columna < 0) throw new LimiteExcedidoMemoriaException();
+		
 		Vector<Celda> vCelda = mCelda.get(fila);
 		
 		Celda celda = vCelda.get(columna);
