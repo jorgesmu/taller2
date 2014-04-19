@@ -5,7 +5,7 @@ public class Conversor {
 	private static String VECHEXA[] = {"0","1","2","3","4","5","6","7","8","9","A","B","C","D","E","F"};
 	
 	
-	private static String convertIntToHexa(int numero){
+	private static String convertIntToHexa(char numero){
 		
 		int highNible = numero & 0xf0;
 		int lowNible = numero & 0x0f;
@@ -19,26 +19,6 @@ public class Conversor {
 		
 	}
 	
-	private static int calcularExponente(double numero){
-		int exponente = 0;
-		
-		if(numero < 16){
-			double validar = numero * 10;
-			while ( validar < 16 ){
-				numero = numero*10;
-				exponente--;
-				validar = validar * 10;
-			}			
-		}
-		else{
-			
-			while ( numero >= 16 ){
-				numero = numero / 10;
-				exponente++;
-			}			
-		}
-		return exponente;
-	}
 	
 	private static int correrReferencia(int numInt){
 		
@@ -57,41 +37,36 @@ public class Conversor {
 	
 	
 	
-	public static String decimalToHexa( int numero) throws LimitesExcedidosConversorException {
-		
-		if( numero > 127 || numero < -128 ) throw new LimitesExcedidosConversorException();
-									
-		return convertIntToHexa(numero);
-		
+	public static String decimalToHexa( int numero) throws LimitesExcedidosConversorException, OverFlowCasteadorException {
+													
+		Casteador casteador = new Casteador();
+		try{
+			casteador.complementoADos(numero);
+		}
+		catch( OverFlowCasteadorException error){
+			throw new  LimitesExcedidosConversorException();
+			
+		}
+		return convertIntToHexa( (char) numero);		
 	} 
 	
 	
 	
 	public static String decimalToHexa(double numero ) throws LimitesExcedidosConversorException {
-		boolean esPositivo = true;
 		
-		if( numero < 0 ) esPositivo = false;
-		if( !esPositivo) numero = numero * (-1);
+		Casteador casteador = new Casteador();
 		
-		int exponente = calcularExponente(numero);
-		int mantisa;
+		char nHexa;
+		try {
+			
+			nHexa = casteador.puntoFlotante(numero);
 		
-		if(exponente > 3 || exponente < -4) throw new LimitesExcedidosConversorException();
+		} catch (OverFlowCasteadorException | UnderFlowCasteadorException e) {
 		
-		double factor = Math.pow(10 , exponente*(-1)); //se multiplica por -1 para tener el valor en la parte entera
-		mantisa = (int) (numero * factor);
-		exponente = exponente + 4;   //Exceso de 4;
+			throw new  LimitesExcedidosConversorException();
+		}
 		
-		int nhexa = 0;
-		if(!esPositivo) nhexa++;  // 0000000s   s=signo 
-		nhexa = nhexa << 3;   // 0000s000
-		nhexa = nhexa & 0x8;  
-		nhexa = nhexa + exponente; // 0000sExp  Exp = exponente
-		nhexa = nhexa << 4;  // sExp0000
-		nhexa = nhexa & 0xf0;   
-		nhexa = nhexa + mantisa; //sExpMantisa
-		
-		return convertIntToHexa(nhexa); 
+		return convertIntToHexa(nHexa); 
 		
 		
 	}
