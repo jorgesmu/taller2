@@ -4,24 +4,26 @@ import java.util.Vector;
 
 
 
-public class Memoria {
+public class MemoriaRam implements IMemoria{
 	
 	private Vector< Vector <Celda> > mCelda;
-	static private int TAMANIO = 16;
 	
-	public Memoria(){
-		mCelda = new Vector<Vector<Celda>>(TAMANIO);
+	private int tamanio;
+	
+	public MemoriaRam(int tam){
+		tamanio = tam;
+		mCelda = new Vector<Vector<Celda>>(tamanio);
 		this.crearVacio();	
 		
 	}
 	
 	private void crearVacio(){
 		
-		for( int i = 0 ; i < TAMANIO; i++ ){
+		for( int i = 0 ; i < tamanio; i++ ){
 			
-			Vector<Celda> vCelda = new Vector<Celda>(TAMANIO);
+			Vector<Celda> vCelda = new Vector<Celda>(tamanio);
 			
-			for ( int j = 0 ; j < TAMANIO ; j++ ){
+			for ( int j = 0 ; j < tamanio ; j++ ){
 				Celda celda = new Celda();
 				vCelda.add(celda);
 								
@@ -31,14 +33,14 @@ public class Memoria {
 	}
 	
 	public int getTamanio(){
-		return TAMANIO;
+		return tamanio;
 		
 	}
 	
 	public void cargarMemoria(int fila, int columna, char dato) throws  LimiteExcedidoMemoriaException  {
 		
-		if( fila >= TAMANIO || fila < 0) throw new LimiteExcedidoMemoriaException();
-		if( columna >= TAMANIO || columna < 0) throw new LimiteExcedidoMemoriaException();
+		if( fila >= tamanio || fila < 0) throw new LimiteExcedidoMemoriaException();
+		if( columna >= tamanio || columna < 0) throw new LimiteExcedidoMemoriaException();
 		
 		Vector<Celda> vCelda = mCelda.get(fila);
 		Celda celda = vCelda.get(columna);
@@ -47,8 +49,8 @@ public class Memoria {
 	}
 
 	public char getDatoMemoria(int fila, int columna) throws  LimiteExcedidoMemoriaException {
-		if( fila >= TAMANIO || fila < 0) throw new LimiteExcedidoMemoriaException();
-		if( columna >= TAMANIO || columna < 0) throw new LimiteExcedidoMemoriaException();
+		if( fila >= tamanio || fila < 0) throw new LimiteExcedidoMemoriaException();
+		if( columna >= tamanio || columna < 0) throw new LimiteExcedidoMemoriaException();
 		
 		Vector<Celda> vCelda = mCelda.get(fila);
 		

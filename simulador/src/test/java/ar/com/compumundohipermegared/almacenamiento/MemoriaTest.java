@@ -5,21 +5,22 @@ import junit.framework.TestCase;
 public class MemoriaTest extends TestCase{
 	
 	public void testTamanioMemoria(){
-		Memoria memoria = new Memoria();
-		assertEquals( 16 , memoria.getTamanio());
+		MemoriaRam memoriaRam = new MemoriaRam(16);
+		
+		assertEquals( 16 , memoriaRam.getTamanio());
 	}
 	
 	public void testCargarMemoria() throws LimiteExcedidoMemoriaException{
-		Memoria memoria = new Memoria();
-		memoria.cargarMemoria(5, 3 , 'a' );
-		assertEquals('a' , memoria.getDatoMemoria(5, 3));		
+		MemoriaRam memoriaRam = new MemoriaRam(16);
+		memoriaRam.cargarMemoria(5, 3 , 'a' );
+		assertEquals('a' , memoriaRam.getDatoMemoria(5, 3));		
 		
 	}
 	
 	public void testCargarMemoriaExcedidoEnTamanio(){
-		Memoria memoria = new Memoria();
+		MemoriaRam memoriaRam = new MemoriaRam(16);
 		try{
-			memoria.cargarMemoria(25, 3 , 'a' );
+			memoriaRam.cargarMemoria(25, 3 , 'a' );
 			assert(false);
 		}
 		catch ( LimiteExcedidoMemoriaException error){
