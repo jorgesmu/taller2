@@ -1,5 +1,6 @@
 package ar.com.compumundohipermegared.simulador;
 
+import ar.com.compumundohipermegared.simulador.cicloInstruccion.Alu;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;

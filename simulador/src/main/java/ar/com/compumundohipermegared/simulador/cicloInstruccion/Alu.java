@@ -1,4 +1,6 @@
-package ar.com.compumundohipermegared.simulador;
+package ar.com.compumundohipermegared.simulador.cicloInstruccion;
+
+import ar.com.compumundohipermegared.simulador.DivisionByZeroException;
 
 
 public class Alu {
