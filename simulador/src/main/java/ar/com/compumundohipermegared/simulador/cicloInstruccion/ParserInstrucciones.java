@@ -3,6 +3,20 @@ package ar.com.compumundohipermegared.simulador.cicloInstruccion;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import ar.com.compumundohipermegared.simulador.instrucciones.Instruccion;
+import ar.com.compumundohipermegared.simulador.instrucciones.InstruccionAlmacenar;
+import ar.com.compumundohipermegared.simulador.instrucciones.InstruccionAnd;
+import ar.com.compumundohipermegared.simulador.instrucciones.InstruccionCargar;
+import ar.com.compumundohipermegared.simulador.instrucciones.InstruccionCargarMemoria;
+import ar.com.compumundohipermegared.simulador.instrucciones.InstruccionCopiar;
+import ar.com.compumundohipermegared.simulador.instrucciones.InstruccionOr;
+import ar.com.compumundohipermegared.simulador.instrucciones.InstruccionParar;
+import ar.com.compumundohipermegared.simulador.instrucciones.InstruccionRotar;
+import ar.com.compumundohipermegared.simulador.instrucciones.InstruccionSaltar;
+import ar.com.compumundohipermegared.simulador.instrucciones.InstruccionSumarComplemento;
+import ar.com.compumundohipermegared.simulador.instrucciones.InstruccionSumarFP;
+import ar.com.compumundohipermegared.simulador.instrucciones.InstruccionXor;
+
 public class ParserInstrucciones {
 	public static Instruccion Decodificar(String Instruccion) throws Exception{
 		ValidarFormato(Instruccion);
@@ -55,11 +69,11 @@ public class ParserInstrucciones {
 	}
 	
 	private static Instruccion DecodificarCargar(String Instruccion){
-		return new InstruccionCargarMemoria();
+		return new InstruccionCargar();
 	}	
 	
 	private static Instruccion DecodificarAlmacenar(String Instruccion){
-		return new InstruccionAlmacenamiento();
+		return new InstruccionAlmacenar();
 	}
 	
 	private static Instruccion DecodificarCopiar(String Instruccion){
@@ -67,35 +81,35 @@ public class ParserInstrucciones {
 	}
 	
 	private static Instruccion DecodificarSumarComplemento(String Instruccion){
-		return new InstruccionCargarMemoria();
+		return new InstruccionSumarComplemento();
 	}
 	
 	private static Instruccion DecodificarSumarFlotingPoint(String Instruccion){
-		return new InstruccionCargarMemoria();
+		return new InstruccionSumarFP();
 	}
 	
 	private static Instruccion DecodificarOr(String Instruccion){
-		return new InstruccionCargarMemoria();
+		return new InstruccionOr();
 	}
 	
 	private static Instruccion DecodificarAnd(String Instruccion){
-		return new InstruccionCargarMemoria();
+		return new InstruccionAnd();
 	}
 	
 	private static Instruccion DecodificarXor(String Instruccion){
-		return new InstruccionCargarMemoria();
+		return new InstruccionXor();
 	}
 	
 	private static Instruccion DecodificarRotar(String Instruccion){
-		return new InstruccionCargarMemoria();
+		return new InstruccionRotar();
 	}	
 	
 	private static Instruccion DecodificarSaltar(String Instruccion){
-		return new InstruccionCargarMemoria();
+		return new InstruccionSaltar();
 	}	
 	
 	private static Instruccion DecodificarParar(String Instruccion){
-		return new InstruccionCargarMemoria();
+		return new InstruccionParar();
 	}	
 	
 	private static void ValidarFormato(String Instruccion) throws Exception{

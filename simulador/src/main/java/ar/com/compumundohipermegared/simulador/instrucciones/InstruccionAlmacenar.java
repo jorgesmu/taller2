@@ -1,14 +1,14 @@
-package ar.com.compumundohipermegared.simulador.cicloInstruccion;
+package ar.com.compumundohipermegared.simulador.instrucciones;
 
-public class InstruccionAlmacenamiento extends Instruccion {
+public class InstruccionAlmacenar extends Instruccion {
 
 	@Override
-	void ejecutar() {
+	public void ejecutar() {
 		System.out.println("Ejecutando una instruccion de almacenamiento");
 	}
 
 	@Override
-	void cargarOperandos() {
+	public void cargarOperandos() {
 		System.out.println("Cargando operandos una instruccion de almacenamiento");		
 	}
 
