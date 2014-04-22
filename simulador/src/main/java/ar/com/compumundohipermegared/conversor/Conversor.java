@@ -20,7 +20,7 @@ public class Conversor {
 	}
 	
 	
-	private static int correrReferencia(int numInt){
+	private static int correrReferencia(int numInt) throws LimitesExcedidosConversorException {
 		
 		if( numInt > 47 && numInt < 58)
 			return numInt - 48 ;
@@ -31,7 +31,7 @@ public class Conversor {
 		else if( numInt > 96 && numInt < 103)
 			return numInt - 87 ;
 		
-		return -1;
+		else throw new LimitesExcedidosConversorException(); 
 	}
 	
 	
@@ -76,8 +76,6 @@ public class Conversor {
 		int primerCaracter = correrReferencia( nHexa.charAt(0) );
 		int segundoCaracter = correrReferencia( nHexa.charAt(1) );
 		
-		if ( primerCaracter == -1 || segundoCaracter == -1 ) throw new LimitesExcedidosConversorException(); 
-		
 		int highNible = primerCaracter << 4;
 		highNible =  highNible & 0xf0;
 		segundoCaracter = segundoCaracter & 0x0f;
@@ -95,14 +93,11 @@ public class Conversor {
 		int primerCaracter = correrReferencia( nHexa.charAt(0) ); //signo + Exponente
 		int segundoCaracter = correrReferencia( nHexa.charAt(1) );  //mantisa
 		
-		boolean esPositivo = true;
 		int signo , exponente;
-		
-		if ( primerCaracter == -1 || segundoCaracter == -1 ) throw new LimitesExcedidosConversorException(); 
 		
 		signo = primerCaracter & 0x8; // se multiplica por 1000 = 8 para obtener el bit de signo
 		signo = signo >> 3;
-		if( signo == 1 ) esPositivo = false;
+		boolean esPositivo = !(signo == 1);
 		
 		exponente = primerCaracter & 0x7; //Se multiplica por 7 para recuperar los 3 bits del exponente
 		exponente = exponente - 4; //Este reperesentado en Exceso de 4
