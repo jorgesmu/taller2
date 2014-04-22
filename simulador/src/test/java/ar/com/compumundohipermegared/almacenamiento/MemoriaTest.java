@@ -12,7 +12,8 @@ public class MemoriaTest extends TestCase{
 	
 	public void testCargarMemoria() throws LimiteExcedidoMemoriaException{
 		MemoriaRam memoriaRam = new MemoriaRam(16);
-		memoriaRam.cargarMemoria(5, 3 , 'a' );
+		byte dato = 'a';
+		memoriaRam.cargarMemoria(5, 3 , dato );
 		assertEquals('a' , memoriaRam.getDatoMemoria(5, 3));		
 		
 	}
@@ -20,7 +21,8 @@ public class MemoriaTest extends TestCase{
 	public void testCargarMemoriaExcedidoEnTamanio(){
 		MemoriaRam memoriaRam = new MemoriaRam(16);
 		try{
-			memoriaRam.cargarMemoria(25, 3 , 'a' );
+			byte dato = 'a';
+			memoriaRam.cargarMemoria(25, 3 , dato );
 			assert(false);
 		}
 		catch ( LimiteExcedidoMemoriaException error){

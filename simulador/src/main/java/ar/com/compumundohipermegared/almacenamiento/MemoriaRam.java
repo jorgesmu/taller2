@@ -37,7 +37,7 @@ public class MemoriaRam implements IMemoria{
 		
 	}
 	
-	public void cargarMemoria(int fila, int columna, char dato) throws  LimiteExcedidoMemoriaException  {
+	public void cargarMemoria(int fila, int columna, byte dato) throws  LimiteExcedidoMemoriaException  {
 		
 		if( fila >= tamanio || fila < 0) throw new LimiteExcedidoMemoriaException();
 		if( columna >= tamanio || columna < 0) throw new LimiteExcedidoMemoriaException();
@@ -48,7 +48,7 @@ public class MemoriaRam implements IMemoria{
 			
 	}
 
-	public char getDatoMemoria(int fila, int columna) throws  LimiteExcedidoMemoriaException {
+	public byte getDatoMemoria(int fila, int columna) throws  LimiteExcedidoMemoriaException {
 		if( fila >= tamanio || fila < 0) throw new LimiteExcedidoMemoriaException();
 		if( columna >= tamanio || columna < 0) throw new LimiteExcedidoMemoriaException();
 		

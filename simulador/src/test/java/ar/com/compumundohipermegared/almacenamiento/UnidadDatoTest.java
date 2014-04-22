@@ -6,7 +6,7 @@ import junit.framework.TestCase;
 public class UnidadDatoTest extends TestCase {
 	
 	 public void testCargarCelda(){
-	    	char dato = 'a';
+	    	byte dato = 'a';
 	    	
 	    	Celda celda = new Celda();
 	    	celda.setDato(dato);
@@ -15,8 +15,8 @@ public class UnidadDatoTest extends TestCase {
 	}
 	
 	 public void testCargarCeldaConVariosValores(){
-		 char primerDato = 'a';
-		 char ultimoDato = 'z';
+		 byte primerDato = 'a';
+		 byte ultimoDato = 'z';
 		 
 		 Celda celda = new Celda();
 		 celda.setDato(primerDato);

@@ -1,7 +1,6 @@
 package ar.com.compumundohipermegared.almacenamiento;
 
-public class UnidadDato {
-	
+public class UnidadDatoDoblePrecision {
 	private char dato;
 	
 	public void setDato(char info){

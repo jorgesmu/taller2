@@ -1,6 +1,6 @@
 package ar.com.compumundohipermegared.almacenamiento;
 
-public class Celda extends UnidadDato{
+public class Celda extends UnidadDatoSimplePrecision{
 	
 	
 	
