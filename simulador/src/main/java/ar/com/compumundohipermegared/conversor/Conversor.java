@@ -110,5 +110,9 @@ public class Conversor {
 		
 	}
 	
+	public static double puntoFlotanteADecimal(char flotante) throws  LimitesExcedidosConversorException {
+		String hexa = convertIntToHexa(flotante);
+		return (puntoFlotanteADecimal(hexa));
+	}
 	
 }

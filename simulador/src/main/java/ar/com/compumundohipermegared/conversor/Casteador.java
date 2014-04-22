@@ -36,10 +36,9 @@ public class Casteador {
 	
 	
 	public char puntoFlotante( double numero ) throws OverFlowCasteadorException, UnderFlowCasteadorException{
-		boolean esPositivo = true;
+		boolean esPositivo = !(numero < 0);
 		
-		if( numero < 0 ) esPositivo = false;
-		if( !esPositivo) numero = numero * (-1);
+		if (!esPositivo) numero = numero * (-1);
 		
 		int exponente = calcularExponente(numero);
 		int mantisa;
