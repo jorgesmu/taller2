@@ -2,6 +2,8 @@ package ar.com.compumundohipermegared.simulador.cicloInstruccion;
 
 import java.util.ArrayList;
 
+import ar.com.compumundohipermegared.simulador.instrucciones.Instruccion;
+
 public class Cpu {
 	ArrayList<String> pipeline = new ArrayList<String>();
 	public void ejecutarProximaInstruccion() throws Exception{
