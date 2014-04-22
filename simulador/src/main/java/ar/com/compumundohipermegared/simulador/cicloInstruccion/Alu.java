@@ -22,6 +22,36 @@ public class Alu {
 		return (number / othernumber);
 	}
 	
+	
+	public static int and(int number, int othernumber){
+		return (number & othernumber);
+	}
+	
+	public static int or(int number, int othernumber){
+		return (number | othernumber);
+	}
+	
+	public static int xor(int number, int othernumber){
+		return (number ^ othernumber);
+	}
+	
+	public static int rotarDerecha(int number, int veces){
+		return (number >> veces);
+	}
+	
+	//Estos quiza estan demas pero los hice igual total no costaba 
+	public static int rotarIzquirda(int number, int veces){
+		return (number << veces);
+	}
+	
+	public static boolean sonIguales(int number, int othernumber){
+		
+		if( number == othernumber ) return true;
+		return false;
+	}
+	
+	//Operacion de punto flotante
+	
 	public static double plus(double number, double othernumber){
 		return (number + othernumber);
 	}
@@ -38,5 +68,6 @@ public class Alu {
 		if (othernumber == 0) throw new DivisionByZeroException();
 		return (number / othernumber);
 	}
+	
 	
 }

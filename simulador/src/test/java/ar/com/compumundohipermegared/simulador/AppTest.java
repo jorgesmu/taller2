@@ -93,4 +93,49 @@ public class AppTest
     		assert(true);
     	}
     }
+    
+    public void testAnd(){
+    	int number = 97; //1100001
+    	int othernumber = 98; // 1100010
+    	assertEquals(96,Alu.and(number, othernumber)); //1100000 = 96
+    
+    }
+    
+    public void testOr(){
+    	int number = 97; //1100001
+    	int othernumber = 98; // 1100010
+    	assertEquals(99,Alu.or(number, othernumber)); //1100011 = 99
+    
+    }
+  
+    public void testXor(){
+    	int number = 97; //1100001
+    	int othernumber = 98; // 1100010
+    	assertEquals(3,Alu.xor(number, othernumber)); //0000011 = 3
+    
+    }
+    
+    public void testDesplazarAlaIzquierda(){
+    	int number = 97; //1100001
+    	int veces = 2; 
+    	assertEquals(388,Alu.rotarIzquirda(number, veces)); //110000100 = 388
+    
+    }
+    
+    public void testDesplazarAlaDerecha(){
+    	int number = 97; //1100001
+    	int veces = 2; 
+    	assertEquals(24 ,Alu.rotarDerecha(number, veces)); //0011000 = 24
+    
+    }
+    
+    public void testSiSonIugalesONo(){
+    	int number = 97; 
+    	int othernumber = 97;
+    	assertEquals(true ,Alu.sonIguales(number, othernumber)); 
+    	othernumber = 98;
+    	assertEquals(false ,Alu.sonIguales(number, othernumber)); 
+    	
+    }
+
 }
