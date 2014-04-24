@@ -1,5 +1,7 @@
 package ar.com.compumundohipermegared.simulador.instrucciones;
 
+import ar.com.compumundohipermegared.simulador.cicloInstruccion.Cpu;
+
 public class InstruccionCopiar extends InstruccionAlu {
 
 	@Override
@@ -8,7 +10,7 @@ public class InstruccionCopiar extends InstruccionAlu {
 	}
 
 	@Override
-	public void cargarOperandos() {
+	public void cargarOperandos(Cpu cpuRecibida) {
 		System.out.println("Cargando operandos una instruccion de copiar");		
 	}
 

@@ -87,6 +87,13 @@ public class Conversor {
 				
 	}
 	
+	public static int complementoDosADecimalDoblePrecision (String nHexa) {
+		// TODO
+		// recibo por ejemplo 0AFF
+		// devuelvo 2815
+		return 0;
+	}
+	
 	
 	public static double puntoFlotanteADecimal(String nHexa) throws  LimitesExcedidosConversorException {
 		

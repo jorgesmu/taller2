@@ -13,7 +13,7 @@ import ar.com.compumundohipermegared.simulador.cicloInstruccion.Cpu;
 public class App 
 {
 	public static void cargarPrograma(Cpu cpu){
-        cpu.cargarInstruccion("1AAA");
+    /*    cpu.cargarInstruccion("1AAA");
         cpu.cargarInstruccion("2BBA");
         cpu.cargarInstruccion("3AAA");
         cpu.cargarInstruccion("4AAA");
@@ -24,12 +24,13 @@ public class App
         cpu.cargarInstruccion("9AAA");
         cpu.cargarInstruccion("AAAA");
         cpu.cargarInstruccion("BBBA");
-        cpu.cargarInstruccion("CAAA");
+        cpu.cargarInstruccion("CAAA");*/
 	}
     public static void main( String[] args )
     {
         Cpu cpu = new Cpu();
         cargarPrograma(cpu);
         cpu.ejecutarPrograma();
+        System.out.println ("fin de app");
     }
 }

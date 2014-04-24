@@ -18,47 +18,47 @@ import ar.com.compumundohipermegared.simulador.instrucciones.InstruccionSumarFP;
 import ar.com.compumundohipermegared.simulador.instrucciones.InstruccionXor;
 
 public class ParserInstrucciones {
-	public static Instruccion Decodificar(String Instruccion) throws Exception{
-		ValidarFormato(Instruccion);
-		String opcode = Instruccion.substring(0, 1);
+	public static Instruccion Decodificar(String instruccion) throws Exception{
+		ValidarFormato(instruccion);
+		String opcode = instruccion.substring(0, 1);
 		Instruccion resultado = null;
 		
 		switch (opcode) {
 		case "1":
-			resultado = DecodificarCargarMemoria(Instruccion);
+			resultado = DecodificarCargarMemoria(instruccion);
 			break;
 		case "2":
-			resultado = DecodificarCargar(Instruccion);
+			resultado = DecodificarCargar(instruccion);
 			break;
 		case "3":
-			resultado = DecodificarAlmacenar(Instruccion);
+			resultado = DecodificarAlmacenar(instruccion);
 			break;
 		case "4":
-			resultado = DecodificarCopiar(Instruccion);
+			resultado = DecodificarCopiar(instruccion);
 			break;
 		case "5":
-			resultado = DecodificarSumarComplemento(Instruccion);
+			resultado = DecodificarSumarComplemento(instruccion);
 			break;
 		case "6":
-			resultado = DecodificarSumarFlotingPoint(Instruccion);
+			resultado = DecodificarSumarFlotingPoint(instruccion);
 			break;
 		case "7":
-			resultado = DecodificarOr(Instruccion);
+			resultado = DecodificarOr(instruccion);
 			break;
 		case "8":
-			resultado = DecodificarAnd(Instruccion);
+			resultado = DecodificarAnd(instruccion);
 			break;
 		case "9":
-			resultado = DecodificarXor(Instruccion);
+			resultado = DecodificarXor(instruccion);
 			break;
 		case "A":
-			resultado = DecodificarRotar(Instruccion);
+			resultado = DecodificarRotar(instruccion);
 			break;
 		case "B":
-			resultado = DecodificarSaltar(Instruccion);
+			resultado = DecodificarSaltar(instruccion);
 			break;
 		case "C":
-			resultado = DecodificarParar(Instruccion);
+			resultado = DecodificarParar(instruccion);
 			break;
 		}
 		return resultado;

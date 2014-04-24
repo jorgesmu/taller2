@@ -1,13 +1,19 @@
 package ar.com.compumundohipermegared.simulador.instrucciones;
 
-public class InstruccionParar extends Instruccion{
+import ar.com.compumundohipermegared.simulador.cicloInstruccion.Cpu;
+
+public class InstruccionParar extends InstruccionModificacionEjecucion {
+	
 	@Override
 	public void ejecutar() {
 		System.out.println("Ejecutando una instruccion de parar");
+		cpu.pararEjecucion();
 	}
-
+	
 	@Override
-	public void cargarOperandos() {
-		System.out.println("Cargando operandos una instruccion de parar");		
+	public void cargarOperandos(Cpu cpuRecibida) {
+		super.cargarOperandos(cpuRecibida);
+		System.out.println("Cargando operandos una instruccion de parar");
 	}
+	
 }
