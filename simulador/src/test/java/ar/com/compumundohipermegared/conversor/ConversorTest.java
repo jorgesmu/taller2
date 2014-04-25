@@ -99,4 +99,30 @@ public class ConversorTest extends TestCase{
 		assertEquals(-0.002, Conversor.puntoFlotanteADecimal(numero5) );
 		assertEquals(0.12, Conversor.puntoFlotanteADecimal(numero6) );
 	}
-}
+	
+	public void testConvertirAComplementoADosUnNumeroExcedido() throws LimitesExcedidosConversorException{
+		String nHexa = "AF0";
+		
+		try {
+			Conversor.complementoDosADecimal(nHexa);		
+			assert(false);
+		}
+		catch ( LimitesExcedidosConversorException error){
+			assert(true);
+		}		
+		
+	}
+	
+	public void testNumeroComplementoADosDoblePrecision() throws LimitesExcedidosConversorException {
+		String nHexa = "0AFF";
+		String nHexa2 = "FFFF";
+		
+		assertEquals(2815,Conversor.complementoDosADecimalDoblePrecision(nHexa));		
+		assertEquals(-1,Conversor.complementoDosADecimalDoblePrecision(nHexa2));		
+	}
+	
+		
+		
+}	
+	
+

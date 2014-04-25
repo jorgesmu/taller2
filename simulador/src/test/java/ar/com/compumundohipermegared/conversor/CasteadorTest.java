@@ -70,9 +70,7 @@ public class CasteadorTest extends TestCase{
 		double numero = 100000;
 		double numero3 = 0.00005; 
 		
-		char tres = (char) 67; //  0 100 0011
-		char doce = (char) 60;// numero3= 0 011 1100 = 60 
-		
+				
 		Casteador casteador = new Casteador();
 		
 		try {

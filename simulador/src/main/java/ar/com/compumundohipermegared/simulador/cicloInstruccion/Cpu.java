@@ -9,6 +9,7 @@ import ar.com.compumundohipermegared.almacenamiento.IMemoria;
 import ar.com.compumundohipermegared.almacenamiento.MemoriaRam;
 import ar.com.compumundohipermegared.almacenamiento.ProgramCounter;
 import ar.com.compumundohipermegared.conversor.Conversor;
+import ar.com.compumundohipermegared.conversor.LimitesExcedidosConversorException;
 import ar.com.compumundohipermegared.simulador.instrucciones.Instruccion;
 
 public class Cpu {
@@ -22,7 +23,7 @@ public class Cpu {
 	IMemoria memoriaDatos;
 	Fetcher fetcher;
 	
-	public Cpu (/* recibe puntero o ruta al archivo del programa a ejecutar */) {
+	public Cpu (/* recibe puntero o ruta al archivo del programa a ejecutar */){
 		pipeline = new ArrayList<DireccionMasInstruccion>();
 		registrosDatos = new AreaRegistro (CANTIDAD_REGISTROS);
 		registrosCPU = new AreaRegistroCpu();
@@ -32,7 +33,13 @@ public class Cpu {
 		String primeraDireccion = fetcher.direccionPrimerInstruccion();
 		// no me copa la siguiente linea, el char en java hasta que valor puede representar?
 		// es funcion de su "tamanio" o esta restringido acorde al byte?
-		char primer_pc = (char)Conversor.complementoDosADecimalDoblePrecision(primeraDireccion);
+		char primer_pc = 0;
+		try {
+			primer_pc = (char)Conversor.complementoDosADecimalDoblePrecision(primeraDireccion);
+		} catch (LimitesExcedidosConversorException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		registrosCPU.setPC (primer_pc);
 		llenarPipeline();
 	}

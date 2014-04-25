@@ -19,6 +19,7 @@ public class Conversor {
 		
 	}
 	
+		
 	
 	private static int correrReferencia(int numInt) throws LimitesExcedidosConversorException {
 		
@@ -73,6 +74,9 @@ public class Conversor {
 	
 	
 	public static int complementoDosADecimal(String nHexa) throws LimitesExcedidosConversorException {
+		
+		if( nHexa.length() != 2) throw new LimitesExcedidosConversorException();
+		
 		int primerCaracter = correrReferencia( nHexa.charAt(0) );
 		int segundoCaracter = correrReferencia( nHexa.charAt(1) );
 		
@@ -87,15 +91,30 @@ public class Conversor {
 				
 	}
 	
-	public static int complementoDosADecimalDoblePrecision (String nHexa) {
+	public static int complementoDosADecimalDoblePrecision (String nHexa) throws LimitesExcedidosConversorException {
 		// TODO
 		// recibo por ejemplo 0AFF
 		// devuelvo 2815
-		return 0;
+		if( nHexa.length() != 4) throw new LimitesExcedidosConversorException();
+		
+		int primerByte = complementoDosADecimal(nHexa.substring(2));   //De esto obtengo FF
+		int segundoByte = complementoDosADecimal(nHexa.substring(0,2)); //De esto obtengo el 0A
+		
+		if (primerByte < 0) primerByte = primerByte + 256;  //sumo 256 pq lo q recibo varia entre -128 a 128 
+		
+		if (segundoByte < 0) segundoByte = segundoByte + 256;
+		
+		int numero = (segundoByte << 8) | primerByte ;
+		
+		if( numero > 32767 ) numero = numero - 65536; //El numero varia entre -32768 a 32767
+		
+		return numero;
 	}
 	
 	
 	public static double puntoFlotanteADecimal(String nHexa) throws  LimitesExcedidosConversorException {
+		
+		if( nHexa.length() != 2) throw new LimitesExcedidosConversorException();
 		
 		int primerCaracter = correrReferencia( nHexa.charAt(0) ); //signo + Exponente
 		int segundoCaracter = correrReferencia( nHexa.charAt(1) );  //mantisa
