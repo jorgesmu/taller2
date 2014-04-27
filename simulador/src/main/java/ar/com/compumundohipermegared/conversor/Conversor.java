@@ -38,7 +38,7 @@ public class Conversor {
 	
 	
 	
-	public static String decimalToHexa( int numero) throws LimitesExcedidosConversorException, OverFlowCasteadorException {
+	public static String decimalToHexa( int numero) throws LimitesExcedidosConversorException {
 													
 		Casteador casteador = new Casteador();
 		try{
@@ -51,6 +51,13 @@ public class Conversor {
 		return convertIntToHexa( (char) numero);		
 	} 
 	
+	public static String decimalToHexaDoblePrecision (int numero) throws LimitesExcedidosConversorException {
+		int highByte = numero >> 8;
+		int lowByte = numero & 0xff;
+		String hB = convertIntToHexa ((char) highByte);
+		String lB = convertIntToHexa ((char) lowByte);
+		return (hB + lB);
+	}
 	
 	
 	public static String decimalToHexa(double numero ) throws LimitesExcedidosConversorException {
@@ -92,7 +99,6 @@ public class Conversor {
 	}
 	
 	public static int complementoDosADecimalDoblePrecision (String nHexa) throws LimitesExcedidosConversorException {
-		// TODO
 		// recibo por ejemplo 0AFF
 		// devuelvo 2815
 		if( nHexa.length() != 4) throw new LimitesExcedidosConversorException();

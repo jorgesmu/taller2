@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import ar.com.compumundohipermegared.almacenamiento.AreaRegistro;
 import ar.com.compumundohipermegared.almacenamiento.AreaRegistroCpu;
 import ar.com.compumundohipermegared.almacenamiento.DireccionMasInstruccion;
+import ar.com.compumundohipermegared.almacenamiento.IInputStream;
 import ar.com.compumundohipermegared.almacenamiento.IMemoria;
 import ar.com.compumundohipermegared.almacenamiento.MemoriaRam;
 import ar.com.compumundohipermegared.almacenamiento.ProgramCounter;
@@ -23,28 +24,25 @@ public class Cpu {
 	IMemoria memoriaDatos;
 	Fetcher fetcher;
 	
-	public Cpu (/* recibe puntero o ruta al archivo del programa a ejecutar */){
+	public Cpu (IInputStream programaAEjecutar) {
 		pipeline = new ArrayList<DireccionMasInstruccion>();
 		registrosDatos = new AreaRegistro (CANTIDAD_REGISTROS);
 		registrosCPU = new AreaRegistroCpu();
 		memoriaDatos = new MemoriaRam (CANTIDAD_CELAS_POR_FILA_Y_COLUMNA);
-		fetcher = new Fetcher (/* programa a ejecutar */);
+		fetcher = new Fetcher (programaAEjecutar);
 		
 		String primeraDireccion = fetcher.direccionPrimerInstruccion();
-		// no me copa la siguiente linea, el char en java hasta que valor puede representar?
-		// es funcion de su "tamanio" o esta restringido acorde al byte?
 		char primer_pc = 0;
 		try {
 			primer_pc = (char)Conversor.complementoDosADecimalDoblePrecision(primeraDireccion);
 		} catch (LimitesExcedidosConversorException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		registrosCPU.setPC (primer_pc);
 		llenarPipeline();
 	}
 	
-	public void ejecutarProximaInstruccion() throws Exception{
+	public void ejecutarProximaInstruccion() throws Exception {
 		if (pipeline.size() == 0) throw new Exception("No hay instrucciones para ejecutar en el pipeline");
 		
 		String proximaInstruccionADecodificar = leerPipeline();
@@ -68,7 +66,7 @@ public class Cpu {
 		}
 	}
 	
-	public void cargarInstruccion(DireccionMasInstruccion elemento){
+	public void cargarInstruccion(DireccionMasInstruccion elemento) {
 		pipeline.add(elemento);
 	}
 	
@@ -87,7 +85,7 @@ public class Cpu {
 		try {
 			DireccionMasInstruccion elemento = fetcher.getInstruccion(direccion.getDato());
 			cargarInstruccion(elemento);
-		} catch (SinInstruccionesException error) { }
+		} catch (InstruccionNoEncontradaException error) { }
 	}
 	
 	public void pararEjecucion () {

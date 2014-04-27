@@ -1,6 +1,6 @@
 package ar.com.compumundohipermegared.simulador.cicloInstruccion;
 
-public class SinInstruccionesException extends Exception {
+public class InstruccionNoEncontradaException extends Exception {
 
 	/**
 	 * 

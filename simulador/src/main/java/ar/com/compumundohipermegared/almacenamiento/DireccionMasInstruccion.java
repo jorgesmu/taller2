@@ -11,4 +11,8 @@ public class DireccionMasInstruccion {
 		direccion = direccionRecibida;
 		instruccion = instruccionRecibida;
 	}
+
+	public DireccionMasInstruccion(String linea) {
+		// TODO Auto-generated constructor stub
+	}
 }
