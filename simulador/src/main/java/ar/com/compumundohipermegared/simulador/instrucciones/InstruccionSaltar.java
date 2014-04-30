@@ -2,7 +2,7 @@ package ar.com.compumundohipermegared.simulador.instrucciones;
 
 import ar.com.compumundohipermegared.simulador.cicloInstruccion.Cpu;
 
-public class InstruccionSaltar extends InstruccionModificacionEjecucion {
+public class InstruccionSaltar extends InstruccionFlujo {
 	
 	char direccion = '\0';
 	

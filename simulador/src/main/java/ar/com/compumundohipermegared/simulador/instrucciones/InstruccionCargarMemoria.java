@@ -14,4 +14,7 @@ public class InstruccionCargarMemoria extends InstruccionLoadStore {
 		System.out.println("Cargando operandos una instruccion de carga/memoria");		
 	}
 
+	public InstruccionCargarMemoria(){
+		
+	}
 }

@@ -23,6 +23,7 @@ public class ParserInstrucciones {
 		String opcode = instruccion.substring(0, 1);
 		Instruccion resultado = null;
 		
+		
 		switch (opcode) {
 		case "1":
 			resultado = DecodificarCargarMemoria(instruccion);
@@ -65,6 +66,7 @@ public class ParserInstrucciones {
 	}
 	
 	private static Instruccion DecodificarCargarMemoria(String Instruccion){
+		
 		return new InstruccionCargarMemoria();
 	}
 	
