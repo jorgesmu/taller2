@@ -6,6 +6,7 @@ import java.io.IOException;
 
 import ar.com.compumundohipermegared.almacenamiento.FileReader;
 import ar.com.compumundohipermegared.almacenamiento.IInputStream;
+import ar.com.compumundohipermegared.almacenamiento.MemoriaRam;
 import ar.com.compumundohipermegared.simulador.cicloInstruccion.Cpu;
 
 /**
@@ -18,7 +19,7 @@ public class App {
     	try {
     		String ruta = crearPrograma();
 			IInputStream programa = new FileReader (ruta);
-			Cpu cpu = new Cpu(programa);
+			Cpu cpu = new Cpu(programa, new MemoriaRam(256));
 	        cpu.ejecutarPrograma();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();

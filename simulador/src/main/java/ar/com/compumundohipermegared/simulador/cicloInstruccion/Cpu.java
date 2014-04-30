@@ -7,6 +7,8 @@ import ar.com.compumundohipermegared.almacenamiento.AreaRegistroCpu;
 import ar.com.compumundohipermegared.almacenamiento.DireccionMasInstruccion;
 import ar.com.compumundohipermegared.almacenamiento.IInputStream;
 import ar.com.compumundohipermegared.almacenamiento.IMemoria;
+import ar.com.compumundohipermegared.almacenamiento.LimiteExcedidoAreaRegistroException;
+import ar.com.compumundohipermegared.almacenamiento.LimiteExcedidoMemoriaException;
 import ar.com.compumundohipermegared.almacenamiento.MemoriaRam;
 import ar.com.compumundohipermegared.almacenamiento.ProgramCounter;
 import ar.com.compumundohipermegared.conversor.Conversor;
@@ -24,7 +26,7 @@ public class Cpu {
 	IMemoria memoriaDatos;
 	Fetcher fetcher;
 	
-	public Cpu (IInputStream programaAEjecutar) {
+	public Cpu (IInputStream programaAEjecutar, IMemoria memoria) {
 		pipeline = new ArrayList<DireccionMasInstruccion>();
 		registrosDatos = new AreaRegistro (CANTIDAD_REGISTROS);
 		registrosCPU = new AreaRegistroCpu();
@@ -40,6 +42,7 @@ public class Cpu {
 		}
 		registrosCPU.setPC (primer_pc);
 		llenarPipeline();
+		memoriaDatos = memoria;
 	}
 	
 	public void ejecutarProximaInstruccion() throws Exception {
@@ -111,4 +114,27 @@ public class Cpu {
 		agregarAPipeline(ProgramCounter.sumar(pc, TAMANIO_PIPELINE));
 	}
 	
+	public byte ObtenerRegsitro(int idRegistro){
+		try {
+			return registrosDatos.getDatoRegistro(idRegistro);
+		} catch (LimiteExcedidoAreaRegistroException e) {
+			return 0;
+		}
+	}
+	
+	public byte ObtenerDatoRam(int fila, int columna){
+		try {
+			return memoriaDatos.getDatoMemoria(fila, columna);
+		} catch (LimiteExcedidoMemoriaException e) {
+			return 0;
+		}
+	}
+	public void EscribirRegistro(int idRegistro, byte dato){
+		try {
+			registrosDatos.cargarRegistro(idRegistro, dato);
+		} catch (LimiteExcedidoAreaRegistroException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 }

@@ -4,23 +4,26 @@ import ar.com.compumundohipermegared.simulador.cicloInstruccion.Cpu;
 import ar.com.compumundohipermegared.simulador.cicloInstruccion.Parametros;
 
 public class InstruccionCargarMemoria extends InstruccionLoadStore {
+	private byte datoMemoria;
+	private byte idRegistro;
+	Cpu cpu;
 	public InstruccionCargarMemoria(Parametros parametros) {
 		super(parametros);
 	}
 
 	@Override
 	public void ejecutar() {
-		System.out.println("Ejecutando una instruccion de carga/memoria");		
+		cpu.EscribirRegistro(idRegistro, datoMemoria);
 	}
 
 	@Override
 	public void cargarOperandos(Cpu cpuRecibida) {
 		super.cargarOperandos(cpuRecibida);
-		System.out.println("primer parametro:" + _parametros.getPrimerParametro());
-		System.out.println("segundo parametro:" + _parametros.getSegundoParametro());
-		System.out.println("tercer parametro:" + _parametros.getTercerParametro());
-		
-		System.out.println("Cargando operandos una instruccion de carga/memoria");		
+		int fila = _parametros.getSegundoParametro();
+		int columna = _parametros.getTercerParametro();
+		cpu = cpuRecibida;
+		datoMemoria = cpu.ObtenerDatoRam(fila, columna);
+		idRegistro = _parametros.getPrimerParametro();
 	}
 
 }
