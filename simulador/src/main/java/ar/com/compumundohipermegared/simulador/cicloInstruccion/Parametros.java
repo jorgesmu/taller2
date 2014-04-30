@@ -22,5 +22,6 @@ public class Parametros {
 
 	public byte getTercerParametro() {
 		return tercerParametro;
+		
 	}
 }
