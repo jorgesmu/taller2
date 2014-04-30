@@ -2,7 +2,7 @@ package ar.com.compumundohipermegared.simulador.instrucciones;
 
 import ar.com.compumundohipermegared.simulador.cicloInstruccion.Cpu;
 
-abstract class InstruccionFlujo extends Instruccion {
+abstract class InstruccionFlujox extends Instruccion {
 
 	Cpu cpu = null;
 	

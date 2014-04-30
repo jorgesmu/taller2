@@ -2,7 +2,7 @@ package ar.com.compumundohipermegared.simulador.instrucciones;
 
 import ar.com.compumundohipermegared.simulador.cicloInstruccion.Cpu;
 
-public class InstruccionParar extends InstruccionFlujo {
+public class InstruccionParar extends InstruccionFlujox {
 	
 	@Override
 	public void ejecutar() {
