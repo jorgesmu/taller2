@@ -7,9 +7,9 @@ public class Parametros {
 	private byte tercerParametro;
 	
 	public Parametros (String instruccion) {
-		primerParametro = Byte.valueOf(instruccion.substring(1, 2));
-		segundoParametro = Byte.valueOf(instruccion.substring(2, 3));
-		tercerParametro = Byte.valueOf(instruccion.substring(3, 4));
+		primerParametro = instruccion.substring(1, 2).getBytes()[0];
+		segundoParametro = instruccion.substring(2, 3).getBytes()[0];
+		tercerParametro = instruccion.substring(3, 4).getBytes()[0];
 	}
 
 	public byte getPrimerParametro() {
