@@ -7,12 +7,12 @@ public class ParametrosTest extends TestCase {
 
 	public void testObtenerParametros() {
 		String instruccion = "abcd";
-		byte valorEsperado = 'b';
+		byte valorEsperado = Byte.parseByte("b", 16);
 		Parametros par = new Parametros(instruccion);
 		assertEquals(valorEsperado, par.getPrimerParametro());
-		valorEsperado = 'c';
+		valorEsperado = Byte.parseByte("c", 16);
 		assertEquals(valorEsperado, par.getSegundoParametro());
-		valorEsperado = 'd';
+		valorEsperado = Byte.parseByte("d", 16);
 		assertEquals(valorEsperado, par.getTercerParametro());
 	}
 }
