@@ -29,7 +29,7 @@ public class App {
 	private static String crearPrograma() throws FileNotFoundException {
 		String ruta = new String ("prueba.cod");
 		FileOutputStream programa = new FileOutputStream (ruta);
-		cargarInstruccion(programa, "0000", "1AAA");
+		cargarInstruccion(programa, "0000", "1ABC");
         cargarInstruccion(programa, "0002", "2BBA");
         cargarInstruccion(programa, "0004", "3AAA");
         cargarInstruccion(programa, "0006", "4AAA");

@@ -1,8 +1,13 @@
 package ar.com.compumundohipermegared.simulador.instrucciones;
 
 import ar.com.compumundohipermegared.simulador.cicloInstruccion.Cpu;
+import ar.com.compumundohipermegared.simulador.cicloInstruccion.Parametros;
 
 public class InstruccionAlmacenar extends InstruccionLoadStore {
+
+	public InstruccionAlmacenar(Parametros parametros) {
+		super(parametros);
+	}
 
 	@Override
 	public void ejecutar() {

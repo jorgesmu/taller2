@@ -1,14 +1,20 @@
 package ar.com.compumundohipermegared.simulador.instrucciones;
 
 import ar.com.compumundohipermegared.simulador.cicloInstruccion.Cpu;
+import ar.com.compumundohipermegared.simulador.cicloInstruccion.Parametros;
 
 public class InstruccionSaltar extends InstruccionFlujo {
 	
+	public InstruccionSaltar(Parametros parametros) {
+		super(parametros);
+	}
+
 	char direccion = '\0';
 	
-	public InstruccionSaltar (/* direccionRecibida */) {
-		direccion = '\0'; // direccionRecibida
-	}
+	
+	/*public InstruccionSaltar ( direccionRecibida ) {
+		//direccion = '\0'; // direccionRecibida
+	}*/
 	
 	@Override
 	public void ejecutar() {

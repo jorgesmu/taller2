@@ -23,7 +23,6 @@ public class ParserInstrucciones {
 		String opcode = instruccion.substring(0, 1);
 		Instruccion resultado = null;
 		
-		
 		switch (opcode) {
 		case "1":
 			resultado = DecodificarCargarMemoria(instruccion);
@@ -65,53 +64,53 @@ public class ParserInstrucciones {
 		return resultado;
 	}
 	
-	private static Instruccion DecodificarCargarMemoria(String Instruccion){
-		
-		return new InstruccionCargarMemoria();
+	
+	private static Instruccion DecodificarCargarMemoria(String instruccion){
+		return new InstruccionCargarMemoria(new Parametros(instruccion));
 	}
 	
-	private static Instruccion DecodificarCargar(String Instruccion){
-		return new InstruccionCargar();
+	private static Instruccion DecodificarCargar(String instruccion){
+		return new InstruccionCargar(new Parametros(instruccion));
 	}	
 	
-	private static Instruccion DecodificarAlmacenar(String Instruccion){
-		return new InstruccionAlmacenar();
+	private static Instruccion DecodificarAlmacenar(String instruccion){
+		return new InstruccionAlmacenar(new Parametros(instruccion));
 	}
 	
-	private static Instruccion DecodificarCopiar(String Instruccion){
-		return new InstruccionCopiar();
+	private static Instruccion DecodificarCopiar(String instruccion){
+		return new InstruccionCopiar(new Parametros(instruccion));
 	}
 	
-	private static Instruccion DecodificarSumarComplemento(String Instruccion){
-		return new InstruccionSumarComplemento();
+	private static Instruccion DecodificarSumarComplemento(String instruccion){
+		return new InstruccionSumarComplemento(new Parametros(instruccion));
 	}
 	
-	private static Instruccion DecodificarSumarFlotingPoint(String Instruccion){
-		return new InstruccionSumarFP();
+	private static Instruccion DecodificarSumarFlotingPoint(String instruccion){
+		return new InstruccionSumarFP(new Parametros(instruccion));
 	}
 	
-	private static Instruccion DecodificarOr(String Instruccion){
-		return new InstruccionOr();
+	private static Instruccion DecodificarOr(String instruccion){
+		return new InstruccionOr(new Parametros(instruccion));
 	}
 	
-	private static Instruccion DecodificarAnd(String Instruccion){
-		return new InstruccionAnd();
+	private static Instruccion DecodificarAnd(String instruccion){
+		return new InstruccionAnd(new Parametros(instruccion));
 	}
 	
-	private static Instruccion DecodificarXor(String Instruccion){
-		return new InstruccionXor();
+	private static Instruccion DecodificarXor(String instruccion){
+		return new InstruccionXor(new Parametros(instruccion));
 	}
 	
-	private static Instruccion DecodificarRotar(String Instruccion){
-		return new InstruccionRotar();
+	private static Instruccion DecodificarRotar(String instruccion){
+		return new InstruccionRotar(new Parametros(instruccion));
 	}	
 	
-	private static Instruccion DecodificarSaltar(String Instruccion){
-		return new InstruccionSaltar();
+	private static Instruccion DecodificarSaltar(String instruccion){
+		return new InstruccionSaltar(new Parametros(instruccion));
 	}	
 	
-	private static Instruccion DecodificarParar(String Instruccion){
-		return new InstruccionParar();
+	private static Instruccion DecodificarParar(String instruccion){
+		return new InstruccionParar(new Parametros(instruccion));
 	}	
 	
 	private static void ValidarFormato(String Instruccion) throws Exception{
