@@ -9,7 +9,7 @@ abstract class InstruccionLoadStore extends Instruccion {
 		super(parametros);
 	}
 
-	Cpu cpu = null;
+	protected Cpu cpu = null;
 	
 	@Override
 	public void cargarOperandos(Cpu cpuRecibida) {

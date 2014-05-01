@@ -23,4 +23,8 @@ public class Parametros {
 	public byte getTercerParametro() {
 		return tercerParametro;
 	}
+	
+	public String getSegundoYTercerParametro(){
+		return Byte.toString(segundoParametro) + Byte.toString(tercerParametro);
+	}
 }

@@ -6,7 +6,7 @@ import ar.com.compumundohipermegared.simulador.cicloInstruccion.Parametros;
 public class InstruccionCargarMemoria extends InstruccionLoadStore {
 	private byte datoMemoria;
 	private byte idRegistro;
-	Cpu cpu;
+	
 	public InstruccionCargarMemoria(Parametros parametros) {
 		super(parametros);
 	}
@@ -21,7 +21,6 @@ public class InstruccionCargarMemoria extends InstruccionLoadStore {
 		super.cargarOperandos(cpuRecibida);
 		int fila = _parametros.getSegundoParametro();
 		int columna = _parametros.getTercerParametro();
-		cpu = cpuRecibida;
 		datoMemoria = cpu.ObtenerDatoRam(fila, columna);
 		idRegistro = _parametros.getPrimerParametro();
 	}
