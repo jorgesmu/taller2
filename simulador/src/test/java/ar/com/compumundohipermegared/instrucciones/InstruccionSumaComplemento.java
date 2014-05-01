@@ -12,7 +12,7 @@ import ar.com.compumundohipermegared.conversor.LimitesExcedidosConversorExceptio
 import ar.com.compumundohipermegared.simulador.cicloInstruccion.Cpu;
 import junit.framework.TestCase;
 
-public class InstruccionCopiar extends TestCase {
+public class InstruccionSumaComplemento extends TestCase {
 	private static void cargarInstruccion(FileOutputStream programa, String direccion, String instruccion) {
 		writeln (programa, direccion + new String(" ") + instruccion);
 	}
@@ -20,7 +20,7 @@ public class InstruccionCopiar extends TestCase {
 	private static String crearPrograma() throws FileNotFoundException {
 		String ruta = new String ("prueba.cod");
 		FileOutputStream programa = new FileOutputStream (ruta);
-		cargarInstruccion(programa, "0000", "4AAB");
+		cargarInstruccion(programa, "0000", "5ABC");
         try {
 			programa.close();
 		} catch (IOException e) {
@@ -42,21 +42,35 @@ public class InstruccionCopiar extends TestCase {
 			programa.write('\n');
 		} catch (IOException e) { e.printStackTrace(); }
 	}
-	public void testCopiar() throws LimitesExcedidosConversorException {
-		byte dato;
-		dato = (byte) Conversor.complementoDosADecimal("BC");
-	
+	public void testSumarComplemento() throws LimitesExcedidosConversorException {
+		byte operando1;
+		operando1 = Byte.parseByte("B",16);
+		byte operando2;
+		operando2 = Byte.parseByte("C",16);
+		byte resultado;
+		resultado = Byte.parseByte("17", 16);
+		
 		MemoriaRam ram = new MemoriaRam(256);
     	try {
     		String ruta = crearPrograma();
 			IInputStream programa = new FileReader (ruta);
 			Cpu cpu = new Cpu(programa,ram);
-			cpu.EscribirRegistro(10, dato);
+			cpu.EscribirRegistro(11, operando1);
+			cpu.EscribirRegistro(12, operando2);
 			if (cpu.ObtenerRegsitro(10) == cpu.ObtenerRegsitro(11)){
 				assert(false);
 			}
-	        cpu.ejecutarPrograma();
-			if (dato != cpu.ObtenerRegsitro(10)){
+			if (cpu.ObtenerRegsitro(11) == cpu.ObtenerRegsitro(12)){
+				assert(false);
+			}
+			if (cpu.ObtenerRegsitro(10) == cpu.ObtenerRegsitro(12)){
+				assert(false);
+			}
+			if (cpu.ObtenerRegsitro(10) == resultado){
+				assert(false);
+			}
+			cpu.ejecutarPrograma();
+			if (resultado != cpu.ObtenerRegsitro(10)){
 				assert(false);
 			}		
     	} catch (FileNotFoundException e) {
