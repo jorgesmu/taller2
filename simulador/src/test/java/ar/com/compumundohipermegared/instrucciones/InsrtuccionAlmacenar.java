@@ -6,13 +6,13 @@ import java.io.IOException;
 
 import ar.com.compumundohipermegared.almacenamiento.FileReader;
 import ar.com.compumundohipermegared.almacenamiento.IInputStream;
+import ar.com.compumundohipermegared.almacenamiento.LimiteExcedidoMemoriaException;
 import ar.com.compumundohipermegared.almacenamiento.MemoriaRam;
-import ar.com.compumundohipermegared.conversor.Conversor;
-import ar.com.compumundohipermegared.conversor.LimitesExcedidosConversorException;
 import ar.com.compumundohipermegared.simulador.cicloInstruccion.Cpu;
+
 import junit.framework.TestCase;
 
-public class InstruccionCargaInmediato extends TestCase {
+public class InsrtuccionAlmacenar extends TestCase {
 	private static void cargarInstruccion(FileOutputStream programa, String direccion, String instruccion) {
 		writeln (programa, direccion + new String(" ") + instruccion);
 	}
@@ -20,7 +20,7 @@ public class InstruccionCargaInmediato extends TestCase {
 	private static String crearPrograma() throws FileNotFoundException {
 		String ruta = new String ("prueba.cod");
 		FileOutputStream programa = new FileOutputStream (ruta);
-		cargarInstruccion(programa, "0000", "2ABC");
+		cargarInstruccion(programa, "0000", "3ABC");
         try {
 			programa.close();
 		} catch (IOException e) {
@@ -42,27 +42,23 @@ public class InstruccionCargaInmediato extends TestCase {
 			programa.write('\n');
 		} catch (IOException e) { e.printStackTrace(); }
 	}
-	public void testEjecutarCargaInmediato() throws LimitesExcedidosConversorException {
-		byte dato = 0;
 	
-
-		dato = (byte) Conversor.complementoDosADecimal("BC");
-	
+	public void testEjecutarCarga() throws LimiteExcedidoMemoriaException {
+		byte dato = 25;
 		MemoriaRam ram = new MemoriaRam(256);
     	try {
     		String ruta = crearPrograma();
 			IInputStream programa = new FileReader (ruta);
+		
 			Cpu cpu = new Cpu(programa,ram);
-			if (dato == cpu.ObtenerRegsitro(10)){
-				
-				assert(false);
-			}
-	        cpu.ejecutarPrograma();
-			if (dato != cpu.ObtenerRegsitro(10)){
-				assert(false);
-			}		
+			cpu.EscribirRegistro(10, dato);
+			assertFalse(ram.getDatoMemoria(11, 12) == dato);
+			cpu.ejecutarPrograma();
+			assertEquals(ram.getDatoMemoria(11, 12), dato);		
     	} catch (FileNotFoundException e) {
 			assert(false);
 		}
+    	
 	}
+
 }

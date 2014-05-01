@@ -137,4 +137,12 @@ public class Cpu {
 			e.printStackTrace();
 		}
 	}
+	public void EscribirMemoria(int fila, int columna, byte dato){
+		try {
+			memoriaDatos.cargarMemoria(fila, columna, dato);;
+		} catch (LimiteExcedidoMemoriaException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 }
