@@ -11,7 +11,7 @@ import ar.com.compumundohipermegared.conversor.LimitesExcedidosConversorExceptio
 import ar.com.compumundohipermegared.simulador.cicloInstruccion.Cpu;
 import junit.framework.TestCase;
 
-public class InstruccionSumaComplemento extends TestCase {
+public class InstruccionSumaPuntoFlotante extends TestCase {
 	private static void cargarInstruccion(FileOutputStream programa, String direccion, String instruccion) {
 		writeln (programa, direccion + new String(" ") + instruccion);
 	}
@@ -19,7 +19,7 @@ public class InstruccionSumaComplemento extends TestCase {
 	private static String crearPrograma() throws FileNotFoundException {
 		String ruta = new String ("prueba.cod");
 		FileOutputStream programa = new FileOutputStream (ruta);
-		cargarInstruccion(programa, "0000", "5ABC");
+		cargarInstruccion(programa, "0000", "6ABC");
         try {
 			programa.close();
 		} catch (IOException e) {
@@ -41,7 +41,7 @@ public class InstruccionSumaComplemento extends TestCase {
 			programa.write('\n');
 		} catch (IOException e) { e.printStackTrace(); }
 	}
-	public void testSumarComplemento() throws LimitesExcedidosConversorException {
+	public void testSumarPuntoFlotante() throws LimitesExcedidosConversorException {
 		byte operando1;
 		operando1 = Byte.parseByte("B",16);
 		byte operando2;

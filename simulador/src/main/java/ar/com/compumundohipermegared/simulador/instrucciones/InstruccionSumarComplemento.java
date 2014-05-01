@@ -1,23 +1,30 @@
 package ar.com.compumundohipermegared.simulador.instrucciones;
 
 import ar.com.compumundohipermegared.conversor.OverFlowCasteadorException;
+import ar.com.compumundohipermegared.conversor.UnderFlowCasteadorException;
 import ar.com.compumundohipermegared.simulador.cicloInstruccion.Cpu;
 import ar.com.compumundohipermegared.simulador.cicloInstruccion.Parametros;
 
 public class InstruccionSumarComplemento extends InstruccionAlu{
-	int operando1, operando2, idRegistroDestino;
+	double operando1, operando2;
+	int idRegistroDestino;
 	public InstruccionSumarComplemento(Parametros parametros) {
 		super(parametros);
 	}
 
 	@Override
 	public void ejecutar() {
-		int resultado = operando1 + operando2;
+		double resultado = operando1 + operando2;
 		try {
-			casteador.complementoADos(resultado);			
+			casteador.puntoFlotante(resultado);
 		} catch (OverFlowCasteadorException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		} catch (UnderFlowCasteadorException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}			
+
 		cpu.EscribirRegistro(idRegistroDestino, (byte)resultado);
 		System.out.println("Ejecutando una instruccion de sumar complemento");
 	}
@@ -33,11 +40,17 @@ public class InstruccionSumarComplemento extends InstruccionAlu{
 		operando2 = cpu.ObtenerRegsitro(dirSegundoOperando);
 		
 		try {
-			casteador.complementoADos(operando1);
-			casteador.complementoADos(operando2);			
+			casteador.puntoFlotante(operando1);
+			casteador.puntoFlotante(operando2);			
 		} catch (OverFlowCasteadorException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (UnderFlowCasteadorException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+
+
 		
 		System.out.println("Cargando operandos una instruccion de sumar complemento");		
 	}
