@@ -54,22 +54,22 @@ public class InstruccionSumaPuntoFlotante extends TestCase {
     		String ruta = crearPrograma();
 			IInputStream programa = new FileReader (ruta);
 			Cpu cpu = new Cpu(programa,ram);
-			cpu.EscribirRegistro(11, operando1);
-			cpu.EscribirRegistro(12, operando2);
-			if (cpu.ObtenerRegsitro(10) == cpu.ObtenerRegsitro(11)){
+			cpu.escribirRegistro(11, operando1);
+			cpu.escribirRegistro(12, operando2);
+			if (cpu.obtenerRegistro(10) == cpu.obtenerRegistro(11)){
 				assert(false);
 			}
-			if (cpu.ObtenerRegsitro(11) == cpu.ObtenerRegsitro(12)){
+			if (cpu.obtenerRegistro(11) == cpu.obtenerRegistro(12)){
 				assert(false);
 			}
-			if (cpu.ObtenerRegsitro(10) == cpu.ObtenerRegsitro(12)){
+			if (cpu.obtenerRegistro(10) == cpu.obtenerRegistro(12)){
 				assert(false);
 			}
-			if (cpu.ObtenerRegsitro(10) == resultado){
+			if (cpu.obtenerRegistro(10) == resultado){
 				assert(false);
 			}
 			cpu.ejecutarPrograma();
-			if (resultado != cpu.ObtenerRegsitro(10)){
+			if (resultado != cpu.obtenerRegistro(10)){
 				assert(false);
 			}		
     	} catch (FileNotFoundException e) {

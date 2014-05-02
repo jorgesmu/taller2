@@ -51,7 +51,7 @@ public class InsrtuccionAlmacenar extends TestCase {
 			IInputStream programa = new FileReader (ruta);
 		
 			Cpu cpu = new Cpu(programa,ram);
-			cpu.EscribirRegistro(10, dato);
+			cpu.escribirRegistro(10, dato);
 			assertFalse(ram.getDatoMemoria(11, 12) == dato);
 			cpu.ejecutarPrograma();
 			assertEquals(ram.getDatoMemoria(11, 12), dato);		

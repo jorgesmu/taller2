@@ -55,11 +55,11 @@ public class InstruccionCarga extends TestCase{
 				assert(false);
 			}
 			Cpu cpu = new Cpu(programa,ram);
-			if (dato == cpu.ObtenerRegsitro(10)){
+			if (dato == cpu.obtenerRegistro(10)){
 				assert(false);
 			}
 	        cpu.ejecutarPrograma();
-			if (dato != cpu.ObtenerRegsitro(10)){
+			if (dato != cpu.obtenerRegistro(10)){
 				assert(false);
 			}		
     	} catch (FileNotFoundException e) {

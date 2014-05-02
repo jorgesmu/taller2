@@ -11,14 +11,13 @@ public class InstruccionParar extends InstruccionFlujo {
 
 	@Override
 	public void ejecutar() {
-		System.out.println("Ejecutando una instruccion de parar");
 		cpu.pararEjecucion();
+		System.out.println("Se para la ejecucion");
 	}
 	
 	@Override
 	public void cargarOperandos(Cpu cpuRecibida) {
 		super.cargarOperandos(cpuRecibida);
-		System.out.println("Cargando operandos una instruccion de parar");
 	}
 	
 }

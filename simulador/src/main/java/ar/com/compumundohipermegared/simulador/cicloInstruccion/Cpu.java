@@ -9,15 +9,13 @@ import ar.com.compumundohipermegared.almacenamiento.IInputStream;
 import ar.com.compumundohipermegared.almacenamiento.IMemoria;
 import ar.com.compumundohipermegared.almacenamiento.LimiteExcedidoAreaRegistroException;
 import ar.com.compumundohipermegared.almacenamiento.LimiteExcedidoMemoriaException;
-import ar.com.compumundohipermegared.almacenamiento.MemoriaRam;
 import ar.com.compumundohipermegared.almacenamiento.ProgramCounter;
 import ar.com.compumundohipermegared.conversor.Conversor;
 import ar.com.compumundohipermegared.conversor.LimitesExcedidosConversorException;
 import ar.com.compumundohipermegared.simulador.instrucciones.Instruccion;
 
-public class Cpu {
+public class Cpu implements Runnable {
 	public static int CANTIDAD_REGISTROS = 16;
-	public static int CANTIDAD_CELAS_POR_FILA_Y_COLUMNA = 16;
 	public static int TAMANIO_PIPELINE = 3;
 	
 	ArrayList<DireccionMasInstruccion> pipeline;
@@ -30,7 +28,7 @@ public class Cpu {
 		pipeline = new ArrayList<DireccionMasInstruccion>();
 		registrosDatos = new AreaRegistro (CANTIDAD_REGISTROS);
 		registrosCPU = new AreaRegistroCpu();
-		memoriaDatos = new MemoriaRam (CANTIDAD_CELAS_POR_FILA_Y_COLUMNA);
+		memoriaDatos = memoria;
 		fetcher = new Fetcher (programaAEjecutar);
 		
 		String primeraDireccion = fetcher.direccionPrimerInstruccion();
@@ -42,7 +40,6 @@ public class Cpu {
 		}
 		registrosCPU.setPC (primer_pc);
 		llenarPipeline();
-		memoriaDatos = memoria;
 	}
 	
 	public void ejecutarProximaInstruccion() throws Exception {
@@ -59,15 +56,21 @@ public class Cpu {
 		// ni tampoco quedaria bien el pipeline en caso de hacer un salto
 	}
 	
-	public void ejecutarPrograma() {
+	public String ejecutarPrograma() {
 		try {
 			while (pipeline.size() > 0) {
 				ejecutarProximaInstruccion();
 			}
+			return new String("El programa finalizó con éxito");
 		} catch (Exception e) {
-
+			return (e.toString());
 		}
 	}
+	
+	public void run() {
+		String resultado = this.ejecutarPrograma();
+		System.out.println(resultado);
+    }
 	
 	public void cargarInstruccion(DireccionMasInstruccion elemento) {
 		pipeline.add(elemento);
@@ -111,10 +114,12 @@ public class Cpu {
 	private void fetch () {
 		ProgramCounter pc = registrosCPU.getPC();
 		// quiero cargar la instruccion que le sigue a la ultima en el pipeline
-		agregarAPipeline(ProgramCounter.sumar(pc, TAMANIO_PIPELINE));
+		// siendo que el pc apunta al segundo elemento del mismo (porque ya fue
+		// incrementado al consumir el primer elemento).
+		agregarAPipeline(ProgramCounter.sumar(pc, TAMANIO_PIPELINE - 1));
 	}
 	
-	public byte ObtenerRegsitro(int idRegistro){
+	public byte obtenerRegistro(int idRegistro){
 		try {
 			return registrosDatos.getDatoRegistro(idRegistro);
 		} catch (LimiteExcedidoAreaRegistroException e) {
@@ -122,27 +127,41 @@ public class Cpu {
 		}
 	}
 	
-	public byte ObtenerDatoRam(int fila, int columna){
+	public byte obtenerDatoRam(int fila, int columna){
 		try {
 			return memoriaDatos.getDatoMemoria(fila, columna);
 		} catch (LimiteExcedidoMemoriaException e) {
 			return 0;
 		}
 	}
-	public void EscribirRegistro(int idRegistro, byte dato){
+	public void escribirRegistro(int idRegistro, byte dato){
 		try {
 			registrosDatos.cargarRegistro(idRegistro, dato);
 		} catch (LimiteExcedidoAreaRegistroException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	public void EscribirMemoria(int fila, int columna, byte dato){
+	public void escribirMemoria(int fila, int columna, byte dato){
 		try {
 			memoriaDatos.cargarMemoria(fila, columna, dato);;
 		} catch (LimiteExcedidoMemoriaException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
+	
+	public byte leerDispositivoEntrada () {
+		while (!(memoriaDatos.tieneDatoDispositivoEntrada())) {
+			// me pongo a tomar un tecito hasta que haya algo que leer
+		}
+		// como nadie mas aparte de la cpu puede leer del dispositivo,
+		// una vez que hay algo para leer, por mas que alguien sobreescriba
+		// el dato justo despues del while, el siguiente return nunca va a
+		// devolver algo invalido.
+		return memoriaDatos.leerDispositivoEntrada();
+	}
+	
+	public void escribirDispositivoSalida (byte dato) {
+		memoriaDatos.escribirDispositivoSalida(dato);
+	}
+	
 }

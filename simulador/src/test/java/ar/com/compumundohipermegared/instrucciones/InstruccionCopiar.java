@@ -51,12 +51,12 @@ public class InstruccionCopiar extends TestCase {
     		String ruta = crearPrograma();
 			IInputStream programa = new FileReader (ruta);
 			Cpu cpu = new Cpu(programa,ram);
-			cpu.EscribirRegistro(10, dato);
-			if (cpu.ObtenerRegsitro(10) == cpu.ObtenerRegsitro(11)){
+			cpu.escribirRegistro(10, dato);
+			if (cpu.obtenerRegistro(10) == cpu.obtenerRegistro(11)){
 				assert(false);
 			}
 	        cpu.ejecutarPrograma();
-			if (dato != cpu.ObtenerRegsitro(10)){
+			if (dato != cpu.obtenerRegistro(10)){
 				assert(false);
 			}		
     	} catch (FileNotFoundException e) {

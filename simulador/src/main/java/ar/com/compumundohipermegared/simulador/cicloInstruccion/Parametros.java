@@ -1,5 +1,8 @@
 package ar.com.compumundohipermegared.simulador.cicloInstruccion;
 
+import ar.com.compumundohipermegared.conversor.Conversor;
+import ar.com.compumundohipermegared.conversor.LimitesExcedidosConversorException;
+
 public class Parametros {
 	
 	private byte primerParametro;
@@ -25,6 +28,12 @@ public class Parametros {
 	}
 	
 	public String getSegundoYTercerParametro(){
-		return Byte.toString(segundoParametro) + Byte.toString(tercerParametro);
+		try {
+			String segundo = (Conversor.decimalToHexa(segundoParametro)).substring(1, 2);
+			String tercero = (Conversor.decimalToHexa(tercerParametro)).substring(1, 2);
+			return segundo + tercero;
+		} catch (LimitesExcedidosConversorException e) {
+			throw new RuntimeException(e);
+		}
 	}
 }

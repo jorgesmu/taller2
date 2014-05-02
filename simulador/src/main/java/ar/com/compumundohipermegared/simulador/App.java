@@ -6,6 +6,7 @@ import java.io.IOException;
 
 import ar.com.compumundohipermegared.almacenamiento.FileReader;
 import ar.com.compumundohipermegared.almacenamiento.IInputStream;
+import ar.com.compumundohipermegared.almacenamiento.IMemoria;
 import ar.com.compumundohipermegared.almacenamiento.MemoriaRam;
 import ar.com.compumundohipermegared.simulador.cicloInstruccion.Cpu;
 
@@ -19,8 +20,14 @@ public class App {
     	try {
     		String ruta = crearPrograma();
 			IInputStream programa = new FileReader (ruta);
-			Cpu cpu = new Cpu(programa, new MemoriaRam(256));
-	        cpu.ejecutarPrograma();
+			IMemoria memoriaPrincipal = new MemoriaRam(16); // 16 * 16 celdas
+			Cpu cpu = new Cpu(programa, memoriaPrincipal);
+			
+			Thread hiloEjecucion = new Thread (cpu);
+	        hiloEjecucion.start();
+	        
+	        memoriaPrincipal.escribirDispositivoEntrada((byte)5);
+	        
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -40,8 +47,9 @@ public class App {
         cargarInstruccion(programa, "000E", "8BBA");
         cargarInstruccion(programa, "0010", "9AAA");
         cargarInstruccion(programa, "0012", "AAAA");
-        cargarInstruccion(programa, "0014", "CAAA");
-        cargarInstruccion(programa, "0016", "BBBA"); // esta es la de salto, como todavia no esta
+        cargarInstruccion(programa, "0014", "12FD");
+        cargarInstruccion(programa, "0016", "CAAA");
+        cargarInstruccion(programa, "0018", "BBBA"); // esta es la de salto, como todavia no esta
         											 // programada, salta al 0000 y hace un loop infinito
         											 // pero como CAAA para la ejecucion, el programa 
         											 // no deberia saltar.

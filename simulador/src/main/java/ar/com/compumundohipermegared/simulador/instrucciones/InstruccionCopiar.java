@@ -12,7 +12,7 @@ public class InstruccionCopiar extends InstruccionAlu {
 
 	@Override
 	public void ejecutar() {
-		cpu.EscribirRegistro(idRegistroDestino, dato);
+		cpu.escribirRegistro(idRegistroDestino, dato);
 		System.out.println("Ejecutando una instruccion de copiar");		
 	}
 
@@ -20,7 +20,7 @@ public class InstruccionCopiar extends InstruccionAlu {
 	public void cargarOperandos(Cpu cpuRecibida) {
 		super.cargarOperandos(cpuRecibida);
 		int idFuente = _parametros.getSegundoParametro();
-		dato = cpu.ObtenerRegsitro(idFuente);
+		dato = cpu.obtenerRegistro(idFuente);
 		idRegistroDestino = _parametros.getTercerParametro();
 		System.out.println("Cargando operandos una instruccion de copiar");		
 	}

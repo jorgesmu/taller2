@@ -5,7 +5,7 @@ import ar.com.compumundohipermegared.conversor.LimitesExcedidosConversorExceptio
 import ar.com.compumundohipermegared.simulador.cicloInstruccion.Cpu;
 import ar.com.compumundohipermegared.simulador.cicloInstruccion.Parametros;
 
-public class InstruccionCargar extends InstruccionLoadStore {
+public class InstruccionCargar extends InstruccionAlu {
 	byte operandoInmediato;
 	byte idRegistroDestino;
 	
@@ -15,8 +15,7 @@ public class InstruccionCargar extends InstruccionLoadStore {
 
 	@Override
 	public void ejecutar() {
-		cpu.EscribirRegistro(idRegistroDestino, operandoInmediato);
-		System.out.println("Ejecutando una instruccion de cargar");
+		cpu.escribirRegistro(idRegistroDestino, operandoInmediato);
 	}
 
 	@Override
@@ -29,6 +28,5 @@ public class InstruccionCargar extends InstruccionLoadStore {
 			throw new RuntimeException(e);
 		}
 		idRegistroDestino = _parametros.getPrimerParametro();
-		System.out.println("Cargando operandos una instruccion de cargar");
 	}
 }
