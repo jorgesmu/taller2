@@ -8,21 +8,25 @@ public class InstruccionCopiar extends InstruccionAlu {
 	int idRegistroDestino;
 	public InstruccionCopiar(Parametros parametros) {
 		super(parametros);
+		
+		System.out.print("Copiar\n");
 	}
 
 	@Override
 	public void ejecutar() {
 		cpu.escribirRegistro(idRegistroDestino, dato);
-		System.out.println("Ejecutando una instruccion de copiar");		
+		//System.out.println("Ejecutando una instruccion de copiar");	
+		
 	}
 
 	@Override
 	public void cargarOperandos(Cpu cpuRecibida) {
 		super.cargarOperandos(cpuRecibida);
 		int idFuente = _parametros.getSegundoParametro();
-		dato = cpu.obtenerRegistro(idFuente);
+		dato = cpu.obtenerDatoRegistro(idFuente);
 		idRegistroDestino = _parametros.getTercerParametro();
-		System.out.println("Cargando operandos una instruccion de copiar");		
+		//System.out.println("Cargando operandos una instruccion de copiar");		
+		System.out.print("RegistroFuente: " + idFuente + " RegistroDestino: " + idRegistroDestino + " Dato: " + dato + "\n");
 	}
 
 }

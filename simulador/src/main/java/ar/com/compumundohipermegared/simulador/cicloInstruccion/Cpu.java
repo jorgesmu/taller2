@@ -119,7 +119,7 @@ public class Cpu implements Runnable {
 		agregarAPipeline(ProgramCounter.sumar(pc, TAMANIO_PIPELINE - 1));
 	}
 	
-	public byte obtenerRegistro(int idRegistro){
+	public byte obtenerDatoRegistro(int idRegistro){
 		try {
 			return registrosDatos.getDatoRegistro(idRegistro);
 		} catch (LimiteExcedidoAreaRegistroException e) {

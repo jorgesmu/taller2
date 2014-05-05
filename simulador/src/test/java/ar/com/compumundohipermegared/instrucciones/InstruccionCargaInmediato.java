@@ -53,12 +53,12 @@ public class InstruccionCargaInmediato extends TestCase {
     		String ruta = crearPrograma();
 			IInputStream programa = new FileReader (ruta);
 			Cpu cpu = new Cpu(programa,ram);
-			if (dato == cpu.obtenerRegistro(10)){
+			if (dato == cpu.obtenerDatoRegistro(10)){
 				
 				assert(false);
 			}
 	        cpu.ejecutarPrograma();
-			if (dato != cpu.obtenerRegistro(10)){
+			if (dato != cpu.obtenerDatoRegistro(10)){
 				assert(false);
 			}		
     	} catch (FileNotFoundException e) {

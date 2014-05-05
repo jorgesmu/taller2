@@ -1,20 +1,39 @@
 package ar.com.compumundohipermegared.simulador.instrucciones;
 
+import ar.com.compumundohipermegared.simulador.cicloInstruccion.Alu;
 import ar.com.compumundohipermegared.simulador.cicloInstruccion.Cpu;
 import ar.com.compumundohipermegared.simulador.cicloInstruccion.Parametros;
 
 public class InstruccionXor extends InstruccionAlu {
+	
+	int operando1, operando2, idRegistroDestino;
+	
 	public InstruccionXor(Parametros parametros) {
 		super(parametros);
+		System.out.print("XOR\n");
+		
 	}
 
 	@Override
 	public void ejecutar() {
-		System.out.println("Ejecutando una instruccion de Xor");
+		int resultado = Alu.xor(operando1, operando2);
+		cpu.escribirRegistro(idRegistroDestino, (byte) resultado);
+		//System.out.println("Ejecutando una instruccion de Xor");
+		System.out.print("Registro: " + idRegistroDestino + " = " + resultado + "\n");
 	}
 
 	@Override
 	public void cargarOperandos(Cpu cpuRecibida) {
-		System.out.println("Cargando operandos una instruccion de Xor");		
+		super.cargarOperandos(cpuRecibida);
+		
+		int dirPrimerOperando, dirSegundoOperando;
+		idRegistroDestino = _parametros.getPrimerParametro();
+		dirPrimerOperando = _parametros.getSegundoParametro();
+		dirSegundoOperando = _parametros.getTercerParametro();
+		operando1 = cpu.obtenerDatoRegistro(dirPrimerOperando);
+		operando2 = cpu.obtenerDatoRegistro(dirSegundoOperando);
+		System.out.print("Registro: " + dirPrimerOperando + " = " + operando1 + "\n");
+		System.out.print("Registro: " + dirSegundoOperando + " = " + operando2 + "\n");
+		//System.out.println("Cargando operandos una instruccion de Xor");		
 	}
 }

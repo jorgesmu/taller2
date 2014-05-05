@@ -52,11 +52,11 @@ public class InstruccionCopiar extends TestCase {
 			IInputStream programa = new FileReader (ruta);
 			Cpu cpu = new Cpu(programa,ram);
 			cpu.escribirRegistro(10, dato);
-			if (cpu.obtenerRegistro(10) == cpu.obtenerRegistro(11)){
+			if (cpu.obtenerDatoRegistro(10) == cpu.obtenerDatoRegistro(11)){
 				assert(false);
 			}
 	        cpu.ejecutarPrograma();
-			if (dato != cpu.obtenerRegistro(10)){
+			if (dato != cpu.obtenerDatoRegistro(10)){
 				assert(false);
 			}		
     	} catch (FileNotFoundException e) {

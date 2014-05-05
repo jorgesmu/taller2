@@ -26,7 +26,7 @@ public class InstruccionAlmacenar extends InstruccionLoadStore {
 		super.cargarOperandos(cpuRecibida);
 		
 		int idRegistro = _parametros.getPrimerParametro();
-		datos = cpu.obtenerRegistro(idRegistro);
+		datos = cpu.obtenerDatoRegistro(idRegistro);
 		
 		fila = _parametros.getSegundoParametro();
 		columna = _parametros.getTercerParametro();

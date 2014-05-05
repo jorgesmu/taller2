@@ -12,6 +12,7 @@ public class InstruccionSumarFP extends InstruccionAlu {
 	
 	public InstruccionSumarFP(Parametros parametros) {
 		super(parametros);
+		System.out.print("Suma Punto Flotante\n");
 		operando1 = 0.0;
 		operando2 = 0.0;
 		idRegistroDestino = 0;
@@ -20,6 +21,7 @@ public class InstruccionSumarFP extends InstruccionAlu {
 	@Override
 	public void ejecutar() {
 		double resultado = Alu.plus(operando1, operando2);
+		
 		try {
 			char resultadoCasteado = casteador.puntoFlotante(resultado);
 			cpu.escribirRegistro(idRegistroDestino, (byte)resultadoCasteado);
@@ -28,6 +30,8 @@ public class InstruccionSumarFP extends InstruccionAlu {
 		} catch (UnderFlowCasteadorException e) {
 			throw new RuntimeException(e);
 		}
+		System.out.print("RegistroDestino: " + idRegistroDestino + " = " + resultado + "\n");
+		
 	}
 
 	@Override
@@ -38,8 +42,8 @@ public class InstruccionSumarFP extends InstruccionAlu {
 		idRegistroDestino = _parametros.getPrimerParametro();
 		dirPrimerOperando = _parametros.getSegundoParametro();
 		dirSegundoOperando = _parametros.getTercerParametro();
-		byte registro1 = cpu.obtenerRegistro(dirPrimerOperando);
-		byte registro2 = cpu.obtenerRegistro(dirSegundoOperando);
+		byte registro1 = cpu.obtenerDatoRegistro(dirPrimerOperando);
+		byte registro2 = cpu.obtenerDatoRegistro(dirSegundoOperando);
 		
 		try {
 			operando1 = casteador.puntoFlotante(registro1);
@@ -49,5 +53,7 @@ public class InstruccionSumarFP extends InstruccionAlu {
 		} catch (UnderFlowCasteadorException e) {
 			throw new RuntimeException(e);
 		}
+		System.out.print("Registro: " + dirPrimerOperando + " = " + operando1 + "\n");
+		System.out.print("Registro: " + dirSegundoOperando + " = " + operando2 + "\n");
 	}
 }

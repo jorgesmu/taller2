@@ -6,6 +6,8 @@ public class Casteador {
 	private int calcularExponente(double numero){
 		int exponente = 0;
 		
+		if(numero == 0) return 0;
+		
 		if(numero < 16){
 			double validar = numero * 10;
 			while ( validar < 16 ){

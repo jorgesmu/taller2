@@ -18,7 +18,8 @@ public class App {
 	
     public static void main (String[] args) {
     	try {
-    		String ruta = crearPrograma();
+    		//String ruta = crearPrograma();
+    		String ruta = crearPrograma1();
 			IInputStream programa = new FileReader (ruta);
 			IMemoria memoriaPrincipal = new MemoriaRam(16); // 16 * 16 celdas
 			Cpu cpu = new Cpu(programa, memoriaPrincipal);
@@ -34,7 +35,29 @@ public class App {
         System.out.println ("fin de app");
     }
 
-	private static String crearPrograma() throws FileNotFoundException {
+    private static String crearPrograma1() throws FileNotFoundException {
+  		String ruta = new String ("prueba.cod");
+  		FileOutputStream programa = new FileOutputStream (ruta);
+  		
+  		cargarInstruccion(programa, "0000", "280A");	//cargo el registro 8 con 0A
+        cargarInstruccion(programa, "0002", "2F1E");	//cargo el registro F con 1E = 30
+        cargarInstruccion(programa, "0004", "508F");	//sumo el registro 8 con F y en resultado lo pongo en el registro 0
+        cargarInstruccion(programa, "0006", "4001");	//copio reg 0 a reg 1
+        cargarInstruccion(programa, "0008", "A103");	//roto reg 1 3 posiciones 
+        cargarInstruccion(programa, "000A", "7B10");	//or entre reg 1 y reg 0 da 45
+        cargarInstruccion(programa, "000C", "8C10");	//and da 0
+      
+        try {
+  			programa.close();
+  		} catch (IOException e) {
+  			e.printStackTrace();
+  		}
+  		return ruta;
+  	}
+    
+    
+    /*
+    private static String crearPrograma() throws FileNotFoundException {
 		String ruta = new String ("prueba.cod");
 		FileOutputStream programa = new FileOutputStream (ruta);
 		cargarInstruccion(programa, "0000", "1ABC");
@@ -60,7 +83,7 @@ public class App {
 		}
 		return ruta;
 	}
-
+*/
 	private static void cargarInstruccion(FileOutputStream programa, String direccion, String instruccion) {
 		writeln (programa, direccion + new String(" ") + instruccion);
 	}
