@@ -8,6 +8,7 @@ import ar.com.compumundohipermegared.almacenamiento.FileReader;
 import ar.com.compumundohipermegared.almacenamiento.IInputStream;
 import ar.com.compumundohipermegared.almacenamiento.IMemoria;
 import ar.com.compumundohipermegared.almacenamiento.MemoriaRam;
+import ar.com.compumundohipermegared.interfacesUsuario.MenuVentana;
 import ar.com.compumundohipermegared.simulador.cicloInstruccion.Cpu;
 
 /**
@@ -33,6 +34,9 @@ public class App {
 			e.printStackTrace();
 		}
         System.out.println ("fin de app");
+        MenuVentana menu = new MenuVentana();
+        menu.setBounds(0, 0, 300, 300);
+        menu.setVisible(true);
     }
 
     private static String crearPrograma1() throws FileNotFoundException {
