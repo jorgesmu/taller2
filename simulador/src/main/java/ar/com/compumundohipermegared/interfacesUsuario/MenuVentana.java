@@ -34,10 +34,17 @@ public class MenuVentana extends JFrame implements ActionListener{
 	this.getContentPane().add(panel);
 
 	}
+	
+	public void editorAssemblyHandler(){
+	    EditorAssemblyVentana editor = new EditorAssemblyVentana();
+	    editor.setBounds(0, 0, 1500, 800);
+	    editor.setVisible(true);
+	    this.dispose();
+	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if( e.getSource() == btnEditor ) {
-			JOptionPane.showMessageDialog(null,"Boton1");
+			editorAssemblyHandler();
 		}
 	}
 
