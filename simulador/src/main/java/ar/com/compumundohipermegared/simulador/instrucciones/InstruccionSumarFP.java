@@ -1,5 +1,7 @@
 package ar.com.compumundohipermegared.simulador.instrucciones;
 
+import ar.com.compumundohipermegared.conversor.Conversor;
+import ar.com.compumundohipermegared.conversor.LimitesExcedidosConversorException;
 import ar.com.compumundohipermegared.conversor.OverFlowCasteadorException;
 import ar.com.compumundohipermegared.conversor.UnderFlowCasteadorException;
 import ar.com.compumundohipermegared.simulador.cicloInstruccion.Alu;
@@ -46,13 +48,12 @@ public class InstruccionSumarFP extends InstruccionAlu {
 		byte registro2 = cpu.obtenerDatoRegistro(dirSegundoOperando);
 		
 		try {
-			operando1 = casteador.puntoFlotante(registro1);
-			operando2 = casteador.puntoFlotante(registro2);
-		} catch (OverFlowCasteadorException e) {
-			throw new RuntimeException(e);
-		} catch (UnderFlowCasteadorException e) {
+			operando1 = Conversor.puntoFlotanteADecimal(registro1);
+			operando2 = Conversor.puntoFlotanteADecimal(registro2);
+		} catch (LimitesExcedidosConversorException e) {
 			throw new RuntimeException(e);
 		}
+		
 		System.out.print("Registro: " + dirPrimerOperando + " = " + operando1 + "\n");
 		System.out.print("Registro: " + dirSegundoOperando + " = " + operando2 + "\n");
 	}

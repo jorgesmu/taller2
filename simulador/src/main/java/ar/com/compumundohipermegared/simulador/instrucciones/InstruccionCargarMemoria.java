@@ -12,6 +12,8 @@ public class InstruccionCargarMemoria extends InstruccionLoadStore {
 		super(parametros);
 		datoMemoria = 0;
 		idRegistro = 0;
+		System.out.print("Cargar en Memoria: \n");
+		
 	}
 
 	@Override
@@ -26,6 +28,9 @@ public class InstruccionCargarMemoria extends InstruccionLoadStore {
 		
 		int fila = _parametros.getSegundoParametro();
 		int columna = _parametros.getTercerParametro();
+		System.out.print("Registro: " + idRegistro + "\n");
+		System.out.print("En Fila: " + fila + " Col: " + columna + "\n");
+		
 		
 		if ((fila == MemoriaRam.PUERTO_ENTRADA_DATO_FILA) && (columna == MemoriaRam.PUERTO_ENTRADA_DATO_COLUMNA)) {
 			datoMemoria = cpu.leerDispositivoEntrada();

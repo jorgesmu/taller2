@@ -10,6 +10,7 @@ public class InstruccionAlmacenar extends InstruccionLoadStore {
 	
 	public InstruccionAlmacenar(Parametros parametros) {
 		super(parametros);
+		System.out.print("Almacenar\n");
 	}
 
 	@Override
@@ -31,6 +32,8 @@ public class InstruccionAlmacenar extends InstruccionLoadStore {
 		fila = _parametros.getSegundoParametro();
 		columna = _parametros.getTercerParametro();
 		
+		System.out.print("Registro: " + idRegistro + " = " + datos + "\n");
+		System.out.print("En Fila: " + fila + " Col: " + columna + "\n");
 		if ((fila == MemoriaRam.PUERTO_ENTRADA_DATO_FILA) && (columna == MemoriaRam.PUERTO_ENTRADA_DATO_COLUMNA)) {
 			throw new RuntimeException("InstruccionAlmacenar quiso escribir en dispositivo de entrada");
 		} else if ((fila == MemoriaRam.PUERTO_ENTRADA_CONTROL_FILA) && (columna == MemoriaRam.PUERTO_ENTRADA_CONTROL_COLUMNA)) {

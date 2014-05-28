@@ -4,27 +4,32 @@ import ar.com.compumundohipermegared.simulador.cicloInstruccion.Cpu;
 import ar.com.compumundohipermegared.simulador.cicloInstruccion.Parametros;
 
 public class InstruccionSaltar extends InstruccionFlujo {
+	char direccion;
+	int idRegistro = 0;
+	boolean saltar;
 	
 	public InstruccionSaltar(Parametros parametros) {
 		super(parametros);
+		idRegistro = parametros.getPrimerParametro();
+		String dirHexa = parametros.getSegundoYTercerParametro();
+		direccion = (char)Integer.parseInt(dirHexa,16);
+		saltar = false;
+		System.out.println("JUMP");
 	}
-
-	char direccion = '\0';
-	
-	
-	/*public InstruccionSaltar ( direccionRecibida ) {
-		//direccion = '\0'; // direccionRecibida
-	}*/
 	
 	@Override
 	public void ejecutar() {
 		System.out.println("Ejecutando una instruccion de salto");
-		cpu.ejecutarSaltoA(direccion);
+		if (saltar) cpu.ejecutarSaltoA(direccion);
 	}
 
 	@Override
 	public void cargarOperandos(Cpu cpuRecibida) {
 		super.cargarOperandos(cpuRecibida);
-		System.out.println("Cargando operandos una instruccion de salto");
+		char dato = (char)cpu.obtenerDatoRegistro(idRegistro);
+		char zero = (char)cpu.obtenerDatoRegistro(0);
+		saltar = (zero == dato);
+		System.out.println("Salto a: " + (int)direccion);
+		System.out.println("Debe saltar: " + saltar);
 	}
 }

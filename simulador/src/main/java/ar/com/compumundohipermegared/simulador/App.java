@@ -50,7 +50,14 @@ public class App {
         cargarInstruccion(programa, "0008", "A103");	//roto reg 1 3 posiciones 
         cargarInstruccion(programa, "000A", "7B10");	//or entre reg 1 y reg 0 da 45
         cargarInstruccion(programa, "000C", "8C10");	//and da 0
-      
+        cargarInstruccion(programa, "000E","9F10");		//xor entre 40 y 5
+        cargarInstruccion(programa,"0010","6510");      //suma flotante
+        cargarInstruccion(programa,"0012","301E");      //
+        cargarInstruccion(programa,"0014","121E");      //
+        cargarInstruccion(programa,"0016","5820");      //
+        cargarInstruccion(programa,"0018","B100");
+        cargarInstruccion(programa,"001A","C000");
+        cargarInstruccion(programa,"001C","B200");
         try {
   			programa.close();
   		} catch (IOException e) {
@@ -59,35 +66,6 @@ public class App {
   		return ruta;
   	}
     
-    
-    /*
-    private static String crearPrograma() throws FileNotFoundException {
-		String ruta = new String ("prueba.cod");
-		FileOutputStream programa = new FileOutputStream (ruta);
-		cargarInstruccion(programa, "0000", "1ABC");
-        cargarInstruccion(programa, "0002", "2BBA");
-        cargarInstruccion(programa, "0004", "3AAA");
-        cargarInstruccion(programa, "0006", "4AAA");
-        cargarInstruccion(programa, "0008", "5BBA");
-        cargarInstruccion(programa, "000A", "6AAA");
-        cargarInstruccion(programa, "000C", "7AAA");
-        cargarInstruccion(programa, "000E", "8BBA");
-        cargarInstruccion(programa, "0010", "9AAA");
-        cargarInstruccion(programa, "0012", "AAAA");
-        cargarInstruccion(programa, "0014", "12FD");
-        cargarInstruccion(programa, "0016", "CAAA");
-        cargarInstruccion(programa, "0018", "BBBA"); // esta es la de salto, como todavia no esta
-        											 // programada, salta al 0000 y hace un loop infinito
-        											 // pero como CAAA para la ejecucion, el programa 
-        											 // no deberia saltar.
-        try {
-			programa.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return ruta;
-	}
-*/
 	private static void cargarInstruccion(FileOutputStream programa, String direccion, String instruccion) {
 		writeln (programa, direccion + new String(" ") + instruccion);
 	}
