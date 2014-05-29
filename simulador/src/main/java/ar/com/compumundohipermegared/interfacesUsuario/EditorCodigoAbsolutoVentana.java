@@ -15,7 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-public class EditorAssemblyVentana extends JFrame implements ActionListener, MouseListener{
+public class EditorCodigoAbsolutoVentana extends JFrame implements ActionListener, MouseListener{
 	JPanel panel;
 	JButton btnMenu;
 	JButton btnEjecutar;
@@ -27,12 +27,12 @@ public class EditorAssemblyVentana extends JFrame implements ActionListener, Mou
 	JTextField txtNombre;
 	String codigoHint;
 	String nombreHint;
-	public EditorAssemblyVentana(){
+	public EditorCodigoAbsolutoVentana(){
 	panel = new JPanel();
 	panel.setLayout(null);
 
-	lblTitulo = new JLabel("Editor de codigo Assembly");
-	lblTitulo.setBounds(300, 15, 900, 40);
+	lblTitulo = new JLabel("Editor de codigo absoluto");
+	lblTitulo.setBounds(400, 15, 600, 40);
 	Font labelFont = lblTitulo.getFont();
 	lblTitulo.setFont(new Font(labelFont.getName(), Font.PLAIN, 40));
 	

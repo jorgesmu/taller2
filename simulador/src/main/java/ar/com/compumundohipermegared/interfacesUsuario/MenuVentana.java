@@ -12,7 +12,8 @@ import javax.swing.JPanel;
 
 public class MenuVentana extends JFrame implements ActionListener{
 	JPanel panel;
-	JButton btnEditor;
+	JButton btnEditorAssembler;
+	JButton btnEditorAbsoluto;
 	JLabel lblMenu;
 
 	public MenuVentana(){
@@ -26,11 +27,16 @@ public class MenuVentana extends JFrame implements ActionListener{
 	
 	panel.add(lblMenu);
 
-	btnEditor = new JButton("Editor assembly");
-	btnEditor.addActionListener(this);
-	btnEditor.setBounds(0, 60, 300, 60);
-	panel.add(btnEditor);
-
+	btnEditorAssembler = new JButton("Editor assembly");
+	btnEditorAssembler.addActionListener(this);
+	btnEditorAssembler.setBounds(0, 60, 300, 60);
+	panel.add(btnEditorAssembler);
+	
+	btnEditorAbsoluto = new JButton("Editor codigo absoluto");
+	btnEditorAbsoluto.addActionListener(this);
+	btnEditorAbsoluto.setBounds(0, 120, 300, 60);
+	panel.add(btnEditorAbsoluto);
+	
 	this.getContentPane().add(panel);
 
 	}
@@ -38,13 +44,25 @@ public class MenuVentana extends JFrame implements ActionListener{
 	public void editorAssemblyHandler(){
 	    EditorAssemblyVentana editor = new EditorAssemblyVentana();
 	    editor.setBounds(0, 0, 1500, 800);
+        editor.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	    editor.setVisible(true);
 	    this.dispose();
 	}
+	
+	public void editorCodigoAbsolutoHandler(){
+	    EditorCodigoAbsolutoVentana editor = new EditorCodigoAbsolutoVentana();
+	    editor.setBounds(0, 0, 1500, 800);
+        editor.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	    editor.setVisible(true);
+	    this.dispose();
+	}
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if( e.getSource() == btnEditor ) {
+		if( e.getSource() == btnEditorAssembler ) {
 			editorAssemblyHandler();
+		}else if ( e.getSource() == btnEditorAbsoluto){
+			editorCodigoAbsolutoHandler();
 		}
 	}
 

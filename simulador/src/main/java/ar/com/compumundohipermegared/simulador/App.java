@@ -4,6 +4,8 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import javax.swing.JFrame;
+
 import ar.com.compumundohipermegared.almacenamiento.FileReader;
 import ar.com.compumundohipermegared.almacenamiento.IInputStream;
 import ar.com.compumundohipermegared.almacenamiento.IMemoria;
@@ -36,6 +38,7 @@ public class App {
         System.out.println ("fin de app");
         MenuVentana menu = new MenuVentana();
         menu.setBounds(0, 0, 300, 300);
+        menu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         menu.setVisible(true);
     }
 
