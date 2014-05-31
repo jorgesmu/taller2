@@ -124,7 +124,7 @@ public class Conversor {
 		
 		int primerCaracter = correrReferencia( nHexa.charAt(0) ); //signo + Exponente
 		int segundoCaracter = correrReferencia( nHexa.charAt(1) );  //mantisa
-		
+				
 		int signo , exponente;
 		
 		signo = primerCaracter & 0x8; // se multiplica por 1000 = 8 para obtener el bit de signo
@@ -134,7 +134,14 @@ public class Conversor {
 		exponente = primerCaracter & 0x7; //Se multiplica por 7 para recuperar los 3 bits del exponente
 		exponente = exponente - 4; //Este reperesentado en Exceso de 4
 		
-		double numero = segundoCaracter * Math.pow(10, exponente);
+		double nbase = 1;
+		nbase += (segundoCaracter & 0x1) * Math.pow(2, -4);
+		nbase += ( (segundoCaracter & 0x2) / 2 ) * Math.pow(2, -3);
+		nbase += ( (segundoCaracter & 0x4) / 4 ) * Math.pow(2, -2);
+		nbase += ( (segundoCaracter & 0x8) / 8 ) * Math.pow(2, -1);
+		 
+		
+		double numero = nbase * Math.pow(2, exponente);
 		
 		if(!esPositivo) numero = numero * (-1);
 		

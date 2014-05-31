@@ -36,10 +36,10 @@ public class App {
 			e.printStackTrace();
 		}
         System.out.println ("fin de app");
-        MenuVentana menu = new MenuVentana();
-        menu.setBounds(0, 0, 300, 300);
-        menu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        menu.setVisible(true);
+        //MenuVentana menu = new MenuVentana();
+       // menu.setBounds(0, 0, 300, 300);
+        //menu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        //menu.setVisible(true);
     }
 
     private static String crearPrograma1() throws FileNotFoundException {
@@ -61,6 +61,7 @@ public class App {
         cargarInstruccion(programa,"0018","B100");
         cargarInstruccion(programa,"001A","C000");
         cargarInstruccion(programa,"001C","B200");
+        
         try {
   			programa.close();
   		} catch (IOException e) {

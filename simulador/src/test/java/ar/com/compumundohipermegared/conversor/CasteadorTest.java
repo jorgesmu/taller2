@@ -55,16 +55,26 @@ public class CasteadorTest extends TestCase{
 		
 		double numero = 3;
 		double numero3 = 1.235; 
+		double numero3Neg = -1.235;
+		double extremo1 = 15.5;
+		double extremo2 = 0.0625;
+		double medio = 5.6875;
 		
-		char tres = (char) 67; //  0 100 0011
-		char doce = (char) 60;// numero3= 0 011 1100 = 60 
+		char tres = (char)88; //  0 101 1000
+		char doce = (char) 67;// numero3= 0 100 0011 = 67 
+		char otro = (char) 195 ;// numero3= 1 100 0011 = 195
 		
 		Casteador casteador = new Casteador();
-		assertEquals(tres , casteador.puntoFlotante(numero) );
+		assertEquals(tres ,casteador.puntoFlotante(numero) );
 		assertEquals(doce , casteador.puntoFlotante(numero3) );		
+		assertEquals(otro , casteador.puntoFlotante(numero3Neg) );	
+		assertEquals(127 , casteador.puntoFlotante(extremo1) );	
+		assertEquals( 0 , casteador.puntoFlotante(extremo2) );	
+		assertEquals( 102 , casteador.puntoFlotante(medio) );	
 		
 	}
 	
+
 	public void testCastearNumerosExcedidosAPuntoFlotante() throws OverFlowCasteadorException, UnderFlowCasteadorException{
 		
 		double numero = 100000;
@@ -88,6 +98,46 @@ public class CasteadorTest extends TestCase{
 		catch ( UnderFlowCasteadorException error){
 			assert(true);
 		}
+		
+	}
+	
+	
+	public void testExponente(){
+		
+		double numeroOverFlow = 16;
+		double numeroUnderFlow = 0;
+		double numero3 = 7; 
+		double numero4 = 0.0625;
+		double numero5 = 0.5;
+		
+		Casteador casteador = new Casteador();
+		assertEquals(99 , casteador.calcularExponente( numeroOverFlow) );
+		assertEquals(-99 , casteador.calcularExponente( numeroUnderFlow) );
+		assertEquals(2 , casteador.calcularExponente(numero3) );		
+		assertEquals(-4 , casteador.calcularExponente(numero4) );		
+		assertEquals(-1 , casteador.calcularExponente(numero5) );		
+		
+	}
+	
+	public void testCalcularMantisa(){
+		double numero3 = 7; 
+		double numero4 = 0.0625;
+		double numero5 = 0.5;
+		double numero6 = 7.5;
+		double numero7 = 0.6640625;
+		double numero8 = 1.6640625;
+		double numero9 = 5.684;
+	
+		
+		Casteador casteador = new Casteador();
+		
+		assertEquals(12 , casteador.calcularMantisa(numero3) );		
+		assertEquals(0, casteador.calcularMantisa(numero4) );			
+		assertEquals(0 , casteador.calcularMantisa(numero5) );		
+		assertEquals(14 , casteador.calcularMantisa(numero6) );				
+		assertEquals(5 , casteador.calcularMantisa(numero7) );	
+		assertEquals(10 , casteador.calcularMantisa(numero8) );	
+		assertEquals(6 , casteador.calcularMantisa(numero9) );	
 		
 	}
 	

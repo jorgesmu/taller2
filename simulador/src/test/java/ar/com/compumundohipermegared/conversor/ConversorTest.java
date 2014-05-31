@@ -31,20 +31,20 @@ public class ConversorTest extends TestCase{
 	
 	public void testConvertirUnNumeroDecimalPositvoAHexa() throws LimitesExcedidosConversorException {
 		double numero = 3.2;
-		double numero2 = 0.002;
+		
 		double numero3 = 0.125;
 			
-		assertEquals("43", Conversor.decimalToHexa(numero) );
-		assertEquals("12", Conversor.decimalToHexa(numero2) );
-		assertEquals("2C", Conversor.decimalToHexa(numero3) );		
+		assertEquals("59", Conversor.decimalToHexa(numero) );
+		
+		assertEquals("10", Conversor.decimalToHexa(numero3) );		
 	}
 	
 	public void testConvertirUnNumeroDecimalNegativoAHexa() throws LimitesExcedidosConversorException {
 		double numero = -3.2;
-		double numero2 = -0.002;
+		
 	
-		assertEquals("C3", Conversor.decimalToHexa(numero) );
-		assertEquals("92", Conversor.decimalToHexa(numero2) );
+		assertEquals("D9", Conversor.decimalToHexa(numero) );
+		
 			
 	}
 	
@@ -93,11 +93,11 @@ public class ConversorTest extends TestCase{
 		String numero5 = "92";
 		String numero6 ="2C";
 		
-		assertEquals(3.0,Conversor.puntoFlotanteADecimal(nhexa));
-		assertEquals(0.002, Conversor.puntoFlotanteADecimal(numero3) );
-		assertEquals(-3.0, Conversor.puntoFlotanteADecimal(numero4) );
-		assertEquals(-0.002, Conversor.puntoFlotanteADecimal(numero5) );
-		assertEquals(0.12, Conversor.puntoFlotanteADecimal(numero6) );
+		assertEquals(1.1875 ,Conversor.puntoFlotanteADecimal(nhexa));
+		assertEquals(0.140625, Conversor.puntoFlotanteADecimal(numero3) );
+		assertEquals(-1.1875, Conversor.puntoFlotanteADecimal(numero4) );
+		assertEquals(-0.140625, Conversor.puntoFlotanteADecimal(numero5) );
+		assertEquals(0.4375, Conversor.puntoFlotanteADecimal(numero6) );
 	}
 	
 	public void testConvertirAComplementoADosUnNumeroExcedido() throws LimitesExcedidosConversorException{
