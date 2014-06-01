@@ -9,6 +9,7 @@ import ar.com.compumundohipermegared.almacenamiento.IInputStream;
 import ar.com.compumundohipermegared.almacenamiento.MemoriaRam;
 import ar.com.compumundohipermegared.conversor.LimitesExcedidosConversorException;
 import ar.com.compumundohipermegared.simulador.cicloInstruccion.Cpu;
+import ar.com.compumundohipermegared.simulador.cicloInstruccion.ProgramaMalFormadoException;
 import junit.framework.TestCase;
 
 public class InstruccionSumaComplemento extends TestCase {
@@ -41,7 +42,7 @@ public class InstruccionSumaComplemento extends TestCase {
 			programa.write('\n');
 		} catch (IOException e) { e.printStackTrace(); }
 	}
-	public void testSumarComplemento() throws LimitesExcedidosConversorException {
+	public void testSumarComplemento() throws LimitesExcedidosConversorException, ProgramaMalFormadoException {
 		byte operando1;
 		operando1 = Byte.parseByte("B",16);
 		byte operando2;

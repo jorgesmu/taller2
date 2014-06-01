@@ -6,7 +6,7 @@ import ar.com.compumundohipermegared.almacenamiento.IMemoria;
 public class CpuPasoAPaso extends Cpu {
 	boolean ejecutarPaso;
 	
-	public CpuPasoAPaso(IInputStream programaAEjecutar, IMemoria memoria) {
+	public CpuPasoAPaso(IInputStream programaAEjecutar, IMemoria memoria) throws ProgramaMalFormadoException {
 		super(programaAEjecutar, memoria);
 		ejecutarPaso = false;
 	}

@@ -12,6 +12,7 @@ import ar.com.compumundohipermegared.almacenamiento.IMemoria;
 import ar.com.compumundohipermegared.almacenamiento.MemoriaRam;
 import ar.com.compumundohipermegared.interfacesUsuario.MenuVentana;
 import ar.com.compumundohipermegared.simulador.cicloInstruccion.Cpu;
+import ar.com.compumundohipermegared.simulador.cicloInstruccion.ProgramaMalFormadoException;
 
 /**
  * Hello world!
@@ -32,8 +33,8 @@ public class App {
 	        
 	        memoriaPrincipal.escribirDispositivoEntrada((byte)5);
 	        
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+		} catch (FileNotFoundException | ProgramaMalFormadoException e) {
+			System.out.println("ERROR: " + e.getMessage());
 		}
         System.out.println ("fin de app");
         //MenuVentana menu = new MenuVentana();

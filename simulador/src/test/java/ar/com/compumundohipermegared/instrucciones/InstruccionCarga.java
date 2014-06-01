@@ -5,11 +5,13 @@ import junit.framework.TestCase;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+
 import ar.com.compumundohipermegared.almacenamiento.FileReader;
 import ar.com.compumundohipermegared.almacenamiento.IInputStream;
 import ar.com.compumundohipermegared.almacenamiento.LimiteExcedidoMemoriaException;
 import ar.com.compumundohipermegared.almacenamiento.MemoriaRam;
 import ar.com.compumundohipermegared.simulador.cicloInstruccion.Cpu;
+import ar.com.compumundohipermegared.simulador.cicloInstruccion.ProgramaMalFormadoException;
 
 
 public class InstruccionCarga extends TestCase{
@@ -43,7 +45,7 @@ public class InstruccionCarga extends TestCase{
 		} catch (IOException e) { e.printStackTrace(); }
 	}
 	
-	public void testEjecutarCarga() {
+	public void testEjecutarCarga() throws ProgramaMalFormadoException {
 		byte dato = 2;
 		MemoriaRam ram = new MemoriaRam(256);
     	try {

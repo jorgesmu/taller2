@@ -10,6 +10,7 @@ import ar.com.compumundohipermegared.almacenamiento.MemoriaRam;
 import ar.com.compumundohipermegared.conversor.Conversor;
 import ar.com.compumundohipermegared.conversor.LimitesExcedidosConversorException;
 import ar.com.compumundohipermegared.simulador.cicloInstruccion.Cpu;
+import ar.com.compumundohipermegared.simulador.cicloInstruccion.ProgramaMalFormadoException;
 import junit.framework.TestCase;
 
 public class InstruccionCopiar extends TestCase {
@@ -42,7 +43,7 @@ public class InstruccionCopiar extends TestCase {
 			programa.write('\n');
 		} catch (IOException e) { e.printStackTrace(); }
 	}
-	public void testCopiar() throws LimitesExcedidosConversorException {
+	public void testCopiar() throws LimitesExcedidosConversorException, ProgramaMalFormadoException {
 		byte dato;
 		dato = (byte) Conversor.complementoDosADecimal("BC");
 	

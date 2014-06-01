@@ -11,12 +11,18 @@ public class FileReader extends FileInputStream implements IInputStream {
 	 * o si nos va a llegar todo el programa como Strings por la red, asi que
 	 * usamos la interfaz y por el momento, esta clase */
 	
+	int numeroLinea = 1;
+	
 	public FileReader (FileDescriptor fdObj) {
 		super (fdObj);
 	}
 	
 	public FileReader(String name) throws FileNotFoundException {
 		super(name);
+	}
+	
+	public int numeroLineaActual() {
+		return numeroLinea;
 	}
 	
 	@Override
@@ -37,6 +43,7 @@ public class FileReader extends FileInputStream implements IInputStream {
 			linea.append((char)c);
 			c = this.readByte();
         }
+		++numeroLinea;
 		return linea.toString();
 	}
 	

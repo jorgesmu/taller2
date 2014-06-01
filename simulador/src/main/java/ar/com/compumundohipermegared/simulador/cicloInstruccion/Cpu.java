@@ -24,21 +24,20 @@ public class Cpu implements Runnable {
 	IMemoria memoriaDatos;
 	Fetcher fetcher;
 	
-	public Cpu (IInputStream programaAEjecutar, IMemoria memoria) {
+	public Cpu (IInputStream programaAEjecutar, IMemoria memoria) throws ProgramaMalFormadoException {
 		pipeline = new ArrayList<DireccionMasInstruccion>();
 		registrosDatos = new AreaRegistro (CANTIDAD_REGISTROS);
 		registrosCPU = new AreaRegistroCpu();
 		memoriaDatos = memoria;
-		fetcher = new Fetcher (programaAEjecutar);
-		
-		String primeraDireccion = fetcher.direccionPrimerInstruccion();
-		char primer_pc = 0;
 		try {
+			fetcher = new Fetcher (programaAEjecutar);
+			String primeraDireccion = fetcher.direccionPrimerInstruccion();
+			char primer_pc = 0;
 			primer_pc = (char)Conversor.complementoDosADecimalDoblePrecision(primeraDireccion);
-		} catch (LimitesExcedidosConversorException e) {
-			e.printStackTrace();
+			registrosCPU.setPC (primer_pc);
+		} catch (InstruccionMalFormadaException | LimitesExcedidosConversorException e) {
+			throw new ProgramaMalFormadoException(e.getMessage());
 		}
-		registrosCPU.setPC (primer_pc);
 		llenarPipeline();
 	}
 	

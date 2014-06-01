@@ -10,6 +10,7 @@ import ar.com.compumundohipermegared.almacenamiento.MemoriaRam;
 import ar.com.compumundohipermegared.conversor.Conversor;
 import ar.com.compumundohipermegared.conversor.LimitesExcedidosConversorException;
 import ar.com.compumundohipermegared.simulador.cicloInstruccion.Cpu;
+import ar.com.compumundohipermegared.simulador.cicloInstruccion.ProgramaMalFormadoException;
 import junit.framework.TestCase;
 
 public class InstruccionCargaInmediato extends TestCase {
@@ -42,7 +43,7 @@ public class InstruccionCargaInmediato extends TestCase {
 			programa.write('\n');
 		} catch (IOException e) { e.printStackTrace(); }
 	}
-	public void testEjecutarCargaInmediato() throws LimitesExcedidosConversorException {
+	public void testEjecutarCargaInmediato() throws LimitesExcedidosConversorException, ProgramaMalFormadoException {
 		byte dato = 0;
 	
 

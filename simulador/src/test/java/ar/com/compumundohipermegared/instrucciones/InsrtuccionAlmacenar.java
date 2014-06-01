@@ -9,7 +9,7 @@ import ar.com.compumundohipermegared.almacenamiento.IInputStream;
 import ar.com.compumundohipermegared.almacenamiento.LimiteExcedidoMemoriaException;
 import ar.com.compumundohipermegared.almacenamiento.MemoriaRam;
 import ar.com.compumundohipermegared.simulador.cicloInstruccion.Cpu;
-
+import ar.com.compumundohipermegared.simulador.cicloInstruccion.ProgramaMalFormadoException;
 import junit.framework.TestCase;
 
 public class InsrtuccionAlmacenar extends TestCase {
@@ -43,7 +43,7 @@ public class InsrtuccionAlmacenar extends TestCase {
 		} catch (IOException e) { e.printStackTrace(); }
 	}
 	
-	public void testEjecutarCarga() throws LimiteExcedidoMemoriaException {
+	public void testEjecutarCarga() throws LimiteExcedidoMemoriaException, ProgramaMalFormadoException {
 		byte dato = 25;
 		MemoriaRam ram = new MemoriaRam(256);
     	try {
