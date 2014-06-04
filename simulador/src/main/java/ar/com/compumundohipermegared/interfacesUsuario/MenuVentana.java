@@ -14,6 +14,8 @@ public class MenuVentana extends JFrame implements ActionListener{
 	JPanel panel;
 	JButton btnEditorAssembler;
 	JButton btnEditorAbsoluto;
+	JButton btnCargarArchivo;
+	JButton btnAyuda;
 	JLabel lblMenu;
 
 	public MenuVentana(){
@@ -37,6 +39,16 @@ public class MenuVentana extends JFrame implements ActionListener{
 	btnEditorAbsoluto.setBounds(0, 120, 300, 60);
 	panel.add(btnEditorAbsoluto);
 	
+	btnCargarArchivo = new JButton("Cargar programa");
+	btnCargarArchivo.addActionListener(this);
+	btnCargarArchivo.setBounds(0, 180, 300, 60);
+	panel.add(btnCargarArchivo);
+	
+	btnAyuda = new JButton("Ayuda en linea");
+	btnAyuda.addActionListener(this);
+	btnAyuda.setBounds(0, 240, 300, 60);
+	panel.add(btnAyuda);
+	
 	this.getContentPane().add(panel);
 
 	}
@@ -56,6 +68,14 @@ public class MenuVentana extends JFrame implements ActionListener{
 	    editor.setVisible(true);
 	    this.dispose();
 	}
+
+	public void editorAyudaEnLineaHandler(){
+	    AyudaEnLineaVentana editor = new AyudaEnLineaVentana();
+	    editor.setBounds(0, 0, 1500, 800);
+        editor.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	    editor.setVisible(true);
+	    this.dispose();
+	}
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -63,6 +83,8 @@ public class MenuVentana extends JFrame implements ActionListener{
 			editorAssemblyHandler();
 		}else if ( e.getSource() == btnEditorAbsoluto){
 			editorCodigoAbsolutoHandler();
+		}else if ( e.getSource() == btnAyuda){
+			editorAyudaEnLineaHandler();
 		}
 	}
 

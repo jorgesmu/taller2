@@ -90,7 +90,7 @@ public class EditorAssemblyVentana extends JFrame implements ActionListener, Mou
 		if (e.getSource() == btnMenu){
 		    MenuVentana menu = new MenuVentana();
 	        menu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	        menu.setBounds(0, 0, 300, 300);
+	        menu.setBounds(0, 0, 300, 325);
 	        menu.setVisible(true);
 			this.dispose();		
 		}else if (e.getSource() == btnEjecutar){

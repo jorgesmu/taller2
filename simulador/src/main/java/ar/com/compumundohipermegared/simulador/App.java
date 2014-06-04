@@ -38,7 +38,7 @@ public class App {
 		}
         System.out.println ("fin de app");
         MenuVentana menu = new MenuVentana();
-        menu.setBounds(0, 0, 300, 300);
+        menu.setBounds(0, 0, 300, 325);
         menu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         menu.setVisible(true);
     }
