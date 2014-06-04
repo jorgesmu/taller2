@@ -12,6 +12,7 @@ public class FileReader extends FileInputStream implements IInputStream {
 	 * usamos la interfaz y por el momento, esta clase */
 	
 	int numeroLinea = 1;
+	boolean endOfFile = false;
 	
 	public FileReader (FileDescriptor fdObj) {
 		super (fdObj);
@@ -38,7 +39,10 @@ public class FileReader extends FileInputStream implements IInputStream {
 	private String leerLinea() throws EndOfStreamException {
 		StringBuilder linea = new StringBuilder();
 		int c = this.readByte();
-		if (c == -1) throw new EndOfStreamException();
+		if (c == -1) {
+			endOfFile = true;
+			throw new EndOfStreamException();
+		}
 		while ((c != -1) && (c != '\n')) { // EOF = -1
 			linea.append((char)c);
 			c = this.readByte();
@@ -51,8 +55,13 @@ public class FileReader extends FileInputStream implements IInputStream {
 		try {
 			return this.read();
 		} catch (IOException e) {
+			endOfFile = true;
 			throw new EndOfStreamException();
 		}
 	}
-
+	
+	public boolean isEOF() {
+		return endOfFile;
+	}
+	
 }
