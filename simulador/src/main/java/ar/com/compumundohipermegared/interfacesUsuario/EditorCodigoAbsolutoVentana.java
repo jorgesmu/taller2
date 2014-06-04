@@ -17,6 +17,10 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 public class EditorCodigoAbsolutoVentana extends JFrame implements ActionListener, MouseListener{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	JPanel panel;
 	JButton btnMenu;
 	JButton btnEjecutar;
@@ -93,7 +97,11 @@ public class EditorCodigoAbsolutoVentana extends JFrame implements ActionListene
 	        menu.setVisible(true);
 			this.dispose();		
 		}else if (e.getSource() == btnEjecutar){
-			JOptionPane.showMessageDialog(null,"compilar");
+		    SimuladorVentana simulador = new SimuladorVentana();
+		    simulador.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		    simulador.setBounds(0, 0, 1500, 800);
+		    simulador.setVisible(true);
+			this.dispose();	
 		}else if (e.getSource() == btnRuta){
 			int resultado = dialog.showOpenDialog(panel);
 			if  (resultado == JFileChooser.APPROVE_OPTION) btnEjecutar.setEnabled(true);

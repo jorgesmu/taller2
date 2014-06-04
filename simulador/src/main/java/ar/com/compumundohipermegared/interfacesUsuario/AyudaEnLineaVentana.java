@@ -8,12 +8,20 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTable;
+
 
 public class AyudaEnLineaVentana extends JFrame implements ActionListener{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	JPanel panel;
 	JButton btnMenu;
 	JLabel lblTitulo;
 	JLabel lblAyuda;
+	
 	public AyudaEnLineaVentana(){
 		panel = new JPanel();
 		panel.setLayout(null);
@@ -25,7 +33,7 @@ public class AyudaEnLineaVentana extends JFrame implements ActionListener{
 		panel.add(lblTitulo);
 	
 		lblAyuda = new JLabel("Aqui va la ayuda en linea");
-		lblAyuda.setBounds(10, 65, 900, 40);
+		lblAyuda.setBounds(10, 65, 900, 600);
 		Font labelFontAyuda = lblTitulo.getFont();
 		lblAyuda.setFont(new Font(labelFontAyuda.getName(), Font.PLAIN, 20));	
 		panel.add(lblAyuda);
