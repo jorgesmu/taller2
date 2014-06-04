@@ -37,10 +37,10 @@ public class App {
 			System.out.println("ERROR: " + e.getMessage());
 		}
         System.out.println ("fin de app");
-        //MenuVentana menu = new MenuVentana();
-       // menu.setBounds(0, 0, 300, 300);
-        //menu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        //menu.setVisible(true);
+        MenuVentana menu = new MenuVentana();
+        menu.setBounds(0, 0, 300, 300);
+        menu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        menu.setVisible(true);
     }
 
     private static String crearPrograma1() throws FileNotFoundException {
