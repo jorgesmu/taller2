@@ -7,6 +7,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -27,6 +28,7 @@ public class EditorCodigoAbsolutoVentana extends JFrame implements ActionListene
 	JTextField txtNombre;
 	String codigoHint;
 	String nombreHint;
+	JCheckBox lineByLine;
 	public EditorCodigoAbsolutoVentana(){
 	panel = new JPanel();
 	panel.setLayout(null);
@@ -75,6 +77,10 @@ public class EditorCodigoAbsolutoVentana extends JFrame implements ActionListene
 	txtNombre.setBounds(20,87,1208,20);
 	txtNombre.addMouseListener(this);
 	panel.add(txtNombre);
+
+	lineByLine = new JCheckBox("Linea por linea");
+	lineByLine.setBounds(800,695,200,30);
+	panel.add(lineByLine);
 	
 	this.getContentPane().add(panel);
 }
