@@ -19,28 +19,53 @@ public class ParserAssembly {
 	public String[] parsearLinea() {
 		try {
 			String lineaActual = archivo.readln();
-			String[] lineaParseada = new String[1]; // TODO: parsear lineaActual
+			String[] lineaParseada = _parsearLinea(lineaActual);
 			
 			boolean tieneLabel = actualizarLabel (lineaParseada);
-			String[] lineaParseadaFinal;
-			if (tieneLabel) lineaParseadaFinal = new String[1]; // TODO: saco lineaActual[0]
-			else lineaParseadaFinal = lineaParseada;
-			return lineaParseadaFinal;
+			if (tieneLabel) return filtrarLabel(lineaParseada);
+			return lineaParseada;
 		} catch (EndOfStreamException e) {
 			return new String[0];
 		}
 	}
 	
+	private String[] _parsearLinea(String linea) {
+		String delims = "[ ,]+"; // separo por comas y espacios
+		String[] tokens = linea.split(delims);
+		
+		// busco comentarios en la instruccion
+		int i = 0;
+		boolean encontrado = false;
+		while ((i < tokens.length) && (!encontrado)) {
+			encontrado = tokens[i].startsWith("//");
+		}
+		if (!encontrado) return tokens; // no hay comentarios, finaliza parseo
+		
+		String[] lineaFinal = new String[i];
+		for (int j = 0; j < i; ++j) {
+			lineaFinal[j] = tokens[j];
+		}
+		return lineaFinal;
+	}
+	
+	private String[] filtrarLabel(String[] lineaParseada) {
+		int largo = lineaParseada.length;
+		String[] lineaParseadaFinal = new String[largo-1];
+		
+		for (int i = 1; i < largo; ++i) {
+			lineaParseadaFinal[i-1] = lineaParseada[i];
+		}
+		return lineaParseadaFinal;
+	}
+
 	private boolean actualizarLabel (String[] lineaParseada) {
-		// TODO:
-		// if (lineaParseada[0] termina en ":") {
-		// 	labelActual = lineaParseada[0];
-		// 	return true;
-		// } else {
-		// 	labelActual = null;
-		// 	return false;
-		// }
-		return false;
+		if (lineaParseada[0].endsWith(":")) {
+			labelActual = lineaParseada[0];
+			return true;
+		} else {
+			labelActual = null;
+			return false;
+		}
 	}
 	
 	public String obtenerLabelActual() {
