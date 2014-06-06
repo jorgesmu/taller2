@@ -8,15 +8,14 @@ public class DecoderAssembly {
 		// TODO Auto-generated constructor stub
 	}
 
-	public String[] decodificar(String[] lineaParseada,
-			Map<String, String> labels) {
+	public String[] decodificar(String[] lineaParseada) {
 		// TODO Auto-generated method stub
-		return null;
+		return lineaParseada;
 	}
 
 	public int cantidadInstrucciones(String string) {
 		// TODO Auto-generated method stub
-		return 0;
+		return 1;
 	}
 
 }

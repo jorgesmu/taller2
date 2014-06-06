@@ -60,7 +60,7 @@ public class Compilador {
 		String pcActual = "0000";
 		while (!(parser.terminado())) {
 			String[] lineaParseada = parser.parsearLinea();
-			String[] instrucciones = decoder.decodificar(lineaParseada,labels);
+			String[] instrucciones = decoder.decodificar(lineaParseada);
 			escribirInstrucciones(instrucciones, pcActual);			
 		}
 		

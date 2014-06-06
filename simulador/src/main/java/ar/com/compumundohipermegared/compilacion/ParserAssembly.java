@@ -1,6 +1,7 @@
 package ar.com.compumundohipermegared.compilacion;
 
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 
 import ar.com.compumundohipermegared.almacenamiento.EndOfStreamException;
 import ar.com.compumundohipermegared.almacenamiento.FileReader;
@@ -30,20 +31,32 @@ public class ParserAssembly {
 	}
 	
 	private String[] _parsearLinea(String linea) {
-		String delims = "[ ,]+"; // separo por comas y espacios
+		String delims = "[ ]+"; // separo por espacios (pueden haber varios seguidos)
 		String[] tokens = linea.split(delims);
 		
+		delims = ","; // separo por comas (no pueden haber varias seguidas)
+		ArrayList<String[]> allTokens = new ArrayList<String[]>();
+		for (int i = 0; i < tokens.length; ++i) {
+			String[] tokenParseado = tokens[i].split(delims); // sin comas ni espacios
+			allTokens.add(tokenParseado);
+		}
+		String[] parseoFinal = (String[]) allTokens.toArray();
+		return filtrarComentario(parseoFinal);
+	}
+	
+	private String[] filtrarComentario(String[] lineaParseada) {
 		// busco comentarios en la instruccion
 		int i = 0;
 		boolean encontrado = false;
-		while ((i < tokens.length) && (!encontrado)) {
-			encontrado = tokens[i].startsWith("//");
+		while ((i < lineaParseada.length) && (!encontrado)) {
+			encontrado = lineaParseada[i].startsWith("//");
+			++i;
 		}
-		if (!encontrado) return tokens; // no hay comentarios, finaliza parseo
+		if (!encontrado) return lineaParseada; // no hay comentarios, finaliza parseo
 		
 		String[] lineaFinal = new String[i];
 		for (int j = 0; j < i; ++j) {
-			lineaFinal[j] = tokens[j];
+			lineaFinal[j] = lineaParseada[j]; // tiene comentarios, se los saco
 		}
 		return lineaFinal;
 	}
