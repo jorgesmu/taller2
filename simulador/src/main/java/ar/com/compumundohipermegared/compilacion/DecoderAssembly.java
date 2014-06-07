@@ -3,7 +3,7 @@ package ar.com.compumundohipermegared.compilacion;
 import java.util.Map;
 
 public class DecoderAssembly {
-
+	
 	public DecoderAssembly(Map<String, String> labels) {
 		// TODO Auto-generated constructor stub
 	}

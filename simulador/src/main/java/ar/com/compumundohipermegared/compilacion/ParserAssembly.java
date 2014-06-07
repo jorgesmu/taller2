@@ -2,6 +2,8 @@ package ar.com.compumundohipermegared.compilacion;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import ar.com.compumundohipermegared.almacenamiento.EndOfStreamException;
 import ar.com.compumundohipermegared.almacenamiento.FileReader;
@@ -17,7 +19,7 @@ public class ParserAssembly {
 		reset();
 	}
 	
-	public String[] parsearLinea() {
+	public String[] parsearLinea() throws InstrucctionAssemblyInvalidException {
 		try {
 			String lineaActual = archivo.readln();
 			String[] lineaParseada = _parsearLinea(lineaActual);
@@ -30,21 +32,30 @@ public class ParserAssembly {
 		}
 	}
 	
-	private String[] _parsearLinea(String linea) {
-		String delims = "[ ]+"; // separo por espacios (pueden haber varios seguidos)
-		String[] tokens = linea.split(delims);
+	private void validarFormato(String linea) throws InstrucctionAssemblyInvalidException{
 		
-		delims = ","; // separo por comas (no pueden haber varias seguidas)
-		ArrayList<String> allTokens = new ArrayList<String>();
-		for (int i = 0; i < tokens.length; ++i) {
-			String[] tokenParseado = tokens[i].split(delims); // sin comas ni espacios
-			for (int j = 0; j < tokenParseado.length; ++j) {
-				String token = tokenParseado[j];
-				if (!(token.equals(""))) allTokens.add(token);
-			}
-		}
-		String[] parseoFinal = (String[]) allTokens.toArray(new String[1]);
-		return filtrarComentario(parseoFinal);
+		  Pattern pat1 = Pattern.compile("^.*, *,.*$");
+		  Pattern pat2 = Pattern.compile("^.*, *$");
+		  Pattern pat3 = Pattern.compile("^.[^ ,]* *,.*$");
+		  Pattern pat4 = Pattern.compile("^.[^ ,]*: *.[^ ,]* ,.*$");
+		  Matcher mat1 = pat1.matcher(linea);
+		  Matcher mat2 = pat2.matcher(linea);
+		  Matcher mat3 = pat3.matcher(linea);
+		  Matcher mat4 = pat4.matcher(linea);
+		  if (mat1.matches() || mat2.matches() || mat3.matches() || mat4.matches()) {
+			  throw new InstrucctionAssemblyInvalidException("Formato de instruccion invalida:" + linea);
+		  }		  
+		
+	}
+	
+	private String[] _parsearLinea(String linea) throws InstrucctionAssemblyInvalidException{
+		
+		
+		validarFormato(linea);
+		
+		String delims = "[ ,]+"; // separo por espacios y comas	
+		String[] tokens = linea.split(delims);
+		return filtrarComentario(tokens);
 	}
 	
 	private String[] filtrarComentario(String[] lineaParseada) {

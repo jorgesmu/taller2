@@ -59,9 +59,15 @@ public class Compilador {
 		procesarTodosLabels(); // primera pasada
 		String pcActual = "0000";
 		while (!(parser.terminado())) {
-			String[] lineaParseada = parser.parsearLinea();
-			String[] instrucciones = decoder.decodificar(lineaParseada);
-			escribirInstrucciones(instrucciones, pcActual);			
+			String[] lineaParseada;
+			try {
+				lineaParseada = parser.parsearLinea();
+				String[] instrucciones = decoder.decodificar(lineaParseada);
+				escribirInstrucciones(instrucciones, pcActual);			
+			} catch (InstrucctionAssemblyInvalidException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}			
 		}
 		
 		archivoCompilado.close();
@@ -83,19 +89,26 @@ public class Compilador {
 		String pcActual = "0000";
 		
 		while (!(parser.terminado())) {
-			String[] lineaParseada = parser.parsearLinea();
-			String label = parser.obtenerLabelActual();
-			if (label != null) labels.put(label, pcActual);
-			
-			int cant = 0;
-			if (lineaParseada.length > 0) {
-				cant = decoder.cantidadInstrucciones(lineaParseada[0]);
-			}
+			String[] lineaParseada;
 			try {
-				pcActual = actualizarPC(pcActual, cant);
-			} catch (LimitesExcedidosConversorException e) {
-				throw new ProgramaMuyLargoException(ERROR_CAPACIDAD);
-			}
+				lineaParseada = parser.parsearLinea();
+				String label = parser.obtenerLabelActual();
+				if (label != null) labels.put(label, pcActual);
+				
+				int cant = 0;
+				if (lineaParseada.length > 0) {
+					cant = decoder.cantidadInstrucciones(lineaParseada[0]);
+				}
+				try {
+					pcActual = actualizarPC(pcActual, cant);
+				} catch (LimitesExcedidosConversorException e) {
+					throw new ProgramaMuyLargoException(ERROR_CAPACIDAD);
+				}
+			} catch (InstrucctionAssemblyInvalidException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}			
+			
 		}
 		
 		try {

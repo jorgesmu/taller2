@@ -27,12 +27,14 @@ public class App {
 	
     public static void main (String[] args) {
     	pruebaCompilacion();
+    	
     	pruebaEjecucion();
     	
         MenuVentana menu = new MenuVentana();
         menu.setBounds(0, 0, 300, 325);
         menu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         menu.setVisible(true);
+    	
     }
     
     private static void pruebaCompilacion() {

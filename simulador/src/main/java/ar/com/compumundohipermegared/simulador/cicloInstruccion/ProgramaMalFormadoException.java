@@ -9,6 +9,7 @@ public class ProgramaMalFormadoException extends Exception {
 	/**
 	 * 
 	 */
+	
 	private static final long serialVersionUID = 1L;
 
 }
