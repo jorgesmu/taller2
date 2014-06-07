@@ -27,9 +27,12 @@ import ar.com.compumundohipermegared.simulador.cicloInstruccion.ProgramaMalForma
 public class App {
 	
     public static void main (String[] args) {
-    	pruebaCompilacion();
+    	String rutaCompulacion = pruebaCompilacion();
+    	//String ruta = crearProgramaMaquina();
     	
-    	pruebaEjecucion();
+    	//pruebaEjecucion(ruta);
+    	
+    	pruebaEjecucion(rutaCompulacion);
     	
         MenuVentana menu = new MenuVentana();
         menu.setBounds(0, 0, 300, 325);
@@ -38,7 +41,7 @@ public class App {
     	
     }
     
-    private static void pruebaCompilacion() {
+    private static String pruebaCompilacion() {
     	try {
     		String ruta = crearProgramaAssembly();
 			Compilador comp = new Compilador(ruta);
@@ -54,40 +57,31 @@ public class App {
 				}
 			}
 			archivoCompilado.close();
+			return rutaCompilado;
 		} catch (FileNotFoundException | ExtensionInvalida | ProgramaMuyLargoException | InstruccionAssemblyInvalidaException e) {
 			System.out.println("ERROR: " + e.getMessage());
 		} catch (ProgramaYaCompiladoException | IOException e1) {
 			e1.printStackTrace();
 		}
+    	return null;
     }
     
     private static String crearProgramaAssembly() throws FileNotFoundException {
     	String ruta = new String ("./resources/prueba.asm");
     	PrintWriter programa = new PrintWriter(ruta);
   		
-  		programa.println("add r1,r2,r3");
-  		programa.println("sub r1, r2,r3");
-  		//programa.println("sr0 r1,  r2, r3");
-  		//programa.println("sr1 r1,  r2 , r3");
-  		programa.println("and r1,  r2 ,r3");
-  		programa.println("or r1 ,r2,r3");
-  		programa.println("xor r1 , r2,r3");
-  		//programa.println("sr0 r1 , r2, r3");
-  		//programa.println("sr1 r1 , r2 , r3");
-  		programa.println("etiqueta1: ldi r1 , 53");
-  		programa.println("jmp r1, etiqueta1");
-  		programa.println("jmp r2,etiqueta2");
-  		programa.println("add r6,r2,r3 ");
-  		programa.println("etiqueta2: sub r7, r5,r4");
-  		programa.println("etiqueta3:");
+  		programa.println("ldi r1,0A");
+  		programa.println("ldi r2,05");
+  		programa.println("add r3,r1,r2");
+  		
   		
         programa.close();
     	return ruta;
     }
     
-    private static void pruebaEjecucion() {
+    private static void pruebaEjecucion(String ruta) {
     	try {
-    		String ruta = crearProgramaMaquina();
+    		    		
 			IInputStream programa = new FileReader (ruta);
 			IMemoria memoriaPrincipal = new MemoriaRam(16); // 16 * 16 celdas
 			Cpu cpu = new Cpu(programa, memoriaPrincipal);
@@ -103,6 +97,7 @@ public class App {
         System.out.println ("fin de app");
     }
     
+   
     private static String crearProgramaMaquina() throws FileNotFoundException {
   		String ruta = new String ("prueba.maq");
   		PrintWriter programa = new PrintWriter(ruta);
