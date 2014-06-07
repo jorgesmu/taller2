@@ -15,12 +15,13 @@ public class FactoryInstruccionOr extends FactoryInstruccion {
 	public String[] getInstrucciones(String[] lineaParseada) throws InstruccionAssemblyInvalidaException {
 		String[] instrucciones  = new String[CANTIDADINSTRUCCIONES];
 		
-		String instruccion = new String("7");		
+		String instruccion = new String("2");		
 		
-		if( misOperandos.get(lineaParseada[1]) == null || misOperandos.get(lineaParseada[2]) == null  || misOperandos.get(lineaParseada[3]) == null ){
+		if( misOperandos.get(lineaParseada[1]) == null || misOperandos.get(lineaParseada[2]) == null ){
 			throw new InstruccionAssemblyInvalidaException();				
 		}
-					
+			
+		
 		instruccion += misOperandos.get( lineaParseada[1]) + misOperandos.get(lineaParseada[2]) + misOperandos.get(lineaParseada[3])  ;		
 	
 		instrucciones[0] = instruccion;

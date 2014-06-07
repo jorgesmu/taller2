@@ -17,11 +17,11 @@ public class FactoryInstruccionAdd extends FactoryInstruccion {
 		
 		String instruccion = new String("5");		
 		
-		if( misOperandos.get(lineaParseada[1]) == null || misOperandos.get(lineaParseada[2]) == null ){
+		if( misOperandos.get(lineaParseada[1]) == null || misOperandos.get(lineaParseada[2]) == null  || misOperandos.get(lineaParseada[3]) == null ){
 			throw new InstruccionAssemblyInvalidaException();				
 		}
 					
-		instruccion += misOperandos.get( lineaParseada[1]) + misOperandos.get(lineaParseada[2]) ;		
+		instruccion += misOperandos.get( lineaParseada[1]) + misOperandos.get(lineaParseada[2]) + misOperandos.get(lineaParseada[3])  ;		
 	
 		instrucciones[0] = instruccion;
 		
