@@ -6,17 +6,26 @@ import ar.com.compumundohipermegared.compilacion.InstruccionAssemblyInvalidaExce
 
 public class FactoryInstruccionSub extends FactoryInstruccion {
 
-	public FactoryInstruccionSub(Map<String, String> labels,
-			Map<String, String> operandos) {
+	public FactoryInstruccionSub(Map<String, String> labels, Map<String, String> operandos) {
 		super(labels, operandos);
-		// TODO Auto-generated constructor stub
+		CANTIDADINSTRUCCIONES = 5;
 	}
 
 	@Override
-	public String[] getInstrucciones(String[] lineaParseada)
-			throws InstruccionAssemblyInvalidaException {
-		// TODO Auto-generated method stub
-		return null;
+	public String[] getInstrucciones(String[] lineaParseada) throws InstruccionAssemblyInvalidaException {
+		String rd = misOperandos.get(lineaParseada[1]);
+		String rs = misOperandos.get(lineaParseada[2]);
+		String rt = misOperandos.get(lineaParseada[3]);
+		if ((rd == null) || (rs == null) || (rt == null)) throw new InstruccionAssemblyInvalidaException();
+		
+		String[] instrucciones  = new String[CANTIDADINSTRUCCIONES];
+		instrucciones[0] = new String("2FFF");
+		instrucciones[1] = new String("9F" + rt + "F");
+		instrucciones[2] = new String("2E01");
+		instrucciones[3] = new String("5FFE");
+		instrucciones[4] = new String("5" + rd + rs + "F");
+		
+		return instrucciones;
 	}
 
 }
