@@ -36,8 +36,8 @@ public class Compilador {
 	private void validacionRutaAssembly(String rutaArchivo) throws ExtensionInvalida {
 		int indiceFinal = rutaArchivo.length() - 1;
 		int indicePunto = indiceFinal - 3; // ultimoIndice - extension(3)
-		String extension = rutaArchivo.substring(indicePunto, indiceFinal);
-		if (extension != ".asm")
+		String extension = rutaArchivo.substring(indicePunto, indiceFinal + 1); // no incluye indiceFinal
+		if (!(extension.equals(".asm")))
 			throw new ExtensionInvalida("La extension del archivo Assembly debe ser .asm");
 	}
 
@@ -46,10 +46,10 @@ public class Compilador {
 		String directorio = f.getParent();
 		
 		String nombreAssembly = f.getName();
-		int indiceFinal = nombreAssembly.length() - 5; // length - 1 - extension(3) - punto(1)
-		String nombre = nombreAssembly.substring(0, indiceFinal);
+		int indiceFinal = nombreAssembly.length() - 4; // length - extension(3) - punto(1)
+		String nombre = nombreAssembly.substring(0, indiceFinal); // no incluye indiceFinal
 		
-		return (directorio + nombre + ".maq");
+		return (directorio + "/" + nombre + ".maq");
 	}
 	
 	public String compilar() throws ProgramaMuyLargoException, ProgramaYaCompiladoException {

@@ -35,12 +35,15 @@ public class ParserAssembly {
 		String[] tokens = linea.split(delims);
 		
 		delims = ","; // separo por comas (no pueden haber varias seguidas)
-		ArrayList<String[]> allTokens = new ArrayList<String[]>();
+		ArrayList<String> allTokens = new ArrayList<String>();
 		for (int i = 0; i < tokens.length; ++i) {
 			String[] tokenParseado = tokens[i].split(delims); // sin comas ni espacios
-			allTokens.add(tokenParseado);
+			for (int j = 0; j < tokenParseado.length; ++j) {
+				String token = tokenParseado[j];
+				if (!(token.equals(""))) allTokens.add(token);
+			}
 		}
-		String[] parseoFinal = (String[]) allTokens.toArray();
+		String[] parseoFinal = (String[]) allTokens.toArray(new String[1]);
 		return filtrarComentario(parseoFinal);
 	}
 	
@@ -74,6 +77,7 @@ public class ParserAssembly {
 	private boolean actualizarLabel (String[] lineaParseada) {
 		if (lineaParseada[0].endsWith(":")) {
 			labelActual = lineaParseada[0];
+			labelActual = labelActual.substring(0, labelActual.length() - 1);
 			return true;
 		} else {
 			labelActual = null;
