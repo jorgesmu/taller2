@@ -22,6 +22,7 @@ public class ParserAssembly {
 		try {
 			String lineaActual = archivo.readln();
 			String[] lineaParseada = _parsearLinea(lineaActual);
+			if (lineaParseada.length == 0) return lineaParseada;
 			
 			boolean tieneLabel = actualizarLabel (lineaParseada);
 			if (tieneLabel) return filtrarLabel(lineaParseada);
@@ -48,10 +49,9 @@ public class ParserAssembly {
 	}
 	
 	private String[] _parsearLinea(String linea) throws InstruccionAssemblyInvalidaException{
-		
+		if (linea.startsWith("//")) return new String[0];
 		
 		validarFormato(linea);
-		
 		String delims = "[ ,]+"; // separo por espacios y comas	
 		String[] tokens = linea.split(delims);
 		return filtrarComentario(tokens);
