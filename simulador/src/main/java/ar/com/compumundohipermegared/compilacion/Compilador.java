@@ -64,7 +64,7 @@ public class Compilador {
 				String[] instrucciones = decoder.decodificar(lineaParseada);
 				escribirInstrucciones(instrucciones, pcActual);
 			} catch (InstruccionAssemblyInvalidaException e) {
-				int numero = parser.numeroLineaActual();
+				int numero = parser.numeroLineaActual() - 1; // ya leyo y avanzo el numero de linea
 				throw new InstruccionAssemblyInvalidaException("La linea " + numero + " presenta una instruccion invalida.");
 			}
 		}
@@ -102,7 +102,7 @@ public class Compilador {
 			} catch (LimitesExcedidosConversorException e1) {
 				throw new ProgramaMuyLargoException(ERROR_CAPACIDAD);
 			} catch (InstruccionAssemblyInvalidaException e2) {
-				int numero = parser.numeroLineaActual();
+				int numero = parser.numeroLineaActual() - 1; // ya leyo y avanzo el numero de linea
 				throw new InstruccionAssemblyInvalidaException("La linea numero " + numero + " presenta una instruccion invalida.");
 			}			
 			

@@ -67,13 +67,13 @@ public class App {
   		
   		programa.println("add r1,r2,r3");
   		programa.println("sub r1, r2,r3");
-  		programa.println("sr0 r1,  r2, r3");
-  		programa.println("sr1 r1,  r2 , r3");
+  		//programa.println("sr0 r1,  r2, r3");
+  		//programa.println("sr1 r1,  r2 , r3");
   		programa.println("and r1,  r2 ,r3");
-  		programa.println("oor r1 ,r2,r3");
+  		programa.println("or r1 ,r2,r3");
   		programa.println("xor r1 , r2,r3");
-  		programa.println("sr0 r1 , r2, r3");
-  		programa.println("sr1 r1 , r2 , r3");
+  		//programa.println("sr0 r1 , r2, r3");
+  		//programa.println("sr1 r1 , r2 , r3");
   		programa.println("etiqueta1: ldi r1 , 53");
   		programa.println("jmp r1, etiqueta1");
   		programa.println("jmp r2,etiqueta2");
