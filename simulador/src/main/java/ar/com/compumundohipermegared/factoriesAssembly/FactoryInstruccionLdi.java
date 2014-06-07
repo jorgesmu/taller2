@@ -13,16 +13,20 @@ public class FactoryInstruccionLdi extends FactoryInstruccion {
 
 	@Override
 	public String[] getInstrucciones(String[] lineaParseada) throws InstruccionAssemblyInvalidaException {
+		
 		String[] instrucciones  = new String[CANTIDADINSTRUCCIONES];
+		
 		String instruccion = new String("2");		
 		
 		if( misOperandos.get(lineaParseada[1]) == null ){
 			throw new InstruccionAssemblyInvalidaException();				
 		}
+		
 		validarInmediato(lineaParseada[2]);		
-		instruccion = misOperandos.get( lineaParseada[1]) + lineaParseada[2];		
+		instruccion += misOperandos.get( lineaParseada[1]) + lineaParseada[2];		
 	
 		instrucciones[0] = instruccion;
+		
 		return instrucciones;
 	}
 
