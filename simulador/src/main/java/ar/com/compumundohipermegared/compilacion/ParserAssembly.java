@@ -19,7 +19,7 @@ public class ParserAssembly {
 		reset();
 	}
 	
-	public String[] parsearLinea() throws InstrucctionAssemblyInvalidException {
+	public String[] parsearLinea() throws InstruccionAssemblyInvalidaException {
 		try {
 			String lineaActual = archivo.readln();
 			String[] lineaParseada = _parsearLinea(lineaActual);
@@ -32,7 +32,7 @@ public class ParserAssembly {
 		}
 	}
 	
-	private void validarFormato(String linea) throws InstrucctionAssemblyInvalidException{
+	private void validarFormato(String linea) throws InstruccionAssemblyInvalidaException{
 		
 		  Pattern pat1 = Pattern.compile("^.*, *,.*$");
 		  Pattern pat2 = Pattern.compile("^.*, *$");
@@ -43,12 +43,12 @@ public class ParserAssembly {
 		  Matcher mat3 = pat3.matcher(linea);
 		  Matcher mat4 = pat4.matcher(linea);
 		  if (mat1.matches() || mat2.matches() || mat3.matches() || mat4.matches()) {
-			  throw new InstrucctionAssemblyInvalidException("Formato de instruccion invalida:" + linea);
+			  throw new InstruccionAssemblyInvalidaException("Formato de instruccion invalida:" + linea);
 		  }		  
 		
 	}
 	
-	private String[] _parsearLinea(String linea) throws InstrucctionAssemblyInvalidException{
+	private String[] _parsearLinea(String linea) throws InstruccionAssemblyInvalidaException{
 		
 		
 		validarFormato(linea);

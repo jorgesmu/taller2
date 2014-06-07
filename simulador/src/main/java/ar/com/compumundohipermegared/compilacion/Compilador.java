@@ -52,21 +52,20 @@ public class Compilador {
 		return (directorio + "/" + nombre + ".maq");
 	}
 	
-	public String compilar() throws ProgramaMuyLargoException, ProgramaYaCompiladoException {
+	public String compilar() throws ProgramaMuyLargoException, ProgramaYaCompiladoException, InstruccionAssemblyInvalidaException {
 		if (compilado) throw new ProgramaYaCompiladoException("Programa ya compilado. Crear otra instancia de Compilador.");
 		compilado = true;
 		
 		procesarTodosLabels(); // primera pasada
 		String pcActual = "0000";
 		while (!(parser.terminado())) {
-			String[] lineaParseada;
 			try {
-				lineaParseada = parser.parsearLinea();
+				String[] lineaParseada = parser.parsearLinea();
 				String[] instrucciones = decoder.decodificar(lineaParseada);
 				escribirInstrucciones(instrucciones, pcActual);
-			} catch (InstrucctionAssemblyInvalidException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			} catch (InstruccionAssemblyInvalidaException e) {
+				int numero = parser.numeroLineaActual();
+				throw new InstruccionAssemblyInvalidaException("La linea " + numero + " presenta una instruccion invalida.");
 			}
 		}
 		
@@ -85,13 +84,12 @@ public class Compilador {
 		}
 	}
 	
-	private void procesarTodosLabels() throws ProgramaMuyLargoException {
+	private void procesarTodosLabels() throws ProgramaMuyLargoException, InstruccionAssemblyInvalidaException {
 		String pcActual = "0000";
 		
 		while (!(parser.terminado())) {
-			String[] lineaParseada;
 			try {
-				lineaParseada = parser.parsearLinea();
+				String[] lineaParseada = parser.parsearLinea();
 				String label = parser.obtenerLabelActual();
 				if (label != null) labels.put(label, pcActual);
 				
@@ -99,14 +97,13 @@ public class Compilador {
 				if (lineaParseada.length > 0) {
 					cant = decoder.cantidadInstrucciones(lineaParseada[0]);
 				}
-				try {
-					pcActual = actualizarPC(pcActual, cant);
-				} catch (LimitesExcedidosConversorException e) {
-					throw new ProgramaMuyLargoException(ERROR_CAPACIDAD);
-				}
-			} catch (InstrucctionAssemblyInvalidException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+				pcActual = actualizarPC(pcActual, cant);
+				
+			} catch (LimitesExcedidosConversorException e1) {
+				throw new ProgramaMuyLargoException(ERROR_CAPACIDAD);
+			} catch (InstruccionAssemblyInvalidaException e2) {
+				int numero = parser.numeroLineaActual();
+				throw new InstruccionAssemblyInvalidaException("La linea numero " + numero + " presenta una instruccion invalida.");
 			}			
 			
 		}
