@@ -2,10 +2,17 @@ package ar.com.compumundohipermegared.compilacion;
 
 import java.util.Map;
 
+import ar.com.compumundohipermegared.factoriesAssembly.FactoryInstruccion;
+
 public class DecoderAssembly {
 	
+	Map<String, String> misLabels;
+	Map<String, FactoryInstruccion> instrucciones;
+	Map<String, String> operandos;
+	
 	public DecoderAssembly(Map<String, String> labels) {
-		// TODO Auto-generated constructor stub
+		misLabels = labels;
+		// seguir
 	}
 
 	public String[] decodificar(String[] lineaParseada) {

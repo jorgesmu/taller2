@@ -63,11 +63,11 @@ public class Compilador {
 			try {
 				lineaParseada = parser.parsearLinea();
 				String[] instrucciones = decoder.decodificar(lineaParseada);
-				escribirInstrucciones(instrucciones, pcActual);			
+				escribirInstrucciones(instrucciones, pcActual);
 			} catch (InstrucctionAssemblyInvalidException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}			
+			}
 		}
 		
 		archivoCompilado.close();
