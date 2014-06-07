@@ -14,12 +14,13 @@ public class FactoryInstruccionJmp extends FactoryInstruccion {
 	@Override
 	public String[] getInstrucciones(String[] lineaParseada) throws InstruccionAssemblyInvalidaException {
 		String rd = misOperandos.get(lineaParseada[1]);
-		String xy = lineaParseada[2];
+		String xy = misLabels.get(lineaParseada[2]);
+		if (xy == null) xy = lineaParseada[2];
 		if ((rd == null) || (xy.length() != 2)) throw new InstruccionAssemblyInvalidaException();
 		validarInmediato(xy);
 		
 		String[] instrucciones  = new String[CANTIDADINSTRUCCIONES];
-		instrucciones[0] = new String("B" + rd + lineaParseada[2]);
+		instrucciones[0] = new String("B" + rd + xy);
 		
 		return instrucciones;
 	}

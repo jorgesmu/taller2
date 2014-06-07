@@ -61,8 +61,9 @@ public class Compilador {
 		while (!(parser.terminado())) {
 			try {
 				String[] lineaParseada = parser.parsearLinea();
+				if (lineaParseada.length == 0) continue;
 				String[] instrucciones = decoder.decodificar(lineaParseada);
-				escribirInstrucciones(instrucciones, pcActual);
+				pcActual = escribirInstrucciones(instrucciones, pcActual);
 			} catch (InstruccionAssemblyInvalidaException e) {
 				int numero = parser.numeroLineaActual() - 1; // ya leyo y avanzo el numero de linea
 				throw new InstruccionAssemblyInvalidaException("La linea " + numero + " presenta una instruccion invalida.");
@@ -73,7 +74,7 @@ public class Compilador {
 		return rutaArchivoCompilado;
 	}
 	
-	private void escribirInstrucciones (String[] instrucciones, String pcActual) throws ProgramaMuyLargoException {
+	private String escribirInstrucciones (String[] instrucciones, String pcActual) throws ProgramaMuyLargoException {
 		for (int i = 0; i < instrucciones.length; ++i) {
 			archivoCompilado.println(pcActual + " " + instrucciones[i]);
 			try {
@@ -82,6 +83,7 @@ public class Compilador {
 				throw new ProgramaMuyLargoException(ERROR_CAPACIDAD);
 			}
 		}
+		return pcActual;
 	}
 	
 	private void procesarTodosLabels() throws ProgramaMuyLargoException, InstruccionAssemblyInvalidaException {
@@ -91,7 +93,7 @@ public class Compilador {
 			try {
 				String[] lineaParseada = parser.parsearLinea();
 				String label = parser.obtenerLabelActual();
-				if (label != null) labels.put(label, pcActual);
+				if (label != null) labels.put(label, pcActual.substring(2, 4));
 				
 				int cant = 0;
 				if (lineaParseada.length > 0) {
