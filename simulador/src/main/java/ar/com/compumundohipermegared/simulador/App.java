@@ -13,6 +13,7 @@ import ar.com.compumundohipermegared.almacenamiento.IMemoria;
 import ar.com.compumundohipermegared.almacenamiento.MemoriaRam;
 import ar.com.compumundohipermegared.compilacion.Compilador;
 import ar.com.compumundohipermegared.compilacion.ExtensionInvalida;
+import ar.com.compumundohipermegared.compilacion.InstruccionAssemblyInvalidaException;
 import ar.com.compumundohipermegared.compilacion.ProgramaMuyLargoException;
 import ar.com.compumundohipermegared.compilacion.ProgramaYaCompiladoException;
 import ar.com.compumundohipermegared.interfacesUsuario.MenuVentana;
@@ -53,7 +54,7 @@ public class App {
 				}
 			}
 			archivoCompilado.close();
-		} catch (FileNotFoundException | ExtensionInvalida | ProgramaMuyLargoException e) {
+		} catch (FileNotFoundException | ExtensionInvalida | ProgramaMuyLargoException | InstruccionAssemblyInvalidaException e) {
 			System.out.println("ERROR: " + e.getMessage());
 		} catch (ProgramaYaCompiladoException | IOException e1) {
 			e1.printStackTrace();
