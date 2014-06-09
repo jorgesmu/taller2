@@ -1,6 +1,7 @@
 package ar.com.compumundohipermegared.compilacion;
 
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -58,20 +59,22 @@ public class ParserAssembly {
 	}
 	
 	private String[] filtrarComentario(String[] lineaParseada) {
-		// busco comentarios en la instruccion
+		ArrayList<String> lineaFinal = new ArrayList<String>();
 		int i = 0;
 		boolean encontrado = false;
 		while ((i < lineaParseada.length) && (!encontrado)) {
-			encontrado = lineaParseada[i].startsWith("//");
+			String campo = lineaParseada[i];
+			encontrado = campo.contains("//");
+			if (encontrado) {
+				String[] tokens = campo.split("//");
+				if (tokens.length > 0) {
+					if (!(tokens[0].equals(""))) lineaFinal.add(tokens[0]);
+				}
+			} else lineaFinal.add(campo);
 			++i;
 		}
-		if (!encontrado) return lineaParseada; // no hay comentarios, finaliza parseo
 		
-		String[] lineaFinal = new String[i];
-		for (int j = 0; j < i; ++j) {
-			lineaFinal[j] = lineaParseada[j]; // tiene comentarios, se los saco
-		}
-		return lineaFinal;
+		return lineaFinal.toArray(new String[0]);
 	}
 	
 	private String[] filtrarLabel(String[] lineaParseada) {

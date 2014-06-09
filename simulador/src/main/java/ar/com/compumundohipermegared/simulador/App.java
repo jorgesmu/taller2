@@ -28,10 +28,6 @@ public class App {
 	
     public static void main (String[] args) {
     	String rutaCompulacion = pruebaCompilacion();
-    	//String ruta = crearProgramaMaquina();
-    	
-    	//pruebaEjecucion(ruta);
-    	
     	pruebaEjecucion(rutaCompulacion);
     	
         MenuVentana menu = new MenuVentana();
@@ -70,7 +66,7 @@ public class App {
     	String ruta = new String ("./resources/prueba.asm");
     	PrintWriter programa = new PrintWriter(ruta);
   		
-  		programa.println("ldi r1,0A");
+  		programa.println("ldi r1,0A//eso");
   		programa.println("ldi r2,05");
   		programa.println("add r3,r1,r2");
   		
@@ -81,7 +77,6 @@ public class App {
     
     private static void pruebaEjecucion(String ruta) {
     	try {
-    		    		
 			IInputStream programa = new FileReader (ruta);
 			IMemoria memoriaPrincipal = new MemoriaRam(16); // 16 * 16 celdas
 			Cpu cpu = new Cpu(programa, memoriaPrincipal);
@@ -97,7 +92,7 @@ public class App {
         System.out.println ("fin de app");
     }
     
-   
+    /*
     private static String crearProgramaMaquina() throws FileNotFoundException {
   		String ruta = new String ("prueba.maq");
   		PrintWriter programa = new PrintWriter(ruta);
@@ -121,5 +116,5 @@ public class App {
         programa.close();
   		return ruta;
   	}
-	
+	*/
 }
