@@ -66,10 +66,19 @@ public class App {
     	String ruta = new String ("./resources/prueba.asm");
     	PrintWriter programa = new PrintWriter(ruta);
   		
-  		programa.println("ldi r1,0A//eso");
+  		programa.println("ldi r1,0A");
   		programa.println("ldi r2,05");
+  		/*programa.println("stm r2,00");
+  		programa.println("ldm r3,00");
+  		programa.println("add r4,r3,r2");
+  		programa.println("and r5,r2,r1");*/
+  		programa.println("not r1,r1");
+  		/*programa.println("ldi r0,05");
   		programa.println("add r3,r1,r2");
-  		
+  		programa.println("etiqueta: ldi r4,08");
+  		programa.println("sub r6,r1,r2");
+  		programa.println("adi r1,r2,07");
+  		programa.println("jmp r6,etiqueta");*/
   		
         programa.close();
     	return ruta;

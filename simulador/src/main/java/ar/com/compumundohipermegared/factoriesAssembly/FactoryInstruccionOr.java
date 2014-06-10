@@ -15,7 +15,7 @@ public class FactoryInstruccionOr extends FactoryInstruccion {
 	public String[] getInstrucciones(String[] lineaParseada) throws InstruccionAssemblyInvalidaException {
 		String[] instrucciones  = new String[CANTIDADINSTRUCCIONES];
 		
-		String instruccion = new String("2");		
+		String instruccion = new String("7");		
 		
 		if( misOperandos.get(lineaParseada[1]) == null || misOperandos.get(lineaParseada[2]) == null ){
 			throw new InstruccionAssemblyInvalidaException();				

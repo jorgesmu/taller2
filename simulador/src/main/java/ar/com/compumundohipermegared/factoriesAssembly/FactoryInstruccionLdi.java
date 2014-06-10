@@ -20,8 +20,7 @@ public class FactoryInstruccionLdi extends FactoryInstruccion {
 		
 		if( misOperandos.get(lineaParseada[1]) == null ){
 			throw new InstruccionAssemblyInvalidaException();				
-		}
-		
+		}		
 		validarInmediato(lineaParseada[2]);		
 		instruccion += misOperandos.get( lineaParseada[1]) + lineaParseada[2];		
 	

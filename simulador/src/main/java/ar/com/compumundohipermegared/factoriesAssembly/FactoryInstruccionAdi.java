@@ -20,13 +20,14 @@ public class FactoryInstruccionAdi extends FactoryInstruccion {
 		if( misOperandos.get(lineaParseada[1]) == null || misOperandos.get(lineaParseada[2]) == null ){
 			throw new InstruccionAssemblyInvalidaException();				
 		}
-		validarInmediato(misOperandos.get(lineaParseada[3]));	
+		
+		validarInmediato(lineaParseada[3]);	
 		 
-		instruccion += misOperandos.get(lineaParseada[3]);	
+		instruccion += lineaParseada[3];	
 	
 		instrucciones[0] = instruccion;
 		
-		instruccion = "5F" + misOperandos.get(lineaParseada[1]) + misOperandos.get(lineaParseada[2]);
+		instruccion = "5" + misOperandos.get(lineaParseada[1]) + misOperandos.get(lineaParseada[2]) + "F";
 		
 		instrucciones[1] = instruccion;
 		
