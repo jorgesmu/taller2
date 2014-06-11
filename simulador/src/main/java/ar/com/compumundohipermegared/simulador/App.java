@@ -17,7 +17,6 @@ import ar.com.compumundohipermegared.compilacion.InstruccionAssemblyInvalidaExce
 import ar.com.compumundohipermegared.compilacion.ProgramaMuyLargoException;
 import ar.com.compumundohipermegared.compilacion.ProgramaYaCompiladoException;
 import ar.com.compumundohipermegared.interfacesUsuario.MenuVentana;
-import ar.com.compumundohipermegared.interfacesUsuario.SimuladorVentana;
 import ar.com.compumundohipermegared.simulador.cicloInstruccion.Cpu;
 import ar.com.compumundohipermegared.simulador.cicloInstruccion.ProgramaMalFormadoException;
 
