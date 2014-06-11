@@ -5,6 +5,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -25,6 +28,7 @@ public class EditorAssemblyVentana extends JFrame implements ActionListener, Mou
 	JPanel panel;
 	JButton btnMenu;
 	JButton btnEjecutar;
+	JButton btnGuardar;
 	JLabel lblTitulo;
 	JTextArea txtCodigo;
 	JFileChooser dialog;
@@ -50,11 +54,19 @@ public class EditorAssemblyVentana extends JFrame implements ActionListener, Mou
 	btnMenu.addActionListener(this);
 	btnMenu.setBounds(25, 680, 300, 60);
 	panel.add(btnMenu);
+	
+
+	btnGuardar = new JButton("Guardar");
+	btnGuardar.addActionListener(this);
+	btnGuardar.setBounds(380, 680, 300, 60);
+	btnGuardar.setEnabled(false);;
+	panel.add(btnGuardar);
+	
 
 	btnEjecutar = new JButton("Compilar y Ejecutar");
 	btnEjecutar.addActionListener(this);
 	btnEjecutar.setBounds(925, 680, 300, 60);
-	btnEjecutar.setEnabled(false);;
+	btnEjecutar.setEnabled(false);
 	panel.add(btnEjecutar);
 	
 
@@ -77,7 +89,7 @@ public class EditorAssemblyVentana extends JFrame implements ActionListener, Mou
 	btnRuta.setBounds(1010, 65, 215, 20);
 	panel.add(btnRuta);
 
-	nombreHint = "Nombre del archivo (Modificar)";
+	nombreHint = "Nombre del archivo";
 	txtNombre = new JTextField();
 	txtNombre.setText(nombreHint);
 	txtNombre.setBounds(20,87,1208,20);
@@ -108,7 +120,21 @@ public class EditorAssemblyVentana extends JFrame implements ActionListener, Mou
 			int resultado = dialog.showOpenDialog(panel);
 			if  (resultado == JFileChooser.APPROVE_OPTION) btnEjecutar.setEnabled(true);
 			lblRuta.setText(dialog.getSelectedFile().getAbsolutePath());
+			btnGuardar.setEnabled(true);
+		}else if (e.getSource() == btnGuardar){
+			guardarText();			
 		}
+	}
+	
+	private void guardarText(){
+		BufferedWriter wr;
+		String path = (lblRuta.getText() + "/" + txtNombre.getText() + ".asm") ;
+        try { wr = new BufferedWriter(new FileWriter(path));
+            wr.write(txtCodigo.getText());
+            wr.close();
+        } catch (IOException ex) {
+        	ex.printStackTrace();
+        }		
 	}
 	@Override
 	public void mouseClicked(MouseEvent e) {
