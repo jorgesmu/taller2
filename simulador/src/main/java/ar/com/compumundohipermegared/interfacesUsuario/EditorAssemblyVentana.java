@@ -11,7 +11,6 @@ import javax.swing.JCheckBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -25,6 +24,7 @@ public class EditorAssemblyVentana extends JFrame implements ActionListener, Mou
 	JPanel panel;
 	JButton btnMenu;
 	JButton btnEjecutar;
+	JButton btnGuardar;
 	JLabel lblTitulo;
 	JTextArea txtCodigo;
 	JFileChooser dialog;
@@ -51,6 +51,11 @@ public class EditorAssemblyVentana extends JFrame implements ActionListener, Mou
 	btnMenu.setBounds(25, 680, 300, 60);
 	panel.add(btnMenu);
 
+	btnGuardar = new JButton("Guardar");
+	btnGuardar.addActionListener(this);
+	btnGuardar.setBounds(350, 680, 300, 60);
+	panel.add(btnGuardar);
+	
 	btnEjecutar = new JButton("Compilar y Ejecutar");
 	btnEjecutar.addActionListener(this);
 	btnEjecutar.setBounds(925, 680, 300, 60);
