@@ -1,4 +1,4 @@
-package ar.com.compumundohipermegared.simulador;
+package ar.com.compumundohipermegared.interfacesUsuario;
 
 public class TextoAyuda {
 	public static String TEXTO =

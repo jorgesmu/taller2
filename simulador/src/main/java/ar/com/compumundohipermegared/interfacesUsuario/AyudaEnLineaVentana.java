@@ -8,7 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTable;
+import javax.swing.JTextArea;
 
 
 public class AyudaEnLineaVentana extends JFrame implements ActionListener{
@@ -31,12 +31,14 @@ public class AyudaEnLineaVentana extends JFrame implements ActionListener{
 		Font labelFont = lblTitulo.getFont();
 		lblTitulo.setFont(new Font(labelFont.getName(), Font.PLAIN, 40));	
 		panel.add(lblTitulo);
-	
-		lblAyuda = new JLabel("Aqui va la ayuda en linea");
-		lblAyuda.setBounds(10, 65, 900, 600);
+		
+		
+		JTextArea ayuda = new JTextArea(TextoAyuda.TEXTO);
+		ayuda.setBounds(10, 65, 1345, 600);
+		ayuda.setEditable(false);
 		Font labelFontAyuda = lblTitulo.getFont();
-		lblAyuda.setFont(new Font(labelFontAyuda.getName(), Font.PLAIN, 20));	
-		panel.add(lblAyuda);
+		ayuda.setFont(new Font(labelFontAyuda.getName(), Font.PLAIN, 15));
+		panel.add(ayuda);
 		
 		btnMenu = new JButton("Menu Ppal");
 		btnMenu.addActionListener(this);
