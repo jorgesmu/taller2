@@ -17,6 +17,7 @@ import ar.com.compumundohipermegared.compilacion.InstruccionAssemblyInvalidaExce
 import ar.com.compumundohipermegared.compilacion.ProgramaMuyLargoException;
 import ar.com.compumundohipermegared.compilacion.ProgramaYaCompiladoException;
 import ar.com.compumundohipermegared.interfacesUsuario.MenuVentana;
+import ar.com.compumundohipermegared.interfacesUsuario.SimuladorVentana;
 import ar.com.compumundohipermegared.simulador.cicloInstruccion.Cpu;
 import ar.com.compumundohipermegared.simulador.cicloInstruccion.ProgramaMalFormadoException;
 
@@ -34,7 +35,6 @@ public class App {
         menu.setBounds(0, 0, 300, 325);
         menu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         menu.setVisible(true);
-    	
     }
     
     private static String pruebaCompilacion() {

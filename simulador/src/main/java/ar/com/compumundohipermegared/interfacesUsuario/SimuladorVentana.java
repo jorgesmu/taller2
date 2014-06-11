@@ -22,9 +22,20 @@ public class SimuladorVentana extends JFrame implements ActionListener{
 	
 	JPanel panel;
 	JButton btnMenu;
+	JButton btnConvertirDecimal;
+	JButton btnConvertirA2;
+	JButton btnConvertirHexa;
+	JButton btnPasoAPaso;	
+	JButton btnAyudaEnLinea;	
 	JLabel lblTitulo;
-	JLabel lblAyuda;
+	JLabel lblRegistros;
+	JLabel lblMemoria;
+	JLabel lblPipeline;
+	JTable tblPipeline;
+	JLabel lblProgramCounter;
+	JTable tblProgramCounter;
 	JTable tblMemoria;
+	JTable tblRegistros;
 	JScrollPane contenedorTabla;
 	public SimuladorVentana(){
 		panel = new JPanel();
@@ -36,24 +47,89 @@ public class SimuladorVentana extends JFrame implements ActionListener{
 		lblTitulo.setFont(new Font(labelFont.getName(), Font.PLAIN, 40));	
 		panel.add(lblTitulo);
 	
-		lblAyuda = new JLabel("Memoria principal");
-		lblAyuda.setBounds(10, 65, 400, 40);
-		Font labelFontAyuda = lblTitulo.getFont();
-		lblAyuda.setFont(new Font(labelFontAyuda.getName(), Font.PLAIN, 20));	
-		panel.add(lblAyuda);
+		lblMemoria = new JLabel("Memoria principal");
+		lblMemoria.setBounds(25, 65, 400, 40);
+		Font labelFontMemoria = lblTitulo.getFont();
+		lblMemoria.setFont(new Font(labelFontMemoria.getName(), Font.PLAIN, 20));	
+		panel.add(lblMemoria);
 		
-		btnMenu = new JButton("Menu Ppal");
-		btnMenu.addActionListener(this);
-		btnMenu.setBounds(25, 680, 300, 60);
-		panel.add(btnMenu);
 
-
-		tblMemoria = new JTable(new ExampleTableModel());
+		tblMemoria = new JTable(new MemoryModel());
 		tblMemoria.setShowGrid(true);
 		tblMemoria.setShowVerticalLines(true);
 		tblMemoria.setGridColor(Color.BLUE);
-		tblMemoria.setBounds(25,95,600,300);
+		tblMemoria.setBounds(25,95,1100,255);
 		panel.add(tblMemoria);
+
+		lblRegistros = new JLabel("Registros");
+		lblRegistros.setBounds(25, 370, 400, 40);
+		Font labelFontRegistros = lblRegistros.getFont();
+		lblRegistros.setFont(new Font(labelFontRegistros.getName(), Font.PLAIN, 20));	
+		panel.add(lblRegistros);
+		
+		tblRegistros = new JTable(new RegisterModel());
+		tblRegistros.setShowGrid(true);
+		tblRegistros.setShowVerticalLines(true);
+		tblRegistros.setGridColor(Color.BLUE);
+		tblRegistros.setBounds(25,400,100,255);
+		panel.add(tblRegistros);
+
+		lblPipeline = new JLabel("Pipeline");
+		lblPipeline.setBounds(150, 370, 400, 40);
+		Font labelFontPipeline = lblPipeline.getFont();
+		lblPipeline.setFont(new Font(labelFontPipeline.getName(), Font.PLAIN, 20));	
+		panel.add(lblPipeline);
+		
+		tblPipeline = new JTable(new PipelineModel());
+		tblPipeline.setShowGrid(true);
+		tblPipeline.setShowVerticalLines(true);
+		tblPipeline.setGridColor(Color.BLUE);
+		tblPipeline.setBounds(150,400,200,50);
+		panel.add(tblPipeline);
+		
+		lblProgramCounter = new JLabel("Contador del programa");
+		lblProgramCounter.setBounds(150, 470, 400, 40);
+		Font labelFontProgramCounter = lblProgramCounter.getFont();
+		lblProgramCounter.setFont(new Font(labelFontProgramCounter.getName(), Font.PLAIN, 20));	
+		panel.add(lblProgramCounter);
+		
+		tblProgramCounter = new JTable(new ProgramCounterModel());
+		tblProgramCounter.setShowGrid(true);
+		tblProgramCounter.setShowVerticalLines(true);
+		tblProgramCounter.setGridColor(Color.BLUE);
+		tblProgramCounter.setBounds(150,500,200,17);
+		panel.add(tblProgramCounter);
+		
+		btnConvertirDecimal = new JButton("Visualizar en decimal");
+		btnConvertirDecimal.addActionListener(this);
+		btnConvertirDecimal.setBounds(500, 400, 200, 50);
+		panel.add(btnConvertirDecimal);
+		
+		btnConvertirHexa = new JButton("Visualizar en hexadecimal");
+		btnConvertirHexa.addActionListener(this);
+		btnConvertirHexa.setBounds(500, 460, 200, 50);
+		panel.add(btnConvertirHexa);
+		
+		btnConvertirA2 = new JButton("Visualizar en complemento");
+		btnConvertirA2.addActionListener(this);
+		btnConvertirA2.setBounds(500, 520, 200, 50);
+		panel.add(btnConvertirA2);
+		
+		btnPasoAPaso = new JButton("Proximo paso");
+		btnPasoAPaso.setEnabled(false);
+		btnPasoAPaso.addActionListener(this);
+		btnPasoAPaso.setBounds(930, 400, 200, 50);
+		panel.add(btnPasoAPaso);
+		
+		btnMenu = new JButton("Menu Ppal");
+		btnMenu.addActionListener(this);
+		btnMenu.setBounds(930, 460, 200, 50);
+		panel.add(btnMenu);
+		
+		btnAyudaEnLinea = new JButton("Ayuda en linea");
+		btnAyudaEnLinea.addActionListener(this);
+		btnAyudaEnLinea.setBounds(930, 520, 200, 50);
+		panel.add(btnAyudaEnLinea);
 		
 		this.getContentPane().add(panel);
 	}
@@ -67,76 +143,6 @@ public class SimuladorVentana extends JFrame implements ActionListener{
 			this.dispose();		
 		}
 	}
-    class ExampleTableModel extends AbstractTableModel{
-        
-        //Two arrays used for the table data
-        String[] columnNames = {"First Name", "Surname", "Country"
-                        , "Event", "Place", "Time", "World Record" };
-        
-        Object[][] data = {
-        	{"Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura"},	
-        	{"Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura"},	
-        	{"Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura"},	
-        	{"Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura"},	
-        	{"Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura"},	
-        	{"Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura"},	
-        	{"Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura"},	
-        	{"Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura"},	
-        	{"Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura"},	
-        	{"Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura"},	
-        	{"Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura"},	
-        	{"Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura"},	
-        	{"Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura"},	
-        	{"Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura"},	
-        	{"Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura"},	
-        	{"Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura","Basura"}	
-
-        };
-        
-        @Override
-        public int getRowCount()
-        {
-            return data.length;
-        }
-        
-        @Override
-        public int getColumnCount()            
-        {
-            return columnNames.length;
-        }
-        
-        @Override
-        public Object getValueAt(int row, int column)
-        {        
-            return data[row][column];
-        }
-        
-        //Used by the JTable object to set the column names
-        public String getColumnName(int column) {
-            return columnNames[column];
-        }
-        
-        //Used by the JTable object to render different
-        //functionality based on the data type
-        @Override
-        public Class getColumnClass(int c) {
-            return getValueAt(0, c).getClass();
-        }
-        
-        @Override
-        public boolean isCellEditable(int row, int column)
-        {
-           if (column == 0 || column == 1)
-	   {
-	        return false;
-	   }
-	   else
-	   {
-		return true;
-	   }
-        }
-        
-   
-    }       
+    
 
 }
