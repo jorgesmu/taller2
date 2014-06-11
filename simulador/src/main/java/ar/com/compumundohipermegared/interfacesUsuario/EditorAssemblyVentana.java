@@ -60,12 +60,7 @@ public class EditorAssemblyVentana extends JFrame implements ActionListener, Mou
 	btnGuardar.setBounds(380, 680, 300, 60);
 	btnGuardar.setEnabled(false);;
 	panel.add(btnGuardar);
-	
 
-	btnGuardar = new JButton("Guardar");
-	btnGuardar.addActionListener(this);
-	btnGuardar.setBounds(350, 680, 300, 60);
-	panel.add(btnGuardar);
 	
 	btnEjecutar = new JButton("Compilar y Ejecutar");
 	btnEjecutar.addActionListener(this);
