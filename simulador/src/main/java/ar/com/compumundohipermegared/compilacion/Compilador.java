@@ -11,6 +11,9 @@ import ar.com.compumundohipermegared.conversor.LimitesExcedidosConversorExceptio
 
 public class Compilador {
 	
+	public static String REG_AUX_1 = "E";
+	public static String REG_AUX_2 = "D";
+	
 	private static String ERROR_CAPACIDAD = "El procesador no posee la capacidad de direccionamiento suficiente para ejecutar todo el programa.";
 	
 	String rutaArchivoCompilado;

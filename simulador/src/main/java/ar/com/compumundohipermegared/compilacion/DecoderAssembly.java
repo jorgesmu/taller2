@@ -32,9 +32,10 @@ public class DecoderAssembly {
 		operandos.put("r10", "A");
 		operandos.put("r11", "B");
 		operandos.put("r12", "C");
-		operandos.put("r13", "D");
-		operandos.put("r14", "E");
-		operandos.put("r15", "F");
+		
+		// Registro F usado para los flags (USAR LA CONSTANTE DEFINIDA EN CPU)
+		// Los otros registros que no aparecen son usados para expandir instrucciones
+		// (USAR LAS CONSTANTES DEFINIDAS EN COMPILADOR)
 	}
 	
 	private void construirMapaInstrucciones() {

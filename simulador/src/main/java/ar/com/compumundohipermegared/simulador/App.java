@@ -75,8 +75,8 @@ public class App {
   		/*programa.println("ldi r0,05");
   		programa.println("add r3,r1,r2");*/
   		programa.println("etiqueta1: ldi r4,8");
-  		/*programa.println("sub r6,r1,r2");
-  		programa.println("adi r1,r2,07");*/
+  		programa.println("sub r6,r1,r2");
+  		//programa.println("adi r1,r2,07");
   		programa.println("jmp r6,etiqueta2");
   		programa.println("adi r5,r1,30");
   		programa.println("etiqueta2: not r2,r2");

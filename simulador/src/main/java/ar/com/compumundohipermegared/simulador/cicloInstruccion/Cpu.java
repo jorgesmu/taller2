@@ -18,6 +18,9 @@ public class Cpu implements Runnable {
 	public static int CANTIDAD_REGISTROS = 16;
 	public static int TAMANIO_PIPELINE = 3;
 	
+	public static String REG_FLAGS = "F";
+	public static int REG_FLAGS_INT = Integer.parseInt(REG_FLAGS, 16);
+	
 	ArrayList<DireccionMasInstruccion> pipeline;
 	AreaRegistro registrosDatos;
 	AreaRegistroCpu registrosCPU;
@@ -108,7 +111,7 @@ public class Cpu implements Runnable {
 		DireccionMasInstruccion elemento = pipeline.get(0);
 		pipeline.remove(0);
 		registrosCPU.incrementarPC();
-		return elemento.instruccion;
+		return elemento.getInstruccion();
 	}
 	
 	private void fetch () {

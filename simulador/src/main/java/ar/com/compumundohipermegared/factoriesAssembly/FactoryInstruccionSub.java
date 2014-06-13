@@ -2,6 +2,7 @@ package ar.com.compumundohipermegared.factoriesAssembly;
 
 import java.util.Map;
 
+import ar.com.compumundohipermegared.compilacion.Compilador;
 import ar.com.compumundohipermegared.compilacion.InstruccionAssemblyInvalidaException;
 
 public class FactoryInstruccionSub extends FactoryInstruccion {
@@ -19,11 +20,11 @@ public class FactoryInstruccionSub extends FactoryInstruccion {
 		if ((rd == null) || (rs == null) || (rt == null)) throw new InstruccionAssemblyInvalidaException();
 		
 		String[] instrucciones  = new String[CANTIDADINSTRUCCIONES];
-		instrucciones[0] = new String("2FFF");
-		instrucciones[1] = new String("9F" + rt + "F");
-		instrucciones[2] = new String("2E01");
-		instrucciones[3] = new String("5FFE");
-		instrucciones[4] = new String("5" + rd + rs + "F");
+		instrucciones[0] = new String("2" + Compilador.REG_AUX_1 + "FF");
+		instrucciones[1] = new String("9" + Compilador.REG_AUX_1 + rt + Compilador.REG_AUX_1);
+		instrucciones[2] = new String("2" + Compilador.REG_AUX_2 + "01");
+		instrucciones[3] = new String("5" + Compilador.REG_AUX_1 + Compilador.REG_AUX_1 + Compilador.REG_AUX_2);
+		instrucciones[4] = new String("5" + rd + rs + Compilador.REG_AUX_1);
 		
 		return instrucciones;
 	}

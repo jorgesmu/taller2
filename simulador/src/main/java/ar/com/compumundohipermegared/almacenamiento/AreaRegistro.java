@@ -21,21 +21,20 @@ public class AreaRegistro {
 		}		
 	}
 	
-	public int getTamanio(){
+	public synchronized int getTamanio(){
 		return tamanio;
 	}
 	
-	public void cargarRegistro(int pos, byte dato) throws LimiteExcedidoAreaRegistroException {
+	public synchronized void cargarRegistro(int pos, byte dato) throws LimiteExcedidoAreaRegistroException {
 		if( pos >= tamanio || pos < 0 ) throw new LimiteExcedidoAreaRegistroException();
 		RegistroSimplePrecision registroSimplePrecision = vRegistro.get(pos);
 		registroSimplePrecision.setDato(dato);		
 	}
 	
-	public byte getDatoRegistro(int pos) throws LimiteExcedidoAreaRegistroException{
+	public synchronized byte getDatoRegistro(int pos) throws LimiteExcedidoAreaRegistroException{
 		if( pos >= tamanio || pos < 0 ) throw new LimiteExcedidoAreaRegistroException();
 		RegistroSimplePrecision registroSimplePrecision = vRegistro.get(pos);
 		return registroSimplePrecision.getDato();
-		
 	}
 
 }

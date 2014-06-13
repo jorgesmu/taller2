@@ -4,11 +4,11 @@ public class UnidadDatoSimplePrecision {
 	
 	private byte dato;
 	
-	public void setDato(byte info){
+	public synchronized void setDato(byte info){
 		dato = info;
 	}
 	
-	public byte getDato(){
+	public synchronized byte getDato(){
 		return dato;
 	}
 
