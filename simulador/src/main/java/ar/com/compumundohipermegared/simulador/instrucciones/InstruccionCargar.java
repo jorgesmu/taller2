@@ -2,6 +2,7 @@ package ar.com.compumundohipermegared.simulador.instrucciones;
 
 import ar.com.compumundohipermegared.conversor.Conversor;
 import ar.com.compumundohipermegared.conversor.LimitesExcedidosConversorException;
+import ar.com.compumundohipermegared.simulador.cicloInstruccion.Alu;
 import ar.com.compumundohipermegared.simulador.cicloInstruccion.Cpu;
 import ar.com.compumundohipermegared.simulador.cicloInstruccion.Parametros;
 
@@ -16,6 +17,7 @@ public class InstruccionCargar extends InstruccionAlu {
 
 	@Override
 	public void ejecutar() {
+		if (operandoInmediato == 0) cpu.escribirRegistro(Cpu.REG_FLAGS_INT, (byte) Alu.BIT_FLAG_ZERO);
 		cpu.escribirRegistro(idRegistroDestino, operandoInmediato);
 		System.out.print("Registro: " + idRegistroDestino + " = " + operandoInmediato + "\n");
 	}

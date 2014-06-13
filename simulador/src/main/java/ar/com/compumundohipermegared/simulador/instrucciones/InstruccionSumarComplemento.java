@@ -16,16 +16,23 @@ public class InstruccionSumarComplemento extends InstruccionAlu{
 
 	@Override
 	public void ejecutar() {
+		int flags = 0;
 		int resultado = Alu.plus(operando1, operando2);
+		if (resultado == 0) flags = flags | Alu.BIT_FLAG_ZERO;
+		if ((resultado & 0x100) == 0x100) flags = flags | Alu.BIT_FLAG_CARRY;
 		
+		RuntimeException e1 = null;
 		try {
 			char resultadoCasteado = casteador.complementoADos(resultado);
 			cpu.escribirRegistro(idRegistroDestino, (byte)resultadoCasteado);
 		} catch (OverFlowCasteadorException e) {
-			throw new RuntimeException(e);
+			flags = flags | Alu.BIT_FLAG_OV;
+			e1 = new RuntimeException(e);
 		}
-		System.out.print("RegistroDestino: " + idRegistroDestino + " = " + resultado + "\n");
 		
+		cpu.escribirRegistro(Cpu.REG_FLAGS_INT, (byte) flags);
+		if (e1 != null) throw e1;
+		System.out.print("RegistroDestino: " + idRegistroDestino + " = " + resultado + "\n");
 	}
 
 	@Override

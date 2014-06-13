@@ -4,6 +4,10 @@ import ar.com.compumundohipermegared.simulador.DivisionByZeroException;
 
 
 public class Alu {
+	public static int BIT_FLAG_ZERO = 1;
+	public static int BIT_FLAG_CARRY = 2;
+	public static int BIT_FLAG_UV = 4; // underflow
+	public static int BIT_FLAG_OV = 8; // overflow
 	
 	public static int plus(int number, int othernumber){
 		return (number + othernumber);

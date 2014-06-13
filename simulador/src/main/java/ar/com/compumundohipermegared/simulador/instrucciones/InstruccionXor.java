@@ -17,6 +17,7 @@ public class InstruccionXor extends InstruccionAlu {
 	@Override
 	public void ejecutar() {
 		int resultado = Alu.xor(operando1, operando2);
+		if (resultado == 0) cpu.escribirRegistro(Cpu.REG_FLAGS_INT, (byte) Alu.BIT_FLAG_ZERO);
 		cpu.escribirRegistro(idRegistroDestino, (byte) resultado);
 		//System.out.println("Ejecutando una instruccion de Xor");
 		System.out.print("Registro: " + idRegistroDestino + " = " + resultado + "\n");

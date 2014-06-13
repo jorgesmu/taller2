@@ -1,5 +1,6 @@
 package ar.com.compumundohipermegared.simulador.instrucciones;
 
+import ar.com.compumundohipermegared.simulador.cicloInstruccion.Alu;
 import ar.com.compumundohipermegared.simulador.cicloInstruccion.Cpu;
 import ar.com.compumundohipermegared.simulador.cicloInstruccion.Parametros;
 
@@ -14,6 +15,7 @@ public class InstruccionCopiar extends InstruccionAlu {
 
 	@Override
 	public void ejecutar() {
+		if (dato == 0) cpu.escribirRegistro(Cpu.REG_FLAGS_INT, (byte) Alu.BIT_FLAG_ZERO);
 		cpu.escribirRegistro(idRegistroDestino, dato);
 		//System.out.println("Ejecutando una instruccion de copiar");	
 		
