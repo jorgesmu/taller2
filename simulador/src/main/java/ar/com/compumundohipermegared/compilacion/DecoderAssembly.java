@@ -3,7 +3,6 @@ package ar.com.compumundohipermegared.compilacion;
 import java.util.HashMap;
 import java.util.Map;
 
-import ar.com.compumundohipermegared.factoriesAssembly.FactoryInstruccion;
 import ar.com.compumundohipermegared.factoriesAssembly.*;
 
 public class DecoderAssembly {
@@ -53,10 +52,10 @@ public class DecoderAssembly {
 		instrucciones.put("stm", new FactoryInstruccionStm(misLabels,operandos));
 	}
 
-	public String[] decodificar(String[] lineaParseada) throws InstruccionAssemblyInvalidaException {
+	public String[] decodificar(String[] lineaParseada, String pcActual) throws InstruccionAssemblyInvalidaException {
 		FactoryInstruccion instruccion = instrucciones.get(lineaParseada[0]);
 		if (instruccion == null) throw new InstruccionAssemblyInvalidaException();
-		return instruccion.getInstrucciones(lineaParseada);
+		return instruccion.getInstrucciones(lineaParseada, pcActual);
 	}
 
 	public int cantidadInstrucciones(String string) throws InstruccionAssemblyInvalidaException {

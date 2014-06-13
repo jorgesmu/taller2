@@ -62,7 +62,7 @@ public class Compilador {
 			try {
 				String[] lineaParseada = parser.parsearLinea();
 				if (lineaParseada.length == 0) continue;
-				String[] instrucciones = decoder.decodificar(lineaParseada);
+				String[] instrucciones = decoder.decodificar(lineaParseada, pcActual);
 				pcActual = escribirInstrucciones(instrucciones, pcActual);
 			} catch (InstruccionAssemblyInvalidaException e) {
 				int numero = parser.numeroLineaActual() - 1; // ya leyo y avanzo el numero de linea
@@ -92,11 +92,10 @@ public class Compilador {
 		while (!(parser.terminado())) {
 			try {
 				String[] lineaParseada = parser.parsearLinea();
-				String label = parser.obtenerLabelActual();
-				if (label != null) labels.put(label, pcActual.substring(2, 4));
-				
 				int cant = 0;
 				if (lineaParseada.length > 0) {
+					String label = parser.obtenerLabelActual();
+					if (label != null) labels.put(label, pcActual);
 					cant = decoder.cantidadInstrucciones(lineaParseada[0]);
 				}
 				pcActual = actualizarPC(pcActual, cant);

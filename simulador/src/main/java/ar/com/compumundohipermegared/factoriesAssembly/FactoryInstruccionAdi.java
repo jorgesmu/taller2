@@ -12,24 +12,15 @@ public class FactoryInstruccionAdi extends FactoryInstruccion {
 	}
 
 	@Override
-	public String[] getInstrucciones(String[] lineaParseada) throws InstruccionAssemblyInvalidaException {
-		String[] instrucciones  = new String[CANTIDADINSTRUCCIONES];
-		
-		String instruccion = new String("2F");		
-		
+	public String[] getInstrucciones(String[] lineaParseada, String pcActual) throws InstruccionAssemblyInvalidaException {
 		if( misOperandos.get(lineaParseada[1]) == null || misOperandos.get(lineaParseada[2]) == null ){
 			throw new InstruccionAssemblyInvalidaException();				
 		}
+		String inmediato = validarInmediato(lineaParseada[3]);
 		
-		validarInmediato(lineaParseada[3]);	
-		 
-		instruccion += lineaParseada[3];	
-	
-		instrucciones[0] = instruccion;
-		
-		instruccion = "5" + misOperandos.get(lineaParseada[1]) + misOperandos.get(lineaParseada[2]) + "F";
-		
-		instrucciones[1] = instruccion;
+		String[] instrucciones  = new String[CANTIDADINSTRUCCIONES];
+		instrucciones[0] = "2F" + inmediato;
+		instrucciones[1] = "5" + misOperandos.get(lineaParseada[1]) + misOperandos.get(lineaParseada[2]) + "F";
 		
 		return instrucciones;	
 	}

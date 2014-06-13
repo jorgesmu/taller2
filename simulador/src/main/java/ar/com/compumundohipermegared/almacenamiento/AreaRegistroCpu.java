@@ -7,6 +7,9 @@ public class AreaRegistroCpu {
 		pc = new ProgramCounter();
 	}
 	
+	public void sumarAlPC (char direccionRelativa) {
+		pc.sumar(direccionRelativa);
+	}
 	
 	public void setPC(char direccion) {
 		pc.setDato (direccion);
@@ -19,6 +22,10 @@ public class AreaRegistroCpu {
 
 	public void incrementarPC() {
 		pc.inc(1);
+	}
+
+	public void decrementarPC() {
+		pc.dec(1);
 	}
 
 }

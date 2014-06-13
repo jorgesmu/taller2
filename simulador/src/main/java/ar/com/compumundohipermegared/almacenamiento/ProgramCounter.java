@@ -15,4 +15,13 @@ public class ProgramCounter extends RegistroDoblePrecision {
 	public void inc (int valor) {
 		dato += (valor*2);
 	}
+	
+	// decrementa el pc siguiendo el criterio del sumar
+	public void dec (int valor) {
+		dato -= (valor*2);
+	}
+	
+	public void sumar (char direccionRelativa) {
+		dato += direccionRelativa;
+	}
 }

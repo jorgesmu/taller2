@@ -1,10 +1,12 @@
 package ar.com.compumundohipermegared.simulador.instrucciones;
 
+import ar.com.compumundohipermegared.conversor.Conversor;
+import ar.com.compumundohipermegared.conversor.LimitesExcedidosConversorException;
 import ar.com.compumundohipermegared.simulador.cicloInstruccion.Cpu;
 import ar.com.compumundohipermegared.simulador.cicloInstruccion.Parametros;
 
 public class InstruccionSaltar extends InstruccionFlujo {
-	char direccion;
+	char direccionRelativa;
 	int idRegistro = 0;
 	boolean saltar;
 	
@@ -12,7 +14,11 @@ public class InstruccionSaltar extends InstruccionFlujo {
 		super(parametros);
 		idRegistro = parametros.getPrimerParametro();
 		String dirHexa = parametros.getSegundoYTercerParametro();
-		direccion = (char)Integer.parseInt(dirHexa,16);
+		try {
+			direccionRelativa = (char) Conversor.complementoDosADecimal(dirHexa);
+		} catch (LimitesExcedidosConversorException e) {
+			direccionRelativa = 0;
+		}
 		saltar = false;
 		System.out.println("JUMP");
 	}
@@ -20,7 +26,7 @@ public class InstruccionSaltar extends InstruccionFlujo {
 	@Override
 	public void ejecutar() {
 		System.out.println("Ejecutando una instruccion de salto");
-		if (saltar) cpu.ejecutarSaltoA(direccion);
+		if (saltar) cpu.ejecutarSaltoRelativoA(direccionRelativa);
 	}
 
 	@Override
@@ -29,7 +35,7 @@ public class InstruccionSaltar extends InstruccionFlujo {
 		char dato = (char)cpu.obtenerDatoRegistro(idRegistro);
 		char zero = (char)cpu.obtenerDatoRegistro(0);
 		saltar = (zero == dato);
-		System.out.println("Salto a: " + (int)direccion);
+		System.out.println("Salto a: " + (int)direccionRelativa);
 		System.out.println("Debe saltar: " + saltar);
 	}
 }

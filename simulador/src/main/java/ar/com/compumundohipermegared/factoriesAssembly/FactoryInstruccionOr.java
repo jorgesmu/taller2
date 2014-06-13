@@ -12,7 +12,7 @@ public class FactoryInstruccionOr extends FactoryInstruccion {
 	}
 
 	@Override
-	public String[] getInstrucciones(String[] lineaParseada) throws InstruccionAssemblyInvalidaException {
+	public String[] getInstrucciones(String[] lineaParseada, String pcActual) throws InstruccionAssemblyInvalidaException {
 		String[] instrucciones  = new String[CANTIDADINSTRUCCIONES];
 		
 		String instruccion = new String("7");		

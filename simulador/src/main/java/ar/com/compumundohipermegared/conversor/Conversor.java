@@ -82,7 +82,7 @@ public class Conversor {
 	
 	public static int complementoDosADecimal(String nHexa) throws LimitesExcedidosConversorException {
 		
-		if( nHexa.length() != 2) throw new LimitesExcedidosConversorException();
+		if( nHexa.length() > 2) throw new LimitesExcedidosConversorException();
 		
 		int primerCaracter = correrReferencia( nHexa.charAt(0) );
 		int segundoCaracter = correrReferencia( nHexa.charAt(1) );

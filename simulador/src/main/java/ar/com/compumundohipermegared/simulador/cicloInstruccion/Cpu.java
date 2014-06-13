@@ -97,9 +97,10 @@ public class Cpu implements Runnable {
 		vaciarPipeline();
 	}
 	
-	public void ejecutarSaltoA (char posicion) {
+	public void ejecutarSaltoRelativoA (char direccionRelativa) {
 		vaciarPipeline();
-		registrosCPU.setPC(posicion);
+		registrosCPU.decrementarPC(); // ya había incrementado el pc
+		registrosCPU.sumarAlPC(direccionRelativa);
 		llenarPipeline();
 	}
 	

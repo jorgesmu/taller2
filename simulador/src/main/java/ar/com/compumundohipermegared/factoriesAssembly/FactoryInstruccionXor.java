@@ -12,7 +12,7 @@ public class FactoryInstruccionXor extends FactoryInstruccion {
 	}
 
 	@Override
-	public String[] getInstrucciones(String[] lineaParseada) throws InstruccionAssemblyInvalidaException {
+	public String[] getInstrucciones(String[] lineaParseada, String pcActual) throws InstruccionAssemblyInvalidaException {
 		String rd = misOperandos.get(lineaParseada[1]);
 		String rs = misOperandos.get(lineaParseada[2]);
 		String rt = misOperandos.get(lineaParseada[3]);
