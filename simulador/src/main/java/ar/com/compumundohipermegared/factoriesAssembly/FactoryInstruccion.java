@@ -27,18 +27,32 @@ public abstract class FactoryInstruccion {
 	}
 	
 	public String validarInmediato(String valor) throws InstruccionAssemblyInvalidaException{
-		Pattern pat = Pattern.compile("^[0-9A-F]*$");
+		Pattern pat = Pattern.compile("^[0-9]*$");
 		Matcher mat = pat.matcher(valor);
-		if (!mat.matches()) {
-			  throw new InstruccionAssemblyInvalidaException();
-		}
+		Pattern pat2 = Pattern.compile("^0x[0-9A-F]*$");
+		Matcher mat2 = pat2.matcher(valor);
 		
+		if ( !mat.matches() && !mat2.matches() ) {
+			  throw new InstruccionAssemblyInvalidaException();
+		}		
+		if( mat2.matches() ){	
+			valor = valor.substring(2,valor.length());
+			
+		}
+		else{			
+			int valorInt = Integer.parseInt(valor);
+			valor = Integer.toHexString(valorInt).toUpperCase();	
+			
+		}		
 		String prefijo = "";
 		int diferencia = LONGITUDINMEDIATOS - valor.length();
 		for (int i = 0 ; i < diferencia ; ++i) {
 			prefijo += "0";
 		}
+		
 		return prefijo + valor;
 	}
+		
 	
 }
+	

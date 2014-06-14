@@ -65,15 +65,15 @@ public class App {
     	String ruta = new String ("./resources/prueba.asm");
     	PrintWriter programa = new PrintWriter(ruta);
   		
-  		programa.println("ldi r1,0A");
-  		programa.println("ldi r2,05");
+  		programa.println("ldi r1,0x8");
+  		programa.println("ldi r2,10");
   		programa.println("and r1,r1,r2");
   		programa.println("jpz etiqueta2");
   		/*programa.println("stm r2,00");
   		programa.println("ldm r3,00");
   		programa.println("add r4,r3,r2");
   		programa.println("and r5,r2,r1");*/
-  		programa.println("ldi r1,0B");
+  		programa.println("ldi r1,11");
   		/*programa.println("ldi r0,05");
   		programa.println("add r3,r1,r2");*/
   		programa.println("etiqueta1: ldi r4,8");
