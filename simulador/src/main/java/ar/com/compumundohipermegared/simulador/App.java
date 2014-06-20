@@ -66,26 +66,15 @@ public class App {
     	PrintWriter programa = new PrintWriter(ruta);
   		
   		programa.println("ldi r1,0x8");
-  		programa.println("ldi r2,10");
-  		programa.println("and r1,r1,r2");
+  		programa.println("ldi r2,16");
+  		programa.println("and r8,r1,r2");
   		programa.println("jpz etiqueta2");
-  		/*programa.println("stm r2,00");
-  		programa.println("ldm r3,00");
-  		programa.println("add r4,r3,r2");
-  		programa.println("and r5,r2,r1");*/
-  		programa.println("ldi r1,11");
-  		/*programa.println("ldi r0,05");
-  		programa.println("add r3,r1,r2");*/
+  		programa.println("ldi r1,1");
   		programa.println("etiqueta1: ldi r4,8");
-  		//programa.println("sub r6,r1,r2");
-  		//programa.println("adi r1,r2,07");
-  		//programa.println("jmp r6,etiqueta2");
-  		//programa.println("adi r5,r1,30");
-  		//programa.println("etiqueta2: not r2,r2");
-  		//programa.println("ldi r2,05");
   		programa.println("etiqueta2: ldi r5,8");
-  		//programa.println("ldi r6, 250");
-  		
+  		programa.println("ldi r2,10");
+  		programa.println("and r8,r1,r2");
+  		programa.println("jnz 4");
   		
         programa.close();
     	return ruta;

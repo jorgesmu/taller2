@@ -16,6 +16,7 @@ public class InstruccionCopiar extends InstruccionAlu {
 	@Override
 	public void ejecutar() {
 		if (dato == 0) cpu.escribirRegistro(Cpu.REG_FLAGS_INT, (byte) Alu.BIT_FLAG_ZERO);
+		else cpu.escribirRegistro(Cpu.REG_FLAGS_INT, (byte) 0);
 		cpu.escribirRegistro(idRegistroDestino, dato);
 		//System.out.println("Ejecutando una instruccion de copiar");	
 		

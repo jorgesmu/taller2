@@ -18,6 +18,7 @@ public class InstruccionCargar extends InstruccionAlu {
 	@Override
 	public void ejecutar() {
 		if (operandoInmediato == 0) cpu.escribirRegistro(Cpu.REG_FLAGS_INT, (byte) Alu.BIT_FLAG_ZERO);
+		else cpu.escribirRegistro(Cpu.REG_FLAGS_INT, (byte) 0);
 		cpu.escribirRegistro(idRegistroDestino, operandoInmediato);
 		System.out.print("Registro: " + idRegistroDestino + " = " + operandoInmediato + "\n");
 	}

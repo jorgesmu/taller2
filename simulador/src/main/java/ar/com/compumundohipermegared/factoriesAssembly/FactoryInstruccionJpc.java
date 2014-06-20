@@ -2,21 +2,13 @@ package ar.com.compumundohipermegared.factoriesAssembly;
 
 import java.util.Map;
 
-import ar.com.compumundohipermegared.compilacion.InstruccionAssemblyInvalidaException;
+import ar.com.compumundohipermegared.simulador.cicloInstruccion.Alu;
 
-public class FactoryInstruccionJpc extends FactoryInstruccionJump {
+public class FactoryInstruccionJpc extends FactoryInstruccionJmpIfFlags {
 
 	public FactoryInstruccionJpc(Map<String, String> labels, Map<String, String> operandos) {
 		super(labels, operandos);
-		CANTIDADINSTRUCCIONES = 6;
-		
-	}
-
-	@Override
-	public String[] getInstrucciones(String[] lineaParseada, String pcActual) throws InstruccionAssemblyInvalidaException {
-		bitDeFlagsComparar = new String("02");
-		opCodeByTypeJump = new String("9");
-		return this.getInstruccionesJump(lineaParseada, pcActual);
+		bitDeFlagsComparar = Alu.BIT_FLAG_CARRY;
 	}
 
 }

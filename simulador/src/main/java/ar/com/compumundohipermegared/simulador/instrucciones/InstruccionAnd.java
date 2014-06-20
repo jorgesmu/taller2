@@ -16,6 +16,7 @@ public class InstruccionAnd extends InstruccionAlu {
 	public void ejecutar() {
 		int resultado = Alu.and(operando1, operando2);
 		if (resultado == 0) cpu.escribirRegistro(Cpu.REG_FLAGS_INT, (byte) Alu.BIT_FLAG_ZERO);
+		else cpu.escribirRegistro(Cpu.REG_FLAGS_INT, (byte) 0);
 		cpu.escribirRegistro(idRegistroDestino, (byte) resultado);
 		
 		System.out.print("Registro: " + idRegistroDestino + " = " + resultado + "\n");

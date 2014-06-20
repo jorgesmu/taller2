@@ -16,6 +16,7 @@ public class InstruccionRotar extends InstruccionAlu {
 	public void ejecutar() {
 		int resultado = Alu.rotarDerecha(valorRegistro, cantVeces);
 		if (resultado == 0) cpu.escribirRegistro(Cpu.REG_FLAGS_INT, (byte) Alu.BIT_FLAG_ZERO);
+		else cpu.escribirRegistro(Cpu.REG_FLAGS_INT, (byte) 0);
 		cpu.escribirRegistro(idRegistro, (byte) resultado);
 		System.out.print("Resultado Registro: " + idRegistro + " = " + resultado + "\n");
 		//System.out.println("Ejecutando una instruccion de rotar");

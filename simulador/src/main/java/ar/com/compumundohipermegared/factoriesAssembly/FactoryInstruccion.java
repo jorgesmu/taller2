@@ -55,8 +55,6 @@ public abstract class FactoryInstruccion {
 
 	private String completarInmediato(String inmediato) throws InstruccionAssemblyInvalidaException {
 		int diferencia = LONGITUDINMEDIATOS - inmediato.length();
-		if (diferencia < 0)
-			throw new InstruccionAssemblyInvalidaException(ERROR_FUERA_LIMITE_INMEDIATO);
 		
 		String prefijo = "";
 		for (int i = 0 ; i < diferencia ; ++i) {

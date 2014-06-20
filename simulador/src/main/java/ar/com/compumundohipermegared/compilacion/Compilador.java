@@ -99,7 +99,7 @@ public class Compilador {
 				int cant = 0;
 				if (lineaParseada.length > 0) {
 					String label = parser.obtenerLabelActual();
-					if (label != null) labels.put(label, pcActual);
+					if (label != null) labels.put(label, "0x" + pcActual);
 					cant = decoder.cantidadInstrucciones(lineaParseada[0]);
 				}
 				pcActual = actualizarPC(pcActual, cant);
