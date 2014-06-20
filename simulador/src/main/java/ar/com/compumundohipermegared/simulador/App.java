@@ -12,7 +12,7 @@ import ar.com.compumundohipermegared.almacenamiento.IInputStream;
 import ar.com.compumundohipermegared.almacenamiento.IMemoria;
 import ar.com.compumundohipermegared.almacenamiento.MemoriaRam;
 import ar.com.compumundohipermegared.compilacion.Compilador;
-import ar.com.compumundohipermegared.compilacion.ExtensionInvalida;
+import ar.com.compumundohipermegared.compilacion.ExtensionInvalidaException;
 import ar.com.compumundohipermegared.compilacion.InstruccionAssemblyInvalidaException;
 import ar.com.compumundohipermegared.compilacion.ProgramaMuyLargoException;
 import ar.com.compumundohipermegared.compilacion.ProgramaYaCompiladoException;
@@ -53,7 +53,7 @@ public class App {
 			}
 			archivoCompilado.close();
 			return rutaCompilado;
-		} catch (FileNotFoundException | ExtensionInvalida | ProgramaMuyLargoException | InstruccionAssemblyInvalidaException e) {
+		} catch (FileNotFoundException | ExtensionInvalidaException | ProgramaMuyLargoException | InstruccionAssemblyInvalidaException e) {
 			System.out.println("ERROR: " + e.getMessage());
 		} catch (ProgramaYaCompiladoException | IOException e1) {
 			e1.printStackTrace();
@@ -84,6 +84,8 @@ public class App {
   		//programa.println("etiqueta2: not r2,r2");
   		//programa.println("ldi r2,05");
   		programa.println("etiqueta2: ldi r5,8");
+  		//programa.println("ldi r6, 250");
+  		
   		
         programa.close();
     	return ruta;

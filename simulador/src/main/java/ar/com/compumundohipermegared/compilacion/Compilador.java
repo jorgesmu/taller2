@@ -24,7 +24,7 @@ public class Compilador {
 	ParserAssembly parser;
 	DecoderAssembly decoder;
 	
-	public Compilador(String rutaArchivo) throws FileNotFoundException, ExtensionInvalida {
+	public Compilador(String rutaArchivo) throws FileNotFoundException, ExtensionInvalidaException {
 		validacionRutaAssembly(rutaArchivo);
 		
 		labels = new HashMap<String,String>();
@@ -36,12 +36,12 @@ public class Compilador {
 		compilado = false;
 	}
 	
-	private void validacionRutaAssembly(String rutaArchivo) throws ExtensionInvalida {
+	private void validacionRutaAssembly(String rutaArchivo) throws ExtensionInvalidaException {
 		int indiceFinal = rutaArchivo.length() - 1;
 		int indicePunto = indiceFinal - 3; // ultimoIndice - extension(3)
 		String extension = rutaArchivo.substring(indicePunto, indiceFinal + 1); // no incluye indiceFinal
 		if (!(extension.equals(".asm")))
-			throw new ExtensionInvalida("La extension del archivo Assembly debe ser .asm");
+			throw new ExtensionInvalidaException("La extensión del archivo Assembly debe ser .asm");
 	}
 
 	private String obtenerRutaArchivoCompilado (String rutaArchivoAssembly) {
@@ -69,7 +69,8 @@ public class Compilador {
 				pcActual = escribirInstrucciones(instrucciones, pcActual);
 			} catch (InstruccionAssemblyInvalidaException e) {
 				int numero = parser.numeroLineaActual() - 1; // ya leyo y avanzo el numero de linea
-				throw new InstruccionAssemblyInvalidaException("La linea " + numero + " presenta una instruccion invalida.");
+				throw new InstruccionAssemblyInvalidaException("La línea número " + numero + " presenta una instrucción inválida: "
+																+ e.getMessage());
 			}
 		}
 		
@@ -107,7 +108,8 @@ public class Compilador {
 				throw new ProgramaMuyLargoException(ERROR_CAPACIDAD);
 			} catch (InstruccionAssemblyInvalidaException e2) {
 				int numero = parser.numeroLineaActual() - 1; // ya leyo y avanzo el numero de linea
-				throw new InstruccionAssemblyInvalidaException("La linea numero " + numero + " presenta una instruccion invalida.");
+				throw new InstruccionAssemblyInvalidaException("La línea número " + numero + " presenta una instrucción inválida: "
+																+ e2.getMessage());
 			}			
 			
 		}

@@ -44,7 +44,7 @@ public class ParserAssembly {
 		  Matcher mat3 = pat3.matcher(linea);
 		  Matcher mat4 = pat4.matcher(linea);
 		  if (mat1.matches() || mat2.matches() || mat3.matches() || mat4.matches()) {
-			  throw new InstruccionAssemblyInvalidaException("Formato de instruccion invalida:" + linea);
+			  throw new InstruccionAssemblyInvalidaException("Formato inválido:" + linea);
 		  }		  
 		
 	}

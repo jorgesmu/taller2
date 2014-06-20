@@ -11,6 +11,8 @@ public class DecoderAssembly {
 	Map<String, FactoryInstruccion> instrucciones;
 	Map<String, String> operandos;
 	
+	protected static String ERROR_INSTRUCCION_INEXISTENTE = "La instrucción Assembly es inexistente.";
+	
 	public DecoderAssembly(Map<String, String> labels) {
 		misLabels = labels;
 		construirMapaOperandos();
@@ -59,13 +61,13 @@ public class DecoderAssembly {
 
 	public String[] decodificar(String[] lineaParseada, String pcActual) throws InstruccionAssemblyInvalidaException {
 		FactoryInstruccion instruccion = instrucciones.get(lineaParseada[0]);
-		if (instruccion == null) throw new InstruccionAssemblyInvalidaException();
+		if (instruccion == null) throw new InstruccionAssemblyInvalidaException(ERROR_INSTRUCCION_INEXISTENTE);
 		return instruccion.getInstrucciones(lineaParseada, pcActual);
 	}
 
 	public int cantidadInstrucciones(String string) throws InstruccionAssemblyInvalidaException {
 		FactoryInstruccion instruccion = instrucciones.get(string);
-		if (instruccion == null) throw new InstruccionAssemblyInvalidaException();
+		if (instruccion == null) throw new InstruccionAssemblyInvalidaException(ERROR_INSTRUCCION_INEXISTENTE);
 		return instruccion.getCantidadInstruccionesAEjecutar();
 	}
 

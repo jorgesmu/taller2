@@ -1,13 +1,13 @@
 package ar.com.compumundohipermegared.compilacion;
 
-public class ExtensionInvalida extends Exception {
+public class ExtensionInvalidaException extends Exception {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public ExtensionInvalida(String mensaje) {
+	public ExtensionInvalidaException(String mensaje) {
 		super(mensaje);
 	}
 
