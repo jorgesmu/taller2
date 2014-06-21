@@ -4,34 +4,34 @@ import ar.com.compumundohipermegared.simulador.cicloInstruccion.Alu;
 import ar.com.compumundohipermegared.simulador.cicloInstruccion.Cpu;
 import ar.com.compumundohipermegared.simulador.cicloInstruccion.Parametros;
 
-public class InstruccionRotar extends InstruccionAlu {
+public abstract class InstruccionShift extends InstruccionAlu {
 	int idRegistro, cantVeces, valorRegistro;
 	
-	public InstruccionRotar(Parametros parametros) {
+	public InstruccionShift(Parametros parametros) {
 		super(parametros);
-		System.out.print("Rotar\n");
 	}
-
+	
+	protected abstract int getShift();
+	
 	@Override
 	public void ejecutar() {
-		int resultado = Alu.rotarDerecha(valorRegistro, cantVeces);
+		int resultado = getShift();
 		if (resultado == 0) cpu.escribirRegistro(Cpu.REG_FLAGS_INT, (byte) Alu.BIT_FLAG_ZERO);
 		else cpu.escribirRegistro(Cpu.REG_FLAGS_INT, (byte) 0);
+		
 		cpu.escribirRegistro(idRegistro, (byte) resultado);
-		System.out.print("Resultado Registro: " + idRegistro + " = " + resultado + "\n");
-		//System.out.println("Ejecutando una instruccion de rotar");
+		
+		System.out.print("Cantidad de bits: " + cantVeces +"\n");
+		System.out.print("Registro: " + idRegistro + " = " + valorRegistro + "\n");
+		System.out.print("Resultado Registro: " + idRegistro + " = " + (byte)resultado + "\n");
 	}
-
+	
 	@Override
 	public void cargarOperandos(Cpu cpuRecibida) {
 		super.cargarOperandos(cpuRecibida);
 		idRegistro = _parametros.getPrimerParametro();
 		cantVeces = _parametros.getTercerParametro();
-		valorRegistro = cpu.obtenerDatoRegistro(idRegistro);
-		
-		System.out.print("Registro: " + idRegistro + " = " + valorRegistro + "\n");
-		System.out.print("Rota a la derecha: " + cantVeces +"\n");
-		
-		//System.out.println("Cargando operandos una instruccion de rotar");		
+		valorRegistro = cpu.obtenerDatoRegistro(idRegistro);		
 	}
+	
 }

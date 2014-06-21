@@ -82,7 +82,7 @@ public class App {
     
     private static void pruebaEjecucion(String ruta) {
     	try {
-			IInputStream programa = new FileReader (ruta);
+    		IInputStream programa = new FileReader (ruta);
 			IMemoria memoriaPrincipal = new MemoriaRam(16); // 16 * 16 celdas
 			Cpu cpu = new Cpu(programa, memoriaPrincipal);
 			
@@ -99,27 +99,17 @@ public class App {
     
     /*
     private static String crearProgramaMaquina() throws FileNotFoundException {
-  		String ruta = new String ("prueba.maq");
+  		String ruta = new String ("./resources/prueba.maq");
   		PrintWriter programa = new PrintWriter(ruta);
   		
-  		programa.println("0000" + " " + "280A"); //cargo el registro 8 con 0A
-  		programa.println("0002" + " " + "2F1E"); //cargo el registro F con 1E = 30
-  		programa.println("0004" + " " + "508F"); //sumo el registro 8 con F y en resultado lo pongo en el registro 0
-  		programa.println("0006" + " " + "4001"); //copio reg 0 a reg 1
-  		programa.println("0008" + " " + "A103"); //roto reg 1 3 posiciones
-  		programa.println("000A" + " " + "7B10"); //or entre reg 1 y reg 0 da 45
-  		programa.println("000C" + " " + "8C10"); //and da 0
-  		programa.println("000E" + " " + "9F10"); //xor entre 40 y 5
-  		programa.println("0010" + " " + "6510"); //suma flotante
-  		programa.println("0012" + " " + "301E"); //
-  		programa.println("0014" + " " + "121E"); //
-  		programa.println("0016" + " " + "5820"); //
-  		programa.println("0018" + " " + "B100");
-  		programa.println("001A" + " " + "C000");
-  		programa.println("001C" + " " + "B200");
-        
+  		programa.println("0000" + " " + "28AA"); // cargo el registro 8 con AA
+  		programa.println("0002" + " " + "A801"); // shift derecha aritmetico
+  		programa.println("0004" + " " + "A832"); // shift izquierda zero fill
+  		programa.println("0006" + " " + "A813"); // shift derecha logico
+  		programa.println("0008" + " " + "A821"); // shift izquierda one fill
+  		
         programa.close();
   		return ruta;
   	}
-	*/
+  	*/
 }

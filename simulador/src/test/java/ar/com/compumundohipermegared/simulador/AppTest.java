@@ -118,14 +118,14 @@ public class AppTest
     public void testDesplazarAlaIzquierda(){
     	int number = 97; //1100001
     	int veces = 2; 
-    	assertEquals(388,Alu.rotarIzquirda(number, veces)); //110000100 = 388
+    	assertEquals(388,Alu.shiftLeftZeroFill(number, veces)); //110000100 = 388
     
     }
     
     public void testDesplazarAlaDerecha(){
     	int number = 97; //1100001
     	int veces = 2; 
-    	assertEquals(24 ,Alu.rotarDerecha(number, veces)); //0011000 = 24
+    	assertEquals(24 ,Alu.shiftRightArithmetic(number, veces)); //0011000 = 24
     
     }
     

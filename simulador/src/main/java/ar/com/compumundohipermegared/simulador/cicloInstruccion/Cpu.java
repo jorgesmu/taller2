@@ -50,7 +50,7 @@ public class Cpu implements Runnable {
 		String proximaInstruccionADecodificar = leerPipeline();
 		fetch();
 		
-		Instruccion proximaInstruccion = ParserInstrucciones.Decodificar(proximaInstruccionADecodificar);
+		Instruccion proximaInstruccion = ParserInstrucciones.decodificar(proximaInstruccionADecodificar);
 		proximaInstruccion.cargarOperandos(this);
 		proximaInstruccion.ejecutar();
 		

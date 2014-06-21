@@ -39,13 +39,22 @@ public class Alu {
 		return (number ^ othernumber);
 	}
 	
-	public static int rotarDerecha(int number, int veces){
+	public static int shiftRightArithmetic(int number, int veces) {
 		return (number >> veces);
 	}
 	
-	//Estos quiza estan demas pero los hice igual total no costaba 
-	public static int rotarIzquirda(int number, int veces){
+	public static int shiftRightLogic(int number, int veces) {
+		return (number >>> veces);
+	}
+	
+	public static int shiftLeftZeroFill(int number, int veces) {
 		return (number << veces);
+	}
+	
+	public static int shiftLeftOneFill(int number, int veces) {
+		int zeroFill = Alu.shiftLeftZeroFill(number, veces);
+		int ones = (Alu.pot(2, veces) - 1);
+		return (zeroFill + ones);
 	}
 	
 	public static boolean sonIguales(int number, int othernumber){
@@ -73,5 +82,12 @@ public class Alu {
 		return (number / othernumber);
 	}
 	
+	private static int pot (int base, int exponente) {
+		if (exponente < 0) return 0;
+		
+		int numero = 1;
+		for (int i = 0; i < exponente; ++i) numero *= base;
+		return numero;
+	}
 	
 }
