@@ -39,7 +39,7 @@ public class MenuVentana extends JFrame implements ActionListener{
 	btnEditorAssembler.setBounds(0, 60, 300, 60);
 	panel.add(btnEditorAssembler);
 	
-	btnEditorAbsoluto = new JButton("Editor codigo absoluto");
+	btnEditorAbsoluto = new JButton("Editor código absoluto");
 	btnEditorAbsoluto.addActionListener(this);
 	btnEditorAbsoluto.setBounds(0, 120, 300, 60);
 	panel.add(btnEditorAbsoluto);
@@ -49,7 +49,7 @@ public class MenuVentana extends JFrame implements ActionListener{
 	btnCargarArchivo.setBounds(0, 180, 300, 60);
 	panel.add(btnCargarArchivo);
 	
-	btnAyuda = new JButton("Ayuda en linea");
+	btnAyuda = new JButton("Ayuda en línea");
 	btnAyuda.addActionListener(this);
 	btnAyuda.setBounds(0, 240, 300, 60);
 	panel.add(btnAyuda);

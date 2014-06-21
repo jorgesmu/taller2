@@ -45,13 +45,13 @@ public class AyudaEnLineaVentana extends JFrame implements ActionListener{
 		scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		panel.add(scroll);
 		
-		btnMenu = new JButton("Menu Principal");
+		btnMenu = new JButton("Menú Principal");
 		btnMenu.addActionListener(this);
 		btnMenu.setBounds(25, 680, 300, 60);
 		panel.add(btnMenu);
 		
 		this.getContentPane().add(panel);
-		setLocationRelativeTo (null);
+		this.setLocationRelativeTo (null);
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {

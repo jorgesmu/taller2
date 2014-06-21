@@ -12,8 +12,10 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.ScrollPaneConstants;
 
 public class EditorCodigoAbsolutoVentana extends JFrame implements ActionListener, MouseListener{
 	/**
@@ -26,6 +28,7 @@ public class EditorCodigoAbsolutoVentana extends JFrame implements ActionListene
 	JButton btnGuardar;
 	JLabel lblTitulo;
 	JTextArea txtCodigo;
+	JScrollPane scrollCodigo;
 	JFileChooser dialog;
 	JLabel lblRuta;
 	JButton btnRuta;
@@ -33,66 +36,70 @@ public class EditorCodigoAbsolutoVentana extends JFrame implements ActionListene
 	String codigoHint;
 	String nombreHint;
 	JCheckBox lineByLine;
-	public EditorCodigoAbsolutoVentana(){
-	panel = new JPanel();
-	panel.setLayout(null);
-
-	lblTitulo = new JLabel("Editor de codigo absoluto");
-	lblTitulo.setBounds(400, 15, 600, 40);
-	Font labelFont = lblTitulo.getFont();
-	lblTitulo.setFont(new Font(labelFont.getName(), Font.PLAIN, 40));
 	
-	panel.add(lblTitulo);
-
-	btnMenu = new JButton("Menu Ppal");
-	btnMenu.addActionListener(this);
-	btnMenu.setBounds(25, 680, 300, 60);
-	panel.add(btnMenu);
-
-	btnGuardar = new JButton("Guardar");
-	btnGuardar.addActionListener(this);
-	btnGuardar.setBounds(350, 680, 300, 60);
-	panel.add(btnGuardar);
+	public EditorCodigoAbsolutoVentana() {
+		panel = new JPanel();
+		panel.setLayout(null);
 	
-	btnEjecutar = new JButton("Compilar y Ejecutar");
-	btnEjecutar.addActionListener(this);
-	btnEjecutar.setBounds(925, 680, 300, 60);
-	btnEjecutar.setEnabled(false);;
-	panel.add(btnEjecutar);
+		lblTitulo = new JLabel("Editor de código absoluto");
+		lblTitulo.setBounds(400, 15, 600, 40);
+		Font labelFont = lblTitulo.getFont();
+		lblTitulo.setFont(new Font(labelFont.getName(), Font.PLAIN, 40));
+		
+		panel.add(lblTitulo);
 	
-
-	codigoHint = "Ingrese su codigo assembler aqui";
-	txtCodigo = new JTextArea(codigoHint);
-	txtCodigo.setBounds(25, 110, 1200, 550);
-	txtCodigo.addMouseListener(this);
-	panel.add(txtCodigo);
+		btnMenu = new JButton("Menu Ppal");
+		btnMenu.addActionListener(this);
+		btnMenu.setBounds(25, 680, 300, 60);
+		panel.add(btnMenu);
 	
-	dialog = new JFileChooser();
-	dialog.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+		btnGuardar = new JButton("Guardar");
+		btnGuardar.addActionListener(this);
+		btnGuardar.setBounds(350, 680, 300, 60);
+		panel.add(btnGuardar);
+		
+		btnEjecutar = new JButton("Ejecutar");
+		btnEjecutar.addActionListener(this);
+		btnEjecutar.setBounds(925, 680, 300, 60);
+		btnEjecutar.setEnabled(false);;
+		panel.add(btnEjecutar);
+		
 	
-	lblRuta = new JLabel();
-	lblRuta.setText("Ruta destino para archivos ejecutables");
-	lblRuta.setBounds(25, 65, 1000, 20);
-	panel.add(lblRuta);
+		codigoHint = "Ingrese su código absoluto aquí";
+		txtCodigo = new JTextArea(codigoHint);
+		txtCodigo.addMouseListener(this);
+		scrollCodigo = new JScrollPane(txtCodigo);
+		scrollCodigo.setBounds(25, 110, 1200, 550);
+		scrollCodigo.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		panel.add(scrollCodigo);
+		
+		dialog = new JFileChooser();
+		dialog.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+		
+		lblRuta = new JLabel();
+		lblRuta.setText("Ruta destino para archivos ejecutables");
+		lblRuta.setBounds(25, 65, 1000, 20);
+		panel.add(lblRuta);
+		
+		btnRuta = new JButton("Explorar");
+		btnRuta.addActionListener(this);
+		btnRuta.setBounds(1010, 65, 215, 20);
+		panel.add(btnRuta);
 	
-	btnRuta = new JButton("Explorar");
-	btnRuta.addActionListener(this);
-	btnRuta.setBounds(1010, 65, 215, 20);
-	panel.add(btnRuta);
-
-	nombreHint = "Nombre del archivo (Modificar)";
-	txtNombre = new JTextField();
-	txtNombre.setText(nombreHint);
-	txtNombre.setBounds(20,87,1208,20);
-	txtNombre.addMouseListener(this);
-	panel.add(txtNombre);
-
-	lineByLine = new JCheckBox("Linea por linea");
-	lineByLine.setBounds(800,695,200,30);
-	panel.add(lineByLine);
+		nombreHint = "Nombre del archivo (Modificar)";
+		txtNombre = new JTextField();
+		txtNombre.setText(nombreHint);
+		txtNombre.setBounds(20,87,1208,20);
+		txtNombre.addMouseListener(this);
+		panel.add(txtNombre);
 	
-	this.getContentPane().add(panel);
-}
+		lineByLine = new JCheckBox("Línea por línea");
+		lineByLine.setBounds(800,695,200,30);
+		panel.add(lineByLine);
+		
+		this.getContentPane().add(panel);
+		this.setLocationRelativeTo (null);
+	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btnMenu){
