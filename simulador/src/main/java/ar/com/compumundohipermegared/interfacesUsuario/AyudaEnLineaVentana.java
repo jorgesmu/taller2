@@ -8,7 +8,9 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.ScrollPaneConstants;
 
 
 public class AyudaEnLineaVentana extends JFrame implements ActionListener{
@@ -34,19 +36,22 @@ public class AyudaEnLineaVentana extends JFrame implements ActionListener{
 		
 		
 		JTextArea ayuda = new JTextArea(TextoAyuda.TEXTO);
-		ayuda.setBounds(10, 65, 1345, 600);
 		ayuda.setEditable(false);
 		Font labelFontAyuda = lblTitulo.getFont();
 		ayuda.setFont(new Font(labelFontAyuda.getName(), Font.PLAIN, 15));
-		panel.add(ayuda);
 		
-		btnMenu = new JButton("Menu Ppal");
+		JScrollPane scroll = new JScrollPane(ayuda);
+		scroll.setBounds(10, 65, 1345, 600);
+		scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		panel.add(scroll);
+		
+		btnMenu = new JButton("Menu Principal");
 		btnMenu.addActionListener(this);
 		btnMenu.setBounds(25, 680, 300, 60);
 		panel.add(btnMenu);
-
 		
 		this.getContentPane().add(panel);
+		setLocationRelativeTo (null);
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
