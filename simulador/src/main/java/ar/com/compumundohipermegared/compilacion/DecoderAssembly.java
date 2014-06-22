@@ -57,6 +57,14 @@ public class DecoderAssembly {
 		instrucciones.put("jnz", new FactoryInstruccionJnz(misLabels,operandos));
 		instrucciones.put("jpc", new FactoryInstruccionJpc(misLabels,operandos));
 		instrucciones.put("jnc", new FactoryInstruccionJnc(misLabels,operandos));
+		instrucciones.put("sl0", new FactoryInstruccionSl0(misLabels,operandos));
+		instrucciones.put("sl1", new FactoryInstruccionSl1(misLabels,operandos));
+		instrucciones.put("sr0", new FactoryInstruccionSr0(misLabels,operandos));
+		instrucciones.put("sr1", new FactoryInstruccionSr1(misLabels,operandos));
+		instrucciones.put("rrl", new FactoryInstruccionRrl(misLabels,operandos));
+		instrucciones.put("rrr", new FactoryInstruccionRrr(misLabels,operandos));
+		instrucciones.put("nop", new FactoryInstruccionNop(misLabels,operandos));
+		instrucciones.put("cmp", new FactoryInstruccionCmp(misLabels,operandos));
 	}
 
 	public String[] decodificar(String[] lineaParseada, String pcActual) throws InstruccionAssemblyInvalidaException {
