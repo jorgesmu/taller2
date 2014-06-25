@@ -32,9 +32,9 @@ public abstract class FactoryInstruccion {
 	
 	public String validarInmediato(String valor) throws InstruccionAssemblyInvalidaException{
 		String inmediato = new String (valor);
-		Pattern pat = Pattern.compile("^[0-9]*$");
+		Pattern pat = Pattern.compile("^-?[0-9]*.?[0-9]+$");
 		Matcher mat = pat.matcher(valor);
-		Pattern pat2 = Pattern.compile("^0x[0-9A-F]*$");
+		Pattern pat2 = Pattern.compile("^0x[0-9A-F]+$");
 		Matcher mat2 = pat2.matcher(valor);
 		
 		if ( !mat.matches() && !mat2.matches() ) {
@@ -42,9 +42,14 @@ public abstract class FactoryInstruccion {
 		} else if ( mat2.matches() ) { // es hexa
 			inmediato = valor.substring(2,valor.length());
 		} else { // es decimal
-			int valorInt = Integer.parseInt(valor);
 			try {
-				inmediato = Conversor.decimalToHexa(valorInt);
+				if (valor.contains(".")) { // es punto flotante
+					double valorDouble = Double.parseDouble(valor);
+					inmediato = Conversor.decimalToHexa(valorDouble);
+				} else { // es int
+					int valorInt = Integer.parseInt(valor);
+					inmediato = Conversor.decimalToHexa(valorInt);
+				}
 			} catch (LimitesExcedidosConversorException e) {
 				throw new InstruccionAssemblyInvalidaException(ERROR_FUERA_LIMITE_INMEDIATO);
 			}

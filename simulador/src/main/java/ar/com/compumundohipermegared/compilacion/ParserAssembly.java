@@ -55,6 +55,11 @@ public class ParserAssembly {
 		validarFormato(linea);
 		String delims = "[ ,]+"; // separo por espacios y comas	
 		String[] tokens = linea.split(delims);
+		if (tokens[0].equals("")) {
+			String[] tokens2 = new String[tokens.length-1];
+			for (int i = 0; i < tokens.length-1; ++i) tokens2[i] = tokens[i+1];
+			tokens = tokens2;
+		}
 		return filtrarComentario(tokens);
 	}
 	

@@ -17,16 +17,8 @@ import javax.swing.ScrollPaneConstants;
 
 import java.awt.BorderLayout;
 
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.RowSpec;
-import com.jgoodies.forms.factories.FormFactory;
-
 import javax.swing.JPanel;
 import javax.swing.JButton;
-import javax.swing.JRadioButton;
-
-import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
