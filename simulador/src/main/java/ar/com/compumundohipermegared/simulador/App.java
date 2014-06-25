@@ -71,17 +71,17 @@ public class App {
     	String ruta = new String ("./resources/prueba.asm");
     	PrintWriter programa = new PrintWriter(ruta);
   		
-  		programa.println("ldi r1,0x8");
-  		programa.println("ldi r2,16");
-  		programa.println("and r8,r1,r2");
-  		programa.println("jpz etiqueta2");
+  		programa.println("ldi r1,0");
+  		programa.println("ldi r2,0");
+  		programa.println("cmp r1,r2");
+  		/*programa.println("jpz etiqueta2");
   		programa.println("ldi r1,1");
   		programa.println("etiqueta1: ldi r4,8");
   		programa.println("etiqueta2: ldi r5,8");
   		programa.println("ldi r2,10");
   		programa.println("and r8,r1,r2");
   		programa.println("jnz 4");
-  		
+  		*/
         programa.close();
     	return ruta;
     }

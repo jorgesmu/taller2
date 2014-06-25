@@ -33,6 +33,7 @@ public class InstruccionSumarComplemento extends InstruccionAlu{
 		cpu.escribirRegistro(Cpu.REG_FLAGS_INT, (byte) flags);
 		if (e1 != null) throw e1;
 		System.out.print("RegistroDestino: " + idRegistroDestino + " = " + resultado + "\n");
+		System.out.print("Flags: " + flags + "\n");
 	}
 
 	@Override
