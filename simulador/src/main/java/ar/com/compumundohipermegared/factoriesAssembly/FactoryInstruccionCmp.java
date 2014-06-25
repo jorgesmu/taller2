@@ -9,7 +9,7 @@ public class FactoryInstruccionCmp extends FactoryInstruccion {
 
 	public FactoryInstruccionCmp(Map<String, String> labels, Map<String, String> operandos) {
 		super(labels, operandos);
-		CANTIDADINSTRUCCIONES = 8;
+		CANTIDADINSTRUCCIONES = 9;
 		
 	}
 	//cm rs,rt Zero= 1 si rs=rt ,Cary=1 si rs<rt , Flag=0 si rs > rt
@@ -28,7 +28,8 @@ public class FactoryInstruccionCmp extends FactoryInstruccion {
 		instrucciones[4] = new String("5" + Compilador.REG_AUX_1 + rs + Compilador.REG_AUX_1);                 //se resta rs - rt si son igual Zero =1
 		instrucciones[5] = new String("2" + Compilador.REG_AUX_2 +  "80"); //si son iguales se mantiene lo anterior pero si rs < rt hay un 100000
 		instrucciones[6] = new String("8" + Compilador.REG_AUX_2 +  Compilador.REG_AUX_1 + Compilador.REG_AUX_2); //and en Reg2=80 si rs < rt o Reg2=0 si rs > Rt
-		instrucciones[7] = new String("5" + Compilador.REG_AUX_2 +  Compilador.REG_AUX_1 + Compilador.REG_AUX_2); //rs = rt Si en reg1=0 => Reg2=0 => Zero=1
+		instrucciones[7] = new String("A" + Compilador.REG_AUX_2 + "1" + "1");
+		instrucciones[8] = new String("5" + Compilador.REG_AUX_2 +  Compilador.REG_AUX_1 + Compilador.REG_AUX_2); //rs = rt Si en reg1=0 => Reg2=0 => Zero=1
 																												//rs > rt Si en reg1=0xxxx => reg2=0 => Flags=0
 																												//rs < rt Si en reg1=80 => reg2=80 => Carry = 1
 		return instrucciones;
