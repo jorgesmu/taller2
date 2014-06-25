@@ -17,6 +17,7 @@ import ar.com.compumundohipermegared.compilacion.InstruccionAssemblyInvalidaExce
 import ar.com.compumundohipermegared.compilacion.ProgramaMuyLargoException;
 import ar.com.compumundohipermegared.compilacion.ProgramaYaCompiladoException;
 import ar.com.compumundohipermegared.interfacesUsuario.MenuVentana;
+import ar.com.compumundohipermegared.interfacesUsuario.VentanaPPal;
 import ar.com.compumundohipermegared.simulador.cicloInstruccion.Cpu;
 import ar.com.compumundohipermegared.simulador.cicloInstruccion.ProgramaMalFormadoException;
 
@@ -26,7 +27,7 @@ import ar.com.compumundohipermegared.simulador.cicloInstruccion.ProgramaMalForma
  */
 public class App {
 	
-    public static void main (String[] args) {
+    /*public static void main (String[] args) {
     	String rutaCompulacion = pruebaCompilacion();
     	pruebaEjecucion(rutaCompulacion);
     	
@@ -34,7 +35,12 @@ public class App {
         menu.setBounds(0, 0, 300, 325);
         menu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         menu.setVisible(true);
-    }
+    	VentanaPPal ventana = new VentanaPPal();
+    	ventana.setBounds(0, 0, 300, 325);
+    	ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    	ventana.setVisible(true);
+     	
+    }*/
     
     private static String pruebaCompilacion() {
     	try {
