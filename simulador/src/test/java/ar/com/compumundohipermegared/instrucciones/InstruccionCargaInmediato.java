@@ -6,6 +6,7 @@ import java.io.IOException;
 
 import ar.com.compumundohipermegared.almacenamiento.FileReader;
 import ar.com.compumundohipermegared.almacenamiento.IInputStream;
+import ar.com.compumundohipermegared.almacenamiento.IMemoria;
 import ar.com.compumundohipermegared.almacenamiento.MemoriaRam;
 import ar.com.compumundohipermegared.conversor.Conversor;
 import ar.com.compumundohipermegared.conversor.LimitesExcedidosConversorException;
@@ -49,11 +50,10 @@ public class InstruccionCargaInmediato extends TestCase {
 
 		dato = (byte) Conversor.complementoDosADecimal("BC");
 	
-		MemoriaRam ram = new MemoriaRam(256);
-    	try {
+		try {
     		String ruta = crearPrograma();
-			IInputStream programa = new FileReader (ruta);
-			Cpu cpu = new Cpu(programa,ram);
+    		Cpu cpu = new Cpu(ruta);
+			IMemoria ram = cpu.getMemoria();
 			if (dato == cpu.obtenerDatoRegistro(10)){
 				
 				assert(false);

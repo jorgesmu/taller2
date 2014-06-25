@@ -6,6 +6,7 @@ import java.io.IOException;
 
 import ar.com.compumundohipermegared.almacenamiento.FileReader;
 import ar.com.compumundohipermegared.almacenamiento.IInputStream;
+import ar.com.compumundohipermegared.almacenamiento.IMemoria;
 import ar.com.compumundohipermegared.almacenamiento.MemoriaRam;
 import ar.com.compumundohipermegared.conversor.LimitesExcedidosConversorException;
 import ar.com.compumundohipermegared.simulador.cicloInstruccion.Cpu;
@@ -50,11 +51,10 @@ public class InstruccionSumaComplemento extends TestCase {
 		byte resultado;
 		resultado = Byte.parseByte("17", 16);
 		
-		MemoriaRam ram = new MemoriaRam(256);
-    	try {
+		try {
     		String ruta = crearPrograma();
-			IInputStream programa = new FileReader (ruta);
-			Cpu cpu = new Cpu(programa,ram);
+    		Cpu cpu = new Cpu(ruta);
+			IMemoria ram = cpu.getMemoria();
 			cpu.escribirRegistro(11, operando1);
 			cpu.escribirRegistro(12, operando2);
 			if (cpu.obtenerDatoRegistro(10) == cpu.obtenerDatoRegistro(11)){

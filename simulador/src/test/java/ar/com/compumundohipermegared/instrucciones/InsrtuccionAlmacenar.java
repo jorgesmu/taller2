@@ -48,9 +48,8 @@ public class InsrtuccionAlmacenar extends TestCase {
 		MemoriaRam ram = new MemoriaRam(256);
     	try {
     		String ruta = crearPrograma();
-			IInputStream programa = new FileReader (ruta);
 		
-			Cpu cpu = new Cpu(programa,ram);
+			Cpu cpu = new Cpu(ruta);
 			cpu.escribirRegistro(10, dato);
 			assertFalse(ram.getDatoMemoria(11, 12) == dato);
 			cpu.ejecutarPrograma();

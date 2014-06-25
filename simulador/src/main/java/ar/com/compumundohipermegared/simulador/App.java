@@ -88,13 +88,10 @@ public class App {
     
     private static void pruebaEjecucion(String ruta) {
     	try {
-    		IInputStream programa = new FileReader (ruta);
-			IMemoria memoriaPrincipal = new MemoriaRam(16); // 16 * 16 celdas
-			Cpu cpu = new Cpu(programa, memoriaPrincipal);
-			
+    		Cpu cpu = new Cpu(ruta);
 			Thread hiloEjecucion = new Thread (cpu);
 	        hiloEjecucion.start();
-	        
+	        IMemoria memoriaPrincipal = cpu.getMemoria();
 	        memoriaPrincipal.escribirDispositivoEntrada((byte)5);
 	        
 		} catch (FileNotFoundException | ProgramaMalFormadoException e) {

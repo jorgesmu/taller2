@@ -1,14 +1,17 @@
 package ar.com.compumundohipermegared.simulador.cicloInstruccion;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 import ar.com.compumundohipermegared.almacenamiento.AreaRegistro;
 import ar.com.compumundohipermegared.almacenamiento.AreaRegistroCpu;
 import ar.com.compumundohipermegared.almacenamiento.DireccionMasInstruccion;
+import ar.com.compumundohipermegared.almacenamiento.FileReader;
 import ar.com.compumundohipermegared.almacenamiento.IInputStream;
 import ar.com.compumundohipermegared.almacenamiento.IMemoria;
 import ar.com.compumundohipermegared.almacenamiento.LimiteExcedidoAreaRegistroException;
 import ar.com.compumundohipermegared.almacenamiento.LimiteExcedidoMemoriaException;
+import ar.com.compumundohipermegared.almacenamiento.MemoriaRam;
 import ar.com.compumundohipermegared.almacenamiento.ProgramCounter;
 import ar.com.compumundohipermegared.conversor.Conversor;
 import ar.com.compumundohipermegared.conversor.LimitesExcedidosConversorException;
@@ -16,6 +19,7 @@ import ar.com.compumundohipermegared.simulador.instrucciones.Instruccion;
 
 public class Cpu implements Runnable {
 	public static int CANTIDAD_REGISTROS = 16;
+	public static int CANTIDAD_FILA_COLUMNA_MEMORIA = 16;
 	public static int TAMANIO_PIPELINE = 3;
 	
 	public static String REG_FLAGS = "F";
@@ -27,11 +31,12 @@ public class Cpu implements Runnable {
 	IMemoria memoriaDatos;
 	Fetcher fetcher;
 	
-	public Cpu (IInputStream programaAEjecutar, IMemoria memoria) throws ProgramaMalFormadoException {
+	public Cpu (String ruta) throws ProgramaMalFormadoException, FileNotFoundException {
+		IInputStream programaAEjecutar = new FileReader (ruta);
 		pipeline = new ArrayList<DireccionMasInstruccion>();
 		registrosDatos = new AreaRegistro (CANTIDAD_REGISTROS);
 		registrosCPU = new AreaRegistroCpu();
-		memoriaDatos = memoria;
+		memoriaDatos = new MemoriaRam(CANTIDAD_FILA_COLUMNA_MEMORIA);
 		try {
 			fetcher = new Fetcher (programaAEjecutar);
 			String primeraDireccion = fetcher.direccionPrimerInstruccion();
@@ -120,6 +125,10 @@ public class Cpu implements Runnable {
 		// siendo que el pc apunta al segundo elemento del mismo (porque ya fue
 		// incrementado al consumir el primer elemento).
 		agregarAPipeline(ProgramCounter.sumar(pc, TAMANIO_PIPELINE - 1));
+	}
+	
+	public IMemoria getMemoria() {
+		return memoriaDatos;
 	}
 	
 	public byte obtenerDatoRegistro(int idRegistro){

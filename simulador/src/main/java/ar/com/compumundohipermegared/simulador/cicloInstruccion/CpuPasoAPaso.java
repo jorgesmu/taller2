@@ -1,13 +1,12 @@
 package ar.com.compumundohipermegared.simulador.cicloInstruccion;
 
-import ar.com.compumundohipermegared.almacenamiento.IInputStream;
-import ar.com.compumundohipermegared.almacenamiento.IMemoria;
+import java.io.FileNotFoundException;
 
 public class CpuPasoAPaso extends Cpu {
 	boolean ejecutarPaso;
 	
-	public CpuPasoAPaso(IInputStream programaAEjecutar, IMemoria memoria) throws ProgramaMalFormadoException {
-		super(programaAEjecutar, memoria);
+	public CpuPasoAPaso(String ruta) throws ProgramaMalFormadoException, FileNotFoundException {
+		super(ruta);
 		ejecutarPaso = false;
 	}
 	

@@ -8,6 +8,7 @@ import java.io.IOException;
 
 import ar.com.compumundohipermegared.almacenamiento.FileReader;
 import ar.com.compumundohipermegared.almacenamiento.IInputStream;
+import ar.com.compumundohipermegared.almacenamiento.IMemoria;
 import ar.com.compumundohipermegared.almacenamiento.LimiteExcedidoMemoriaException;
 import ar.com.compumundohipermegared.almacenamiento.MemoriaRam;
 import ar.com.compumundohipermegared.simulador.cicloInstruccion.Cpu;
@@ -47,16 +48,15 @@ public class InstruccionCarga extends TestCase{
 	
 	public void testEjecutarCarga() throws ProgramaMalFormadoException {
 		byte dato = 2;
-		MemoriaRam ram = new MemoriaRam(256);
     	try {
     		String ruta = crearPrograma();
-			IInputStream programa = new FileReader (ruta);
+    		Cpu cpu = new Cpu(ruta);
+			IMemoria ram = cpu.getMemoria();
 			try {
 				ram.cargarMemoria(11, 12, dato);
 			} catch (LimiteExcedidoMemoriaException e) {
 				assert(false);
 			}
-			Cpu cpu = new Cpu(programa,ram);
 			if (dato == cpu.obtenerDatoRegistro(10)){
 				assert(false);
 			}
