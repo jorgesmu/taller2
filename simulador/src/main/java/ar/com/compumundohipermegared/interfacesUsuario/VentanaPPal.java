@@ -128,20 +128,20 @@ public class VentanaPPal implements ActionListener, MouseListener {
 	
 		btnAbrirAssembly = new JButton("Abrir");
 		btnAbrirAssembly.addActionListener(this);
-		btnAbrirAssembly.setBounds(25, 680, 300, 60);
+		btnAbrirAssembly.setBounds(25, 600, 300, 60);
 		panel.add(btnAbrirAssembly);
 		
 	
 		btnGuardarAssembly = new JButton("Guardar");
 		btnGuardarAssembly.addActionListener(this);
-		btnGuardarAssembly.setBounds(380, 680, 300, 60);
+		btnGuardarAssembly.setBounds(380, 600, 300, 60);
 		btnGuardarAssembly.setEnabled(false);;
 		panel.add(btnGuardarAssembly);
 	
 		
 		btnEjecutarAssembly = new JButton("Compilar y Ejecutar");
 		btnEjecutarAssembly.addActionListener(this);
-		btnEjecutarAssembly.setBounds(925, 680, 300, 60);
+		btnEjecutarAssembly.setBounds(925, 600, 300, 60);
 		btnEjecutarAssembly.setEnabled(false);
 		panel.add(btnEjecutarAssembly);
 		
@@ -150,7 +150,7 @@ public class VentanaPPal implements ActionListener, MouseListener {
 		txtCodigoAssembly = new JTextArea(codigoHintAssembly);
 		txtCodigoAssembly.addMouseListener(this);
 		scrollCodigo = new JScrollPane(txtCodigoAssembly);
-		scrollCodigo.setBounds(25, 110, 1200, 550);
+		scrollCodigo.setBounds(25, 110, 1200, 470);
 		scrollCodigo.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		panel.add(scrollCodigo);
 		
@@ -175,7 +175,7 @@ public class VentanaPPal implements ActionListener, MouseListener {
 		panel.add(txtNombreAssembly);
 		
 		lineByLineAssembly = new JCheckBox("Línea por línea");
-		lineByLineAssembly.setBounds(800,695,200,30);
+		lineByLineAssembly.setBounds(740,615,150,30);
 		panel.add(lineByLineAssembly);
 		
 	}
