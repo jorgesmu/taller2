@@ -27,9 +27,11 @@ import ar.com.compumundohipermegared.compilacion.InstruccionAssemblyInvalidaExce
 import ar.com.compumundohipermegared.compilacion.ProgramaMuyLargoException;
 import ar.com.compumundohipermegared.compilacion.ProgramaYaCompiladoException;
 import ar.com.compumundohipermegared.controladores.CompilarYEjecutar;
+import ar.com.compumundohipermegared.controladores.CompilarYEjecutarPasoAPaso;
 import ar.com.compumundohipermegared.controladores.EjecutarContoller;
 import ar.com.compumundohipermegared.controladores.EjecutarPasoAPasoController;
 import ar.com.compumundohipermegared.simulador.Modelo;
+import ar.com.compumundohipermegared.simulador.cicloInstruccion.Cpu;
 import ar.com.compumundohipermegared.simulador.cicloInstruccion.ProgramaMalFormadoException;
 
 import java.awt.event.ActionEvent;
@@ -43,6 +45,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Scanner;
 
 public class VentanaPPal implements ActionListener, MouseListener {
 	private JFrame frame;
@@ -396,9 +399,14 @@ public class VentanaPPal implements ActionListener, MouseListener {
 			String path = lblRutaAssembly.getText();
 			String filename = txtNombreAssembly.getText();
 			guardarText(txtCodigoAssembly.getText(),path, filename,".asm");
+			tabbedPane.setSelectedIndex(2);
 			try {
-				CompilarYEjecutar.compilarYEjecutar(path + "/" + filename +".asm", modelosTablas);
-				tabbedPane.setSelectedIndex(2);
+				if (lineByLineAssembly.isSelected()){
+					CompilarYEjecutarPasoAPaso.compilarYEjecutar(path + "/" + filename +".asm", modelosTablas, this);
+					btnPasoAPaso.setEnabled(true);
+				}else{
+					CompilarYEjecutar.compilarYEjecutar(path + "/" + filename +".asm", modelosTablas, this);
+				}
 				JOptionPane.showMessageDialog(null,Modelo.getModelo().getCpu().resultado);
 			} catch (FileNotFoundException | ExtensionInvalidaException
 					| ProgramaMuyLargoException | ProgramaYaCompiladoException
@@ -407,11 +415,17 @@ public class VentanaPPal implements ActionListener, MouseListener {
 				JOptionPane.showMessageDialog(null,e1.getMessage());
 			}
 		}else if (e.getSource() == btnRutaAssembly){
+			//
+			//RUTA ASSEMBLY
+			//
 			int resultado = dialogAssembly.showOpenDialog(new JPanel());
 			if  (resultado == JFileChooser.APPROVE_OPTION) btnEjecutarAssembly.setEnabled(true);
 			lblRutaAssembly.setText(dialogAssembly.getSelectedFile().getAbsolutePath());
 			btnGuardarAssembly.setEnabled(true);
 		}else if (e.getSource() == btnGuardarAssembly){
+			//
+			//GUARDAR ASSEMBLY
+			//
 			guardarText(txtCodigoAssembly.getText(),lblRutaAssembly.getText(),txtNombreAssembly.getText(),".asm");			
 		    JOptionPane.showMessageDialog(null,"Archivo assembly guardado correctamente");
 		}else if (e.getSource() == btnEjecutarAbsoluto){
@@ -422,19 +436,22 @@ public class VentanaPPal implements ActionListener, MouseListener {
 				String path = lblRutaAbsoluto.getText();
 				String filename = txtNombreAbsoluto.getText();
 				guardarText(txtCodigoAbsoluto.getText(),path, filename,".maq");
+				tabbedPane.setSelectedIndex(2);
 				if (lineByLineAbsoluto.isSelected()){
-					EjecutarPasoAPasoController.ejecutar(path + "/" + filename +".maq", modelosTablas);
+					EjecutarPasoAPasoController.ejecutar(path + "/" + filename +".maq", modelosTablas, this);
 					btnPasoAPaso.setEnabled(true);
 				}else{
-					EjecutarContoller.ejecutar(path + "/" + filename +".maq", modelosTablas);
+					EjecutarContoller.ejecutar(path + "/" + filename +".maq", modelosTablas, null);
 				}
 				JOptionPane.showMessageDialog(null,Modelo.getModelo().getCpu().resultado);
 			} catch (FileNotFoundException | ProgramaMalFormadoException e1) {
 				JOptionPane.showMessageDialog(null,e1.getMessage());
 			}
-			memoryTableModel.fireTableDataChanged();
-			tabbedPane.setSelectedIndex(2);
+			notificarCambiosTablas();
 		}else if (e.getSource() == btnRutaAbsoluto){
+			//
+			//RUTA ABSOLUTO
+			//
 			int resultado = dialogAbsoluto.showOpenDialog(new JPanel());
 			if  (resultado == JFileChooser.APPROVE_OPTION) btnEjecutarAbsoluto.setEnabled(true);
 			lblRutaAbsoluto.setText(dialogAbsoluto.getSelectedFile().getAbsolutePath());
@@ -471,12 +488,34 @@ public class VentanaPPal implements ActionListener, MouseListener {
 				e1.printStackTrace();
 			}
 		}else if (e.getSource() == btnGuardarAbsoluto){
+			//
+			//GUARDAR ABSOLUTO
+			//
 			guardarText(txtCodigoAbsoluto.getText(),lblRutaAbsoluto.getText(),txtNombreAbsoluto.getText(),".maq");			
 		    JOptionPane.showMessageDialog(null,"Archivo absoluto guardado correctamente");
 		}else if (e.getSource() == btnConvertirDecimal){
 		}else if (e.getSource() == btnConvertirA2){
 		}else if (e.getSource() == btnConvertirHexa){
 		}else if (e.getSource() == btnPasoAPaso){
+			//
+			//PASO A PASO
+			//
+			ejecutarPasoAPaso();
+		}
+	}
+	private void notificarCambiosTablas(){
+		registryTableModel.fireTableDataChanged();
+		memoryTableModel.fireTableDataChanged();
+		pipelineTableModel.fireTableDataChanged();
+		pcTableModel.fireTableDataChanged();
+	}
+	private void ejecutarPasoAPaso(){
+		EjecutarPasoAPasoController.avanzarPaso(modelosTablas, this);
+		notificarCambiosTablas();
+		Cpu cpu = Modelo.getModelo().getCpu();
+		if (cpu.terminoEjecucion()) {
+			JOptionPane.showMessageDialog(null,cpu.resultado);
+			btnPasoAPaso.setEnabled(false);
 		}
 	}
 	private String obtenerRuta(JFrame parentComponent){
@@ -509,7 +548,18 @@ public class VentanaPPal implements ActionListener, MouseListener {
         	ex.printStackTrace();
         }		
 	}
-
+	
+	//
+	// PEDIR DATO DE ENTRADA
+	//
+	public int pedirEntradaUsuario() {
+		JOptionPane.showMessageDialog(null,"Ingresar valor por consola");
+		// TODO
+		Scanner ins = new Scanner(System.in);
+        String respuesta = ins.nextLine();
+        return Integer.parseInt(respuesta,10);
+	}
+	
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		if (e.getSource() == txtCodigoAbsoluto){

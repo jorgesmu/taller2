@@ -15,6 +15,7 @@ import ar.com.compumundohipermegared.interfacesUsuario.ModelosInterfaz;
 import ar.com.compumundohipermegared.interfacesUsuario.PipelineTableModel;
 import ar.com.compumundohipermegared.interfacesUsuario.ProgramCounterTableModel;
 import ar.com.compumundohipermegared.interfacesUsuario.RegistryTableModel;
+import ar.com.compumundohipermegared.interfacesUsuario.VentanaPPal;
 import ar.com.compumundohipermegared.simulador.Modelo;
 import ar.com.compumundohipermegared.simulador.cicloInstruccion.Cpu;
 import ar.com.compumundohipermegared.simulador.cicloInstruccion.ProgramaMalFormadoException;
@@ -54,7 +55,7 @@ public class EjecutarContoller {
 		pcTableModel.setValueAt(Integer.toString(registros.getPC().getDato()));
 	}
 	
-	protected static void actualizacionInterfaz (Modelo modelo, ModelosInterfaz interfaz) {
+	protected static void actualizacionInterfaz(Modelo modelo, ModelosInterfaz interfaz) {
 		IMemoria memoria = modelo.getMemoria();
 		MemoryTableModel memoryTableModel = interfaz.getMemory();
 		actualizarMemoria(memoria, memoryTableModel);
@@ -72,14 +73,14 @@ public class EjecutarContoller {
 		actualizarPC(registrosControl, pcModel);
 	}
 	
-	public static void ejecutar(String Ruta, ModelosInterfaz interfaz) throws FileNotFoundException, ProgramaMalFormadoException{
+	public static void ejecutar(String Ruta, ModelosInterfaz interfaz, VentanaPPal ventana) throws FileNotFoundException, ProgramaMalFormadoException{
 		Modelo.crearModelo(Ruta);
 		Modelo modelo = Modelo.getModelo();
 		modelo.ejecutar();
 		while (!(modelo.getCpu().terminoEjecucion())) {
 			try {
 				if (modelo.getCpu().necesitaDatoEntrada()) {
-					byte dato = pedirEntradaUsuario();
+					byte dato = pedirEntradaUsuario(ventana);
 					modelo.getMemoria().escribirDispositivoEntrada(dato);
 				}
 				Thread.sleep(50);
@@ -90,10 +91,7 @@ public class EjecutarContoller {
 		actualizacionInterfaz(modelo, interfaz);
 	}
 	
-	protected static byte pedirEntradaUsuario() {
-		Scanner ins = new Scanner(System.in);
-        String respuesta = ins.nextLine();
-        int respuestaNum = Integer.parseInt(respuesta,10);
-		return (byte) respuestaNum;
+	protected static byte pedirEntradaUsuario(VentanaPPal ventana) {
+		return (byte) ventana.pedirEntradaUsuario();
 	}
 }

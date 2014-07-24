@@ -11,12 +11,12 @@ import ar.com.compumundohipermegared.interfacesUsuario.ModelosInterfaz;
 import ar.com.compumundohipermegared.interfacesUsuario.VentanaPPal;
 import ar.com.compumundohipermegared.simulador.cicloInstruccion.ProgramaMalFormadoException;
 
-public class CompilarYEjecutar {
+
+public class CompilarYEjecutarPasoAPaso extends CompilarYEjecutar {
 	
 	public static void compilarYEjecutar(String ruta, ModelosInterfaz interfaz, VentanaPPal ventana) throws FileNotFoundException, ExtensionInvalidaException, ProgramaMuyLargoException, ProgramaYaCompiladoException, InstruccionAssemblyInvalidaException, ProgramaMalFormadoException {
 		Compilador comp = new Compilador(ruta);
 		String rutaCompilado = comp.compilar();
-		EjecutarContoller.ejecutar(rutaCompilado, interfaz, ventana);
+		EjecutarPasoAPasoController.ejecutar(rutaCompilado, interfaz, ventana);
 	}
-	
 }
