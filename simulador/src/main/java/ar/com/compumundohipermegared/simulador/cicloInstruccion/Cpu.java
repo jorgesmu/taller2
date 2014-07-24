@@ -176,4 +176,14 @@ public class Cpu implements Runnable {
 		memoriaDatos.escribirDispositivoSalida(dato);
 	}
 	
+	public AreaRegistroCpu obtenerRegistrosControl(){
+		return registrosCPU;
+	}
+	
+	public AreaRegistro obtenerRegistros(){
+		return registrosDatos;
+	}
+	public ArrayList<DireccionMasInstruccion> obtenerPipeline(){
+		return pipeline;
+	}	
 }
