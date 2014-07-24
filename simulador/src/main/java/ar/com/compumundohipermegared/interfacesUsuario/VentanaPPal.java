@@ -8,6 +8,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
@@ -19,11 +20,25 @@ import java.awt.BorderLayout;
 
 import javax.swing.JPanel;
 import javax.swing.JButton;
+
+import ar.com.compumundohipermegared.compilacion.Compilador;
+import ar.com.compumundohipermegared.compilacion.ExtensionInvalidaException;
+import ar.com.compumundohipermegared.compilacion.InstruccionAssemblyInvalidaException;
+import ar.com.compumundohipermegared.compilacion.ProgramaMuyLargoException;
+import ar.com.compumundohipermegared.compilacion.ProgramaYaCompiladoException;
+import ar.com.compumundohipermegared.controladores.EjecutarContoller;
+import ar.com.compumundohipermegared.simulador.Modelo;
+import ar.com.compumundohipermegared.simulador.cicloInstruccion.ProgramaMalFormadoException;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -46,7 +61,6 @@ public class VentanaPPal implements ActionListener, MouseListener {
 	JButton btnConvertirHexa;
 	JButton btnPasoAPaso;
 	boolean enEjecucion = false;
-	
 	JCheckBox lineByLineAssembly;
 	JTextArea txtCodigoAssembly;
 	JFileChooser dialogAssembly;
@@ -61,7 +75,12 @@ public class VentanaPPal implements ActionListener, MouseListener {
 	String codigoHintAssembly;
 	String nombreHintAssembly;	
 	JTabbedPane tabbedPane;
-	
+	MemoryTableModel memoryTableModel;
+	RegistryTableModel registryTableModel;
+	PipelineTableModel pipelineTableModel;
+	ProgramCounterTableModel pcTableModel;
+	ModelosInterfaz modelosTablas;
+
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -195,17 +214,17 @@ public class VentanaPPal implements ActionListener, MouseListener {
 	
 		btnAbrirAbsoluto = new JButton("Abrir");
 		btnAbrirAbsoluto.addActionListener(this);
-		btnAbrirAbsoluto.setBounds(25, 680, 300, 60);
+		btnAbrirAbsoluto.setBounds(25, 600, 300, 60);
 		panel.add(btnAbrirAbsoluto);
 	
 		btnGuardarAbsoluto = new JButton("Guardar");
 		btnGuardarAbsoluto.addActionListener(this);
-		btnGuardarAbsoluto.setBounds(350, 680, 300, 60);
+		btnGuardarAbsoluto.setBounds(380, 600, 300, 60);
 		panel.add(btnGuardarAbsoluto);
 		
 		btnEjecutarAbsoluto = new JButton("Ejecutar");
 		btnEjecutarAbsoluto.addActionListener(this);
-		btnEjecutarAbsoluto.setBounds(925, 680, 300, 60);
+		btnEjecutarAbsoluto.setBounds(925, 600, 300, 60);
 		btnEjecutarAbsoluto.setEnabled(false);;
 		panel.add(btnEjecutarAbsoluto);
 		
@@ -214,7 +233,7 @@ public class VentanaPPal implements ActionListener, MouseListener {
 		txtCodigoAbsoluto = new JTextArea(codigoHintAbsoluto);
 		txtCodigoAbsoluto.addMouseListener(this);
 		scrollCodigo = new JScrollPane(txtCodigoAbsoluto);
-		scrollCodigo.setBounds(25, 110, 1200, 550);
+		scrollCodigo.setBounds(25, 110, 1200, 470);
 		scrollCodigo.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		panel.add(scrollCodigo);
 		
@@ -239,7 +258,7 @@ public class VentanaPPal implements ActionListener, MouseListener {
 		panel.add(txtNombreAbsoluto);
 	
 		lineByLine = new JCheckBox("Línea por línea");
-		lineByLine.setBounds(800,695,200,30);
+		lineByLine.setBounds(740,615,150,30);
 		panel.add(lineByLine);
 		
 	}
@@ -267,21 +286,22 @@ public class VentanaPPal implements ActionListener, MouseListener {
 		lblMemoria.setFont(new Font(labelFontMemoria.getName(), Font.PLAIN, 20));	
 		panel.add(lblMemoria);
 		
-
-		tblMemoria = new JTable(new MemoryModel());
+		memoryTableModel = new MemoryTableModel();
+		tblMemoria = new JTable(memoryTableModel);
 		tblMemoria.setShowGrid(true);
 		tblMemoria.setShowVerticalLines(true);
 		tblMemoria.setGridColor(Color.BLUE);
 		tblMemoria.setBounds(25,95,1100,255);
 		panel.add(tblMemoria);
-
+		
 		lblRegistros = new JLabel("Registros");
 		lblRegistros.setBounds(25, 370, 400, 40);
 		Font labelFontRegistros = lblRegistros.getFont();
 		lblRegistros.setFont(new Font(labelFontRegistros.getName(), Font.PLAIN, 20));	
 		panel.add(lblRegistros);
 		
-		tblRegistros = new JTable(new RegisterModel());
+		registryTableModel = new RegistryTableModel();
+		tblRegistros = new JTable(registryTableModel);
 		tblRegistros.setShowGrid(true);
 		tblRegistros.setShowVerticalLines(true);
 		tblRegistros.setGridColor(Color.BLUE);
@@ -294,7 +314,8 @@ public class VentanaPPal implements ActionListener, MouseListener {
 		lblPipeline.setFont(new Font(labelFontPipeline.getName(), Font.PLAIN, 20));	
 		panel.add(lblPipeline);
 		
-		tblPipeline = new JTable(new PipelineModel());
+		pipelineTableModel = new PipelineTableModel();
+		tblPipeline = new JTable(pipelineTableModel);
 		tblPipeline.setShowGrid(true);
 		tblPipeline.setShowVerticalLines(true);
 		tblPipeline.setGridColor(Color.BLUE);
@@ -307,7 +328,8 @@ public class VentanaPPal implements ActionListener, MouseListener {
 		lblProgramCounter.setFont(new Font(labelFontProgramCounter.getName(), Font.PLAIN, 20));	
 		panel.add(lblProgramCounter);
 		
-		tblProgramCounter = new JTable(new ProgramCounterModel());
+		pcTableModel = new ProgramCounterTableModel();
+		tblProgramCounter = new JTable(pcTableModel);
 		tblProgramCounter.setShowGrid(true);
 		tblProgramCounter.setShowVerticalLines(true);
 		tblProgramCounter.setGridColor(Color.BLUE);
@@ -337,6 +359,8 @@ public class VentanaPPal implements ActionListener, MouseListener {
 		btnPasoAPaso.addActionListener(this);
 		btnPasoAPaso.setBounds(930, 400, 200, 50);
 		panel.add(btnPasoAPaso);
+		
+		modelosTablas = new ModelosInterfaz(memoryTableModel, pipelineTableModel, pcTableModel, registryTableModel);
 			
 	}
 	private void inicializarVentanaAyuda(JPanel panel) {
@@ -370,27 +394,61 @@ public class VentanaPPal implements ActionListener, MouseListener {
 			lblRutaAssembly.setText(dialogAssembly.getSelectedFile().getAbsolutePath());
 			btnGuardarAssembly.setEnabled(true);
 		}else if (e.getSource() == btnGuardarAssembly){
-			guardarText();			
+			guardarText(txtCodigoAssembly.getText(),lblRutaAssembly.getText(),txtNombreAssembly.getText(),".asm");			
+		    JOptionPane.showMessageDialog(null,"Archivo assembly guardado correctamente");
 		}else if (e.getSource() == btnEjecutarAbsoluto){
+			try {
+				EjecutarContoller.ejecutar("./Programa2.maq", modelosTablas);
+				JOptionPane.showMessageDialog(null,Modelo.getModelo().getCpu().resultado);
+			} catch (FileNotFoundException | ProgramaMalFormadoException e1) {
+				JOptionPane.showMessageDialog(null,e1.getMessage());
+			}
+			memoryTableModel.fireTableDataChanged();
 			tabbedPane.setSelectedIndex(2);
 		}else if (e.getSource() == btnRutaAbsoluto){
 			int resultado = dialogAbsoluto.showOpenDialog(new JPanel());
 			if  (resultado == JFileChooser.APPROVE_OPTION) btnEjecutarAbsoluto.setEnabled(true);
 			lblRutaAbsoluto.setText(dialogAbsoluto.getSelectedFile().getAbsolutePath());
 		}else if (e.getSource() == btnAbrirAssembly){
+			try {
+				txtCodigoAssembly.setText(abrirTxt(obtenerRuta(frame)));
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}else if (e.getSource() == btnAbrirAbsoluto){
 		}else if (e.getSource() == btnGuardarAbsoluto){
+			guardarText(txtCodigoAbsoluto.getText(),lblRutaAbsoluto.getText(),txtNombreAbsoluto.getText(),".maq");			
+		    JOptionPane.showMessageDialog(null,"Archivo absoluto guardado correctamente");
 		}else if (e.getSource() == btnConvertirDecimal){
 		}else if (e.getSource() == btnConvertirA2){
 		}else if (e.getSource() == btnConvertirHexa){
 		}else if (e.getSource() == btnPasoAPaso){
 		}
 	}
-	private void guardarText(){
+	private String obtenerRuta(JFrame parentComponent){
+		JFileChooser chooser = new JFileChooser();
+		int option = chooser.showOpenDialog(parentComponent); 
+		if (option == JFileChooser.APPROVE_OPTION) {
+		   File selectedFile = chooser.getSelectedFile();
+		   return selectedFile.getAbsolutePath();
+		}
+		return null;
+	}
+	private String abrirTxt(String path) throws IOException{
+	   BufferedReader reader = new BufferedReader(new FileReader(path));
+	    String texto = "";
+	    String line = "";
+	    while ((line = reader.readLine()) != null) {
+	        texto += line;
+	    }
+	    return texto;
+	}
+	private void guardarText(String file, String ruta,String filename, String extension){
 		BufferedWriter wr;
-		String path = (lblRutaAssembly.getText() + "/" + txtNombreAssembly.getText() + ".asm") ;
+		String path = (ruta + "/" + filename + extension) ;
         try { wr = new BufferedWriter(new FileWriter(path));
-            wr.write(txtCodigoAssembly.getText());
+            wr.write(file);
             wr.close();
         } catch (IOException ex) {
         	ex.printStackTrace();

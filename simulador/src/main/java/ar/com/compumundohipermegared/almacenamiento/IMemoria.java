@@ -6,6 +6,7 @@ public interface IMemoria {
 	
 	public byte getDatoMemoria(int fila, int columna) throws  LimiteExcedidoMemoriaException;
 	
+	public int getTamanio();
 	
 	/* ***********************************************************************
 	 * IMPORTANTE:

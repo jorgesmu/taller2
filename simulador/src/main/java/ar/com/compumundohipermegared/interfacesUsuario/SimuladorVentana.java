@@ -53,7 +53,7 @@ public class SimuladorVentana extends JFrame implements ActionListener{
 		panel.add(lblMemoria);
 		
 
-		tblMemoria = new JTable(new MemoryModel());
+		tblMemoria = new JTable(new MemoryTableModel());
 		tblMemoria.setShowGrid(true);
 		tblMemoria.setShowVerticalLines(true);
 		tblMemoria.setGridColor(Color.BLUE);
@@ -66,7 +66,7 @@ public class SimuladorVentana extends JFrame implements ActionListener{
 		lblRegistros.setFont(new Font(labelFontRegistros.getName(), Font.PLAIN, 20));	
 		panel.add(lblRegistros);
 		
-		tblRegistros = new JTable(new RegisterModel());
+		tblRegistros = new JTable(new RegistryTableModel());
 		tblRegistros.setShowGrid(true);
 		tblRegistros.setShowVerticalLines(true);
 		tblRegistros.setGridColor(Color.BLUE);
@@ -79,7 +79,7 @@ public class SimuladorVentana extends JFrame implements ActionListener{
 		lblPipeline.setFont(new Font(labelFontPipeline.getName(), Font.PLAIN, 20));	
 		panel.add(lblPipeline);
 		
-		tblPipeline = new JTable(new PipelineModel());
+		tblPipeline = new JTable(new PipelineTableModel());
 		tblPipeline.setShowGrid(true);
 		tblPipeline.setShowVerticalLines(true);
 		tblPipeline.setGridColor(Color.BLUE);
@@ -92,7 +92,7 @@ public class SimuladorVentana extends JFrame implements ActionListener{
 		lblProgramCounter.setFont(new Font(labelFontProgramCounter.getName(), Font.PLAIN, 20));	
 		panel.add(lblProgramCounter);
 		
-		tblProgramCounter = new JTable(new ProgramCounterModel());
+		tblProgramCounter = new JTable(new ProgramCounterTableModel());
 		tblProgramCounter.setShowGrid(true);
 		tblProgramCounter.setShowVerticalLines(true);
 		tblProgramCounter.setGridColor(Color.BLUE);

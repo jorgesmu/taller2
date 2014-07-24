@@ -3,6 +3,8 @@ package ar.com.compumundohipermegared.simulador.cicloInstruccion;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
 import ar.com.compumundohipermegared.almacenamiento.AreaRegistro;
 import ar.com.compumundohipermegared.almacenamiento.AreaRegistroCpu;
 import ar.com.compumundohipermegared.almacenamiento.DireccionMasInstruccion;
@@ -30,6 +32,9 @@ public class Cpu implements Runnable {
 	AreaRegistroCpu registrosCPU;
 	IMemoria memoriaDatos;
 	Fetcher fetcher;
+	boolean ejecucionTerminada;
+	boolean dispositivoEntradaActivo;
+	public String resultado;
 	
 	public Cpu (String ruta) throws ProgramaMalFormadoException, FileNotFoundException {
 		IInputStream programaAEjecutar = new FileReader (ruta);
@@ -47,6 +52,9 @@ public class Cpu implements Runnable {
 			throw new ProgramaMalFormadoException(e.getMessage());
 		}
 		llenarPipeline();
+		ejecucionTerminada = false;
+		dispositivoEntradaActivo = false;
+		resultado = "Inicio";
 	}
 	
 	public void ejecutarProximaInstruccion() throws Exception {
@@ -64,19 +72,21 @@ public class Cpu implements Runnable {
 	}
 	
 	public String ejecutarPrograma() {
+		resultado = "Ejecutando";
 		try {
 			while (pipeline.size() > 0) {
 				ejecutarProximaInstruccion();
 			}
+			ejecucionTerminada = true;
 			return new String("El programa finalizó con éxito");
 		} catch (Exception e) {
-			return (e.toString());
+			ejecucionTerminada = true;
+			return (e.getMessage());
 		}
 	}
 	
 	public void run() {
-		String resultado = this.ejecutarPrograma();
-		System.out.println(resultado);
+		resultado = this.ejecutarPrograma();
     }
 	
 	public void cargarInstruccion(DireccionMasInstruccion elemento) {
@@ -162,6 +172,7 @@ public class Cpu implements Runnable {
 	}
 	
 	public byte leerDispositivoEntrada () {
+		dispositivoEntradaActivo = true;
 		while (!(memoriaDatos.tieneDatoDispositivoEntrada())) {
 			// me pongo a tomar un tecito hasta que haya algo que leer
 		}
@@ -169,6 +180,7 @@ public class Cpu implements Runnable {
 		// una vez que hay algo para leer, por mas que alguien sobreescriba
 		// el dato justo despues del while, el siguiente return nunca va a
 		// devolver algo invalido.
+		dispositivoEntradaActivo = false;
 		return memoriaDatos.leerDispositivoEntrada();
 	}
 	
@@ -185,5 +197,13 @@ public class Cpu implements Runnable {
 	}
 	public ArrayList<DireccionMasInstruccion> obtenerPipeline(){
 		return pipeline;
+	}
+
+	public boolean terminoEjecucion() {
+		return ejecucionTerminada;
+	}
+
+	public boolean necesitaDatoEntrada() {
+		return dispositivoEntradaActivo;
 	}	
 }
