@@ -61,6 +61,7 @@ public class VentanaPPal implements ActionListener, MouseListener {
 	String codigoHintAssembly;
 	String nombreHintAssembly;	
 	JTabbedPane tabbedPane;
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {

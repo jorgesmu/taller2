@@ -3,8 +3,7 @@ package ar.com.compumundohipermegared.simulador;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
-
-import javax.swing.JFrame;
+import java.util.Scanner;
 
 import ar.com.compumundohipermegared.almacenamiento.EndOfStreamException;
 import ar.com.compumundohipermegared.almacenamiento.FileReader;
@@ -16,8 +15,6 @@ import ar.com.compumundohipermegared.compilacion.ExtensionInvalidaException;
 import ar.com.compumundohipermegared.compilacion.InstruccionAssemblyInvalidaException;
 import ar.com.compumundohipermegared.compilacion.ProgramaMuyLargoException;
 import ar.com.compumundohipermegared.compilacion.ProgramaYaCompiladoException;
-import ar.com.compumundohipermegared.interfacesUsuario.MenuVentana;
-import ar.com.compumundohipermegared.interfacesUsuario.VentanaPPal;
 import ar.com.compumundohipermegared.simulador.cicloInstruccion.Cpu;
 import ar.com.compumundohipermegared.simulador.cicloInstruccion.ProgramaMalFormadoException;
 
@@ -26,25 +23,17 @@ import ar.com.compumundohipermegared.simulador.cicloInstruccion.ProgramaMalForma
  *
  */
 public class App {
-	
-    /*public static void main (String[] args) {
+	/*
+    public static void main (String[] args) {
     	String rutaCompulacion = pruebaCompilacion();
     	pruebaEjecucion(rutaCompulacion);
-    	
-        MenuVentana menu = new MenuVentana();
-        menu.setBounds(0, 0, 300, 325);
-        menu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        menu.setVisible(true);
-    	VentanaPPal ventana = new VentanaPPal();
-    	ventana.setBounds(0, 0, 300, 325);
-    	ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    	ventana.setVisible(true);
-     	
-    }*/
-    
+    	//pruebaEjecucion("./Programa2.maq");
+    }
+    */
     private static String pruebaCompilacion() {
     	try {
     		String ruta = crearProgramaAssembly();
+    		//String ruta = "./Programa2.asm";
 			Compilador comp = new Compilador(ruta);
 			String rutaCompilado = comp.compilar();
 			
@@ -74,14 +63,14 @@ public class App {
   		programa.println("ldi r1,0");
   		programa.println("ldi r2,0");
   		programa.println("cmp r1,r2");
-  		/*programa.println("jpz etiqueta2");
+  		programa.println("jpz etiqueta2");
   		programa.println("ldi r1,1");
   		programa.println("etiqueta1: ldi r4,8");
   		programa.println("etiqueta2: ldi r5,8");
   		programa.println("ldi r2,10");
   		programa.println("and r8,r1,r2");
   		programa.println("jnz 4");
-  		*/
+  		
         programa.close();
     	return ruta;
     }
@@ -92,7 +81,16 @@ public class App {
 			Thread hiloEjecucion = new Thread (cpu);
 	        hiloEjecucion.start();
 	        IMemoria memoriaPrincipal = cpu.getMemoria();
-	        memoriaPrincipal.escribirDispositivoEntrada((byte)5);
+	        
+	        Scanner ins = new Scanner(System.in);
+	        ins.nextLine();
+	        memoriaPrincipal.escribirDispositivoEntrada((byte)1);
+	        ins.nextLine();
+	        memoriaPrincipal.escribirDispositivoEntrada((byte)-127);
+	        ins.nextLine();
+	        memoriaPrincipal.escribirDispositivoEntrada((byte)1);
+	        ins.nextLine();
+	        memoriaPrincipal.escribirDispositivoEntrada((byte)1);
 	        
 		} catch (FileNotFoundException | ProgramaMalFormadoException e) {
 			System.out.println("ERROR: " + e.getMessage());
