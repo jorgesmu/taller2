@@ -14,6 +14,13 @@ public class ModeloPasoAPaso extends Modelo {
 	
 	private ModeloPasoAPaso(String ruta) throws FileNotFoundException, ProgramaMalFormadoException{
 		super(ruta);
+		this.cpu = new CpuPasoAPaso(ruta);
+		this.memoria = cpu.getMemoria();
+		this.registros = cpu.obtenerRegistros();
+		this.registrosControl = cpu.obtenerRegistrosControl();
+		this.pipeline = cpu.obtenerPipeline();
+		this.hiloEjecucion = new Thread (cpu);
+		modelo = this;
 	}
 	
 	public static void crearModelo(String rutaEjecutable) throws FileNotFoundException, ProgramaMalFormadoException{

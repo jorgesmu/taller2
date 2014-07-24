@@ -13,20 +13,15 @@ import ar.com.compumundohipermegared.simulador.cicloInstruccion.ProgramaMalForma
 public class Modelo {
 	
 	protected static Modelo modelo = null;
-	private Cpu cpu = null;
-	private IMemoria memoria = null;
-	private AreaRegistroCpu registrosControl = null;
-	private AreaRegistro registros = null;
-	private ArrayList<DireccionMasInstruccion> pipeline = null;
-	private Thread hiloEjecucion = null;
-	
-	protected static Cpu crearCpu(String ruta) throws FileNotFoundException, ProgramaMalFormadoException {
-		return new Cpu(ruta);
-	}
+	protected Cpu cpu = null;
+	protected IMemoria memoria = null;
+	protected AreaRegistroCpu registrosControl = null;
+	protected AreaRegistro registros = null;
+	protected ArrayList<DireccionMasInstruccion> pipeline = null;
+	protected Thread hiloEjecucion = null;
 	
 	protected Modelo(String ruta) throws FileNotFoundException, ProgramaMalFormadoException{
-		if (modelo != null) return;
-		this.cpu = Modelo.crearCpu(ruta);
+		this.cpu = new Cpu(ruta);
 		this.memoria = cpu.getMemoria();
 		this.registros = cpu.obtenerRegistros();
 		this.registrosControl = cpu.obtenerRegistrosControl();

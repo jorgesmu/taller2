@@ -20,7 +20,7 @@ import ar.com.compumundohipermegared.simulador.cicloInstruccion.Cpu;
 import ar.com.compumundohipermegared.simulador.cicloInstruccion.ProgramaMalFormadoException;
 
 public class EjecutarContoller {
-	private static void actualizarMemoria(IMemoria memoria, MemoryTableModel memoryTableModel){
+	protected static void actualizarMemoria(IMemoria memoria, MemoryTableModel memoryTableModel){
 
 		for (int fila = 0; fila < memoria.getTamanio(); ++fila) {
 			for (int columna = 0; columna < memoria.getTamanio(); ++columna) {
@@ -33,7 +33,7 @@ public class EjecutarContoller {
 			}
 		}
 	}
-	private static void actualizarRegistros(AreaRegistro registros, RegistryTableModel registryTableModel){
+	protected static void actualizarRegistros(AreaRegistro registros, RegistryTableModel registryTableModel){
 		for (int numReg=0; numReg < registros.getTamanio(); numReg++){
 			try {
 				registryTableModel.setValueAt(Byte.toString(registros.getDatoRegistro(numReg)), numReg);
@@ -44,32 +44,17 @@ public class EjecutarContoller {
 		}
 	}
 	
-	private static void actualizarPipeline(ArrayList<DireccionMasInstruccion> pipeline, PipelineTableModel pipelineTableModel){
+	protected static void actualizarPipeline(ArrayList<DireccionMasInstruccion> pipeline, PipelineTableModel pipelineTableModel){
 		for (int numReg=0; numReg < pipeline.size(); numReg++){
 			pipelineTableModel.setValueAt(pipeline.get(numReg).getInstruccion(), numReg);
 		}
 	}
 	
-	private static void actualizarPC(AreaRegistroCpu registros, ProgramCounterTableModel pcTableModel){
+	protected static void actualizarPC(AreaRegistroCpu registros, ProgramCounterTableModel pcTableModel){
 		pcTableModel.setValueAt(Integer.toString(registros.getPC().getDato()));
-	} 
+	}
 	
-	public static void ejecutar(String Ruta, ModelosInterfaz interfaz) throws FileNotFoundException, ProgramaMalFormadoException{
-		Modelo.crearModelo(Ruta);
-		Modelo modelo = Modelo.getModelo();
-		modelo.ejecutar();
-		while (!(modelo.getCpu().terminoEjecucion())) {
-			try {
-				if (modelo.getCpu().necesitaDatoEntrada()) {
-					byte dato = pedirEntradaUsuario();
-					modelo.getMemoria().escribirDispositivoEntrada(dato);
-				}
-				Thread.sleep(50);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
+	protected static void actualizacionInterfaz (Modelo modelo, ModelosInterfaz interfaz) {
 		IMemoria memoria = modelo.getMemoria();
 		MemoryTableModel memoryTableModel = interfaz.getMemory();
 		actualizarMemoria(memoria, memoryTableModel);
@@ -87,7 +72,25 @@ public class EjecutarContoller {
 		actualizarPC(registrosControl, pcModel);
 	}
 	
-	private static byte pedirEntradaUsuario() {
+	public static void ejecutar(String Ruta, ModelosInterfaz interfaz) throws FileNotFoundException, ProgramaMalFormadoException{
+		Modelo.crearModelo(Ruta);
+		Modelo modelo = Modelo.getModelo();
+		modelo.ejecutar();
+		while (!(modelo.getCpu().terminoEjecucion())) {
+			try {
+				if (modelo.getCpu().necesitaDatoEntrada()) {
+					byte dato = pedirEntradaUsuario();
+					modelo.getMemoria().escribirDispositivoEntrada(dato);
+				}
+				Thread.sleep(50);
+			} catch (InterruptedException e) {
+				//e.printStackTrace();
+			}
+		}
+		actualizacionInterfaz(modelo, interfaz);
+	}
+	
+	protected static byte pedirEntradaUsuario() {
 		Scanner ins = new Scanner(System.in);
         String respuesta = ins.nextLine();
         int respuestaNum = Integer.parseInt(respuesta,10);

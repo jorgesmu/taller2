@@ -26,7 +26,9 @@ import ar.com.compumundohipermegared.compilacion.ExtensionInvalidaException;
 import ar.com.compumundohipermegared.compilacion.InstruccionAssemblyInvalidaException;
 import ar.com.compumundohipermegared.compilacion.ProgramaMuyLargoException;
 import ar.com.compumundohipermegared.compilacion.ProgramaYaCompiladoException;
+import ar.com.compumundohipermegared.controladores.CompilarYEjecutar;
 import ar.com.compumundohipermegared.controladores.EjecutarContoller;
+import ar.com.compumundohipermegared.controladores.EjecutarPasoAPasoController;
 import ar.com.compumundohipermegared.simulador.Modelo;
 import ar.com.compumundohipermegared.simulador.cicloInstruccion.ProgramaMalFormadoException;
 
@@ -62,6 +64,7 @@ public class VentanaPPal implements ActionListener, MouseListener {
 	JButton btnPasoAPaso;
 	boolean enEjecucion = false;
 	JCheckBox lineByLineAssembly;
+	JCheckBox lineByLineAbsoluto;
 	JTextArea txtCodigoAssembly;
 	JFileChooser dialogAssembly;
 	JLabel lblRutaAssembly;
@@ -202,7 +205,7 @@ public class VentanaPPal implements ActionListener, MouseListener {
 	private void inicializarVentanaAbsoluto(JPanel panel) {
 		JLabel lblTitulo;
 		JScrollPane scrollCodigo;
-		JCheckBox lineByLine;
+
 		
 	
 		lblTitulo = new JLabel("Editor de código absoluto");
@@ -257,9 +260,9 @@ public class VentanaPPal implements ActionListener, MouseListener {
 		txtNombreAbsoluto.addMouseListener(this);
 		panel.add(txtNombreAbsoluto);
 	
-		lineByLine = new JCheckBox("Línea por línea");
-		lineByLine.setBounds(740,615,150,30);
-		panel.add(lineByLine);
+		lineByLineAbsoluto = new JCheckBox("Línea por línea");
+		lineByLineAbsoluto.setBounds(740,615,150,30);
+		panel.add(lineByLineAbsoluto);
 		
 	}
 	private void inicializarVentanaArquitectura(JPanel panel) {	
@@ -387,7 +390,22 @@ public class VentanaPPal implements ActionListener, MouseListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btnEjecutarAssembly){
-			tabbedPane.setSelectedIndex(2);
+			//
+			//Ejecutar ASSEMBLY
+			//
+			String path = lblRutaAssembly.getText();
+			String filename = txtNombreAssembly.getText();
+			guardarText(txtCodigoAssembly.getText(),path, filename,".asm");
+			try {
+				CompilarYEjecutar.compilarYEjecutar(path + "/" + filename +".asm", modelosTablas);
+				tabbedPane.setSelectedIndex(2);
+				JOptionPane.showMessageDialog(null,Modelo.getModelo().getCpu().resultado);
+			} catch (FileNotFoundException | ExtensionInvalidaException
+					| ProgramaMuyLargoException | ProgramaYaCompiladoException
+					| InstruccionAssemblyInvalidaException
+					| ProgramaMalFormadoException e1) {
+				JOptionPane.showMessageDialog(null,e1.getMessage());
+			}
 		}else if (e.getSource() == btnRutaAssembly){
 			int resultado = dialogAssembly.showOpenDialog(new JPanel());
 			if  (resultado == JFileChooser.APPROVE_OPTION) btnEjecutarAssembly.setEnabled(true);
@@ -397,8 +415,19 @@ public class VentanaPPal implements ActionListener, MouseListener {
 			guardarText(txtCodigoAssembly.getText(),lblRutaAssembly.getText(),txtNombreAssembly.getText(),".asm");			
 		    JOptionPane.showMessageDialog(null,"Archivo assembly guardado correctamente");
 		}else if (e.getSource() == btnEjecutarAbsoluto){
+			//
+			//EJECUTAR ABSOLUTO
+			//
 			try {
-				EjecutarContoller.ejecutar("./Programa2.maq", modelosTablas);
+				String path = lblRutaAbsoluto.getText();
+				String filename = txtNombreAbsoluto.getText();
+				guardarText(txtCodigoAbsoluto.getText(),path, filename,".maq");
+				if (lineByLineAbsoluto.isSelected()){
+					EjecutarPasoAPasoController.ejecutar(path + "/" + filename +".maq", modelosTablas);
+					btnPasoAPaso.setEnabled(true);
+				}else{
+					EjecutarContoller.ejecutar(path + "/" + filename +".maq", modelosTablas);
+				}
 				JOptionPane.showMessageDialog(null,Modelo.getModelo().getCpu().resultado);
 			} catch (FileNotFoundException | ProgramaMalFormadoException e1) {
 				JOptionPane.showMessageDialog(null,e1.getMessage());
@@ -410,13 +439,37 @@ public class VentanaPPal implements ActionListener, MouseListener {
 			if  (resultado == JFileChooser.APPROVE_OPTION) btnEjecutarAbsoluto.setEnabled(true);
 			lblRutaAbsoluto.setText(dialogAbsoluto.getSelectedFile().getAbsolutePath());
 		}else if (e.getSource() == btnAbrirAssembly){
+			//
+			//ABRIR ASSEMBLY
+			//
+			String pathCompleto = obtenerRuta(frame);
+			String filename = pathCompleto.substring(pathCompleto.lastIndexOf("/") + 1);
+			String directorio = pathCompleto.substring(0, pathCompleto.lastIndexOf("/") + 1);
+			lblRutaAssembly.setText(directorio);
+			txtNombreAssembly.setText(filename);
+			btnEjecutarAssembly.setEnabled(true);
 			try {
-				txtCodigoAssembly.setText(abrirTxt(obtenerRuta(frame)));
+				txtCodigoAssembly.setText(abrirTxt(pathCompleto));
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 		}else if (e.getSource() == btnAbrirAbsoluto){
+			//
+			//ABRIR ABSOLUTO
+			//
+			String pathCompleto = obtenerRuta(frame);
+			String filename = pathCompleto.substring(pathCompleto.lastIndexOf("/") + 1);
+			String directorio = pathCompleto.substring(0, pathCompleto.lastIndexOf("/") + 1);
+			lblRutaAbsoluto.setText(directorio);
+			txtNombreAbsoluto.setText(filename);
+			btnEjecutarAbsoluto.setEnabled(true);
+			try {
+				txtCodigoAbsoluto.setText(abrirTxt(pathCompleto));
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}else if (e.getSource() == btnGuardarAbsoluto){
 			guardarText(txtCodigoAbsoluto.getText(),lblRutaAbsoluto.getText(),txtNombreAbsoluto.getText(),".maq");			
 		    JOptionPane.showMessageDialog(null,"Archivo absoluto guardado correctamente");
@@ -440,14 +493,16 @@ public class VentanaPPal implements ActionListener, MouseListener {
 	    String texto = "";
 	    String line = "";
 	    while ((line = reader.readLine()) != null) {
-	        texto += line;
+	        texto += line + "\n";
 	    }
+	    reader.close();
 	    return texto;
 	}
 	private void guardarText(String file, String ruta,String filename, String extension){
 		BufferedWriter wr;
 		String path = (ruta + "/" + filename + extension) ;
-        try { wr = new BufferedWriter(new FileWriter(path));
+        try { 
+        	wr = new BufferedWriter(new FileWriter(path));
             wr.write(file);
             wr.close();
         } catch (IOException ex) {
