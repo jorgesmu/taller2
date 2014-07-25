@@ -6,7 +6,7 @@ public class TextoAyuda {
 	+ ". ldi rd,imm (rd=imm)\n      "
 	+ ". ldm rd,port_addr (rd=mem[port_addr])\n      "
 	+ ". stm rd,port_addr (mem[port_addr]=rd)\n      "
-	+ ". add rd,rs,rt (rd=rd+rs+rt)\n      "
+	+ ". add rd,rs,rt (rd=rs+rt)\n     "
 	+ ". sub rd,rs,rt (rd=rs-rt)\n      "
 	+ ". and rd,rs,rt (rd=rs and rt)\n      "
 	+ ". or  rd,rs,rt (rd=rs or rt)\n      "

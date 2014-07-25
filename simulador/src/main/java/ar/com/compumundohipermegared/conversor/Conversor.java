@@ -158,5 +158,14 @@ public class Conversor {
 		String hexa = convertIntToHexa((char)flotante);
 		return (puntoFlotanteADecimal(hexa));
 	}
+
+	public static String decimalToComplemento(byte datoMemoria) {
+		// TODO Este metodo deberia recibir un byte en formato decimaly devolver un string que lo represente en complemento
+		return "Pasado a complemento";
+	}
+	public static String decimalToComplemento(int datoMemoria) {
+		// TODO Este metodo deberia recibir un int en formato decimaly devolver un string que lo represente en complemento
+		return "Pasado a complemento";
+	}
 	
 }

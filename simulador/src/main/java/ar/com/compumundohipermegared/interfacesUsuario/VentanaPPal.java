@@ -29,6 +29,7 @@ import ar.com.compumundohipermegared.compilacion.ProgramaMuyLargoException;
 import ar.com.compumundohipermegared.compilacion.ProgramaYaCompiladoException;
 import ar.com.compumundohipermegared.controladores.CompilarYEjecutar;
 import ar.com.compumundohipermegared.controladores.CompilarYEjecutarPasoAPaso;
+import ar.com.compumundohipermegared.controladores.ConversorController;
 import ar.com.compumundohipermegared.controladores.EjecutarContoller;
 import ar.com.compumundohipermegared.controladores.EjecutarPasoAPasoController;
 import ar.com.compumundohipermegared.simulador.Modelo;
@@ -197,7 +198,7 @@ public class VentanaPPal implements ActionListener, MouseListener {
 		nombreHintAssembly = "Nombre del archivo";
 		txtNombreAssembly = new JTextField();
 		txtNombreAssembly.setText(nombreHintAssembly);
-		txtNombreAssembly.setBounds(20,87,1208,20);
+		txtNombreAssembly.setBounds(22,87,1208,20);
 		txtNombreAssembly.addMouseListener(this);
 		panel.add(txtNombreAssembly);
 		
@@ -260,7 +261,7 @@ public class VentanaPPal implements ActionListener, MouseListener {
 		nombreHintAbsoluto = "Nombre del archivo";
 		txtNombreAbsoluto = new JTextField();
 		txtNombreAbsoluto.setText(nombreHintAbsoluto);
-		txtNombreAbsoluto.setBounds(20,87,1208,20);
+		txtNombreAbsoluto.setBounds(22,87,1208,20);
 		txtNombreAbsoluto.addMouseListener(this);
 		panel.add(txtNombreAbsoluto);
 	
@@ -454,6 +455,7 @@ public class VentanaPPal implements ActionListener, MouseListener {
 					btnPasoAPaso.setEnabled(true);
 				}else{
 					CompilarYEjecutar.compilarYEjecutar(path + "/" + filename +".asm", modelosTablas, this);
+					habilitarBotonesConversion();
 				}
 				txtCodigoAbsoluto.setText(abrirTxt(path + "/" + filename + ".maq"));
 				lblRutaAbsoluto.setText(lblRutaAssembly.getText());
@@ -495,6 +497,7 @@ public class VentanaPPal implements ActionListener, MouseListener {
 					btnPasoAPaso.setEnabled(true);
 				}else{
 					EjecutarContoller.ejecutar(path + "/" + filename +".maq", modelosTablas, null);
+					habilitarBotonesConversion();
 				}
 				JOptionPane.showMessageDialog(null,Modelo.getModelo().getCpu().resultado);
 			} catch (FileNotFoundException | ProgramaMalFormadoException e1) {
@@ -555,14 +558,39 @@ public class VentanaPPal implements ActionListener, MouseListener {
 			guardarText(txtCodigoAbsoluto.getText(),lblRutaAbsoluto.getText(),txtNombreAbsoluto.getText(),".maq");			
 		    JOptionPane.showMessageDialog(null,"Archivo absoluto guardado correctamente");
 		}else if (e.getSource() == btnConvertirDecimal){
+			//
+			//CONVERTIR DECIMAL
+			//
+			ConversorController controller = new ConversorController();
+			controller.visualizarDecimal(modelosTablas);
+			notificarCambiosTablas();
 		}else if (e.getSource() == btnConvertirA2){
+			//
+			//CONVERTIR A2
+			//
+			ConversorController controller = new ConversorController();
+			controller.visualizarComplemento(modelosTablas);
+			notificarCambiosTablas();
 		}else if (e.getSource() == btnConvertirHexa){
+			//
+			//CONVERTIR A HEXA
+			//
+			ConversorController controller = new ConversorController();
+			controller.visualizarHexa(modelosTablas);
+			notificarCambiosTablas();
 		}else if (e.getSource() == btnPasoAPaso){
 			//
 			//PASO A PASO
 			//
 			ejecutarPasoAPaso();
+			habilitarBotonesConversion();
+			notificarCambiosTablas();
 		}
+	}
+	private void habilitarBotonesConversion(){
+		btnConvertirA2.setEnabled(true);
+		btnConvertirDecimal.setEnabled(true);
+		btnConvertirHexa.setEnabled(true);		
 	}
 	private void notificarCambiosTablas(){
 		registryTableModel.fireTableDataChanged();

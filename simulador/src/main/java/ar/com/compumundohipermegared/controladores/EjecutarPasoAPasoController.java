@@ -2,6 +2,7 @@ package ar.com.compumundohipermegared.controladores;
 
 import java.io.FileNotFoundException;
 
+import ar.com.compumundohipermegared.controladores.ArquitecturaVisualizacionController.Representacion;
 import ar.com.compumundohipermegared.interfacesUsuario.ModelosInterfaz;
 import ar.com.compumundohipermegared.interfacesUsuario.VentanaPPal;
 import ar.com.compumundohipermegared.simulador.Modelo;
@@ -31,7 +32,7 @@ public class EjecutarPasoAPasoController extends EjecutarContoller {
 				//e.printStackTrace();
 			}
 		}
-		actualizacionInterfaz(modelo, interfaz);
+		ArquitecturaVisualizacionController.actualizacionInterfaz(modelo, interfaz, Representacion.DECIMAL);
 	}
 	
 	public static void ejecutar(String Ruta, ModelosInterfaz interfaz, VentanaPPal ventana) throws FileNotFoundException, ProgramaMalFormadoException{
