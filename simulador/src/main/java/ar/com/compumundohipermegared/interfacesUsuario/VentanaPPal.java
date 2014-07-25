@@ -189,7 +189,7 @@ public class VentanaPPal implements ActionListener, MouseListener {
 		lblRutaAssembly.setBounds(25, 65, 1000, 20);
 		panel.add(lblRutaAssembly);
 		
-		btnRutaAssembly = new JButton("Explorar");
+		btnRutaAssembly = new JButton("Guardar en");
 		btnRutaAssembly.addActionListener(this);
 		btnRutaAssembly.setBounds(1010, 65, 215, 20);
 		panel.add(btnRutaAssembly);
@@ -252,7 +252,7 @@ public class VentanaPPal implements ActionListener, MouseListener {
 		lblRutaAbsoluto.setBounds(25, 65, 1000, 20);
 		panel.add(lblRutaAbsoluto);
 		
-		btnRutaAbsoluto = new JButton("Explorar");
+		btnRutaAbsoluto = new JButton("Guardar en");
 		btnRutaAbsoluto.addActionListener(this);
 		btnRutaAbsoluto.setBounds(1010, 65, 215, 20);
 		panel.add(btnRutaAbsoluto);
@@ -397,10 +397,10 @@ public class VentanaPPal implements ActionListener, MouseListener {
 			//
 			//Ejecutar ASSEMBLY
 			//
+			tabbedPane.setSelectedIndex(2);
 			String path = lblRutaAssembly.getText();
 			String filename = txtNombreAssembly.getText();
 			guardarText(txtCodigoAssembly.getText(),path, filename,".asm");
-			tabbedPane.setSelectedIndex(2);
 			try {
 				if (lineByLineAssembly.isSelected()){
 					CompilarYEjecutarPasoAPaso.compilarYEjecutar(path + "/" + filename +".asm", modelosTablas, this);
@@ -408,11 +408,14 @@ public class VentanaPPal implements ActionListener, MouseListener {
 				}else{
 					CompilarYEjecutar.compilarYEjecutar(path + "/" + filename +".asm", modelosTablas, this);
 				}
+				txtCodigoAbsoluto.setText(abrirTxt(path + "/" + filename + ".maq"));
+				lblRutaAbsoluto.setText(lblRutaAssembly.getText());
+				txtNombreAbsoluto.setText(filename);
 				JOptionPane.showMessageDialog(null,Modelo.getModelo().getCpu().resultado);
-			} catch (FileNotFoundException | ExtensionInvalidaException
+			} catch (ExtensionInvalidaException
 					| ProgramaMuyLargoException | ProgramaYaCompiladoException
 					| InstruccionAssemblyInvalidaException
-					| ProgramaMalFormadoException e1) {
+					| ProgramaMalFormadoException | IOException e1) {
 				JOptionPane.showMessageDialog(null,e1.getMessage());
 			}
 		}else if (e.getSource() == btnRutaAssembly){
@@ -433,11 +436,11 @@ public class VentanaPPal implements ActionListener, MouseListener {
 			//
 			//EJECUTAR ABSOLUTO
 			//
+			tabbedPane.setSelectedIndex(2);
 			try {
 				String path = lblRutaAbsoluto.getText();
 				String filename = txtNombreAbsoluto.getText();
 				guardarText(txtCodigoAbsoluto.getText(),path, filename,".maq");
-				tabbedPane.setSelectedIndex(2);
 				if (lineByLineAbsoluto.isSelected()){
 					EjecutarPasoAPasoController.ejecutar(path + "/" + filename +".maq", modelosTablas, this);
 					btnPasoAPaso.setEnabled(true);
