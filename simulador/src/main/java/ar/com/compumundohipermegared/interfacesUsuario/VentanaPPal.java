@@ -269,7 +269,9 @@ public class VentanaPPal implements ActionListener, MouseListener {
 		panel.add(lineByLineAbsoluto);
 		
 	}
+	
 	private void inicializarVentanaArquitectura(JPanel panel) {	
+		JLabel lblReferencias;
 		JLabel lblTitulo;
 		JLabel lblRegistros;
 		JLabel lblMemoria;
@@ -279,7 +281,6 @@ public class VentanaPPal implements ActionListener, MouseListener {
 		JTable tblProgramCounter;
 		JTable tblMemoria;
 		JTable tblRegistros;
-		JScrollPane contenedorTabla;
 		
 		lblTitulo = new JLabel("Simulador");
 		lblTitulo.setBounds(450, 15, 900, 40);
@@ -295,6 +296,11 @@ public class VentanaPPal implements ActionListener, MouseListener {
 		
 		memoryTableModel = new MemoryTableModel();
 		tblMemoria = new JTable(memoryTableModel);
+		//Basado en ejemplo: http://stackoverflow.com/questions/14563799/jtable-cellrenderer-changes-backgroundcolor-of-cells-while-running
+		tblMemoria.getColumnModel().getColumn(12).setCellRenderer(new MemoriaTableRender());
+		tblMemoria.getColumnModel().getColumn(13).setCellRenderer(new MemoriaTableRender());
+		tblMemoria.getColumnModel().getColumn(14).setCellRenderer(new MemoriaTableRender());
+		tblMemoria.getColumnModel().getColumn(15).setCellRenderer(new MemoriaTableRender());
 		tblMemoria.setShowGrid(true);
 		tblMemoria.setShowVerticalLines(true);
 		tblMemoria.setGridColor(Color.BLUE);
@@ -360,6 +366,12 @@ public class VentanaPPal implements ActionListener, MouseListener {
 		btnConvertirA2.setEnabled(false);
 		btnConvertirA2.setBounds(500, 520, 200, 50);
 		panel.add(btnConvertirA2);
+		
+		lblReferencias = new JLabel("Verde: entrada, Amarillo: salida.");
+		lblReferencias.setBounds(920, 340, 900, 40);
+		Font labelReferencias = lblReferencias.getFont();
+		lblTitulo.setFont(new Font(labelReferencias.getName(), Font.PLAIN, 40));	
+		panel.add(lblReferencias);
 		
 		btnPasoAPaso = new JButton("Proximo paso");
 		btnPasoAPaso.setEnabled(false);
