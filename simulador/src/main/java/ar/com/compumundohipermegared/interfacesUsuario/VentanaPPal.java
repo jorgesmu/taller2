@@ -20,6 +20,7 @@ import java.awt.BorderLayout;
 
 import javax.swing.JPanel;
 import javax.swing.JButton;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import ar.com.compumundohipermegared.compilacion.Compilador;
 import ar.com.compumundohipermegared.compilacion.ExtensionInvalidaException;
@@ -459,8 +460,9 @@ public class VentanaPPal implements ActionListener, MouseListener {
 			//
 			//ABRIR ASSEMBLY
 			//
-			String pathCompleto = obtenerRuta(frame);
+			String pathCompleto = obtenerRuta(frame, "asm", "Codigo assembly");
 			String filename = pathCompleto.substring(pathCompleto.lastIndexOf("/") + 1);
+			filename = filename.substring(0,filename.lastIndexOf("."));
 			String directorio = pathCompleto.substring(0, pathCompleto.lastIndexOf("/") + 1);
 			lblRutaAssembly.setText(directorio);
 			txtNombreAssembly.setText(filename);
@@ -475,8 +477,9 @@ public class VentanaPPal implements ActionListener, MouseListener {
 			//
 			//ABRIR ABSOLUTO
 			//
-			String pathCompleto = obtenerRuta(frame);
+			String pathCompleto = obtenerRuta(frame,"maq", "Codigo de maquina");
 			String filename = pathCompleto.substring(pathCompleto.lastIndexOf("/") + 1);
+			filename = filename.substring(0,filename.lastIndexOf("."));
 			String directorio = pathCompleto.substring(0, pathCompleto.lastIndexOf("/") + 1);
 			lblRutaAbsoluto.setText(directorio);
 			txtNombreAbsoluto.setText(filename);
@@ -518,8 +521,10 @@ public class VentanaPPal implements ActionListener, MouseListener {
 			btnPasoAPaso.setEnabled(false);
 		}
 	}
-	private String obtenerRuta(JFrame parentComponent){
+	private String obtenerRuta(JFrame parentComponent, String extension, String extensionDescription){
 		JFileChooser chooser = new JFileChooser();
+		FileNameExtensionFilter filter = new FileNameExtensionFilter(extensionDescription , extension);
+		chooser.setFileFilter(filter);
 		int option = chooser.showOpenDialog(parentComponent); 
 		if (option == JFileChooser.APPROVE_OPTION) {
 		   File selectedFile = chooser.getSelectedFile();
