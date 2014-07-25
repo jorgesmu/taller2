@@ -1,8 +1,10 @@
 package ar.com.compumundohipermegared.interfacesUsuario;
 
 import java.awt.Color;
+import java.awt.Container;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.Frame;
 
 import javax.swing.JCheckBox;
 import javax.swing.JFileChooser;
@@ -644,11 +646,18 @@ public class VentanaPPal implements ActionListener, MouseListener {
 	// PEDIR DATO DE ENTRADA
 	//
 	public int pedirEntradaUsuario() {
-		JOptionPane.showMessageDialog(null,"Ingresar valor por consola");
-		// TODO
-		Scanner ins = new Scanner(System.in);
-        String respuesta = ins.nextLine();
-        return Integer.parseInt(respuesta,10);
+		 int resultado = 0;
+		 boolean valorIngresadoNumerico = false;
+		 while (!valorIngresadoNumerico) {
+			 String inputValue = JOptionPane.showInputDialog(null,"Ingresar valor por consola","Ingrese un dato desde dispositivo", JOptionPane.INFORMATION_MESSAGE);
+			 try {
+					resultado = Integer.parseInt(inputValue);
+					valorIngresadoNumerico = true;
+				} catch (Exception e) {
+					JOptionPane.showMessageDialog(null, "ERROR: Se debe ingresar un valor numerico. Ingreselo nuevamente.", "Error: formato de entrada no valida", JOptionPane.ERROR_MESSAGE);
+				}
+		}
+		 return resultado;
 	}
 	
 	@Override
