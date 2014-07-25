@@ -17,7 +17,7 @@ public class MemoriaTableRender extends DefaultTableCellRenderer {
    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column)
     {
         Component cellComponent = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-
+        cellComponent.setBackground(Color.WHITE);
         if (row == 15){
         	if (column == 14 || column == 15){
         		cellComponent.setBackground(Color.YELLOW);

@@ -435,9 +435,11 @@ public class VentanaPPal implements ActionListener, MouseListener {
 			//RUTA ASSEMBLY
 			//
 			int resultado = dialogAssembly.showOpenDialog(new JPanel());
-			if  (resultado == JFileChooser.APPROVE_OPTION) btnEjecutarAssembly.setEnabled(true);
-			lblRutaAssembly.setText(dialogAssembly.getSelectedFile().getAbsolutePath());
-			btnGuardarAssembly.setEnabled(true);
+			if  (resultado == JFileChooser.APPROVE_OPTION){
+				btnEjecutarAssembly.setEnabled(true);
+				lblRutaAssembly.setText(dialogAssembly.getSelectedFile().getAbsolutePath());
+				btnGuardarAssembly.setEnabled(true);
+			}
 		}else if (e.getSource() == btnGuardarAssembly){
 			//
 			//GUARDAR ASSEMBLY
@@ -469,41 +471,47 @@ public class VentanaPPal implements ActionListener, MouseListener {
 			//RUTA ABSOLUTO
 			//
 			int resultado = dialogAbsoluto.showOpenDialog(new JPanel());
-			if  (resultado == JFileChooser.APPROVE_OPTION) btnEjecutarAbsoluto.setEnabled(true);
-			lblRutaAbsoluto.setText(dialogAbsoluto.getSelectedFile().getAbsolutePath());
+			if  (resultado == JFileChooser.APPROVE_OPTION){
+				btnEjecutarAbsoluto.setEnabled(true);
+				lblRutaAbsoluto.setText(dialogAbsoluto.getSelectedFile().getAbsolutePath());
+			}
 		}else if (e.getSource() == btnAbrirAssembly){
 			//
 			//ABRIR ASSEMBLY
 			//
-			String pathCompleto = obtenerRuta(frame, "asm", "Codigo assembly");
-			String filename = pathCompleto.substring(pathCompleto.lastIndexOf("/") + 1);
-			filename = filename.substring(0,filename.lastIndexOf("."));
-			String directorio = pathCompleto.substring(0, pathCompleto.lastIndexOf("/") + 1);
-			lblRutaAssembly.setText(directorio);
-			txtNombreAssembly.setText(filename);
-			btnEjecutarAssembly.setEnabled(true);
-			try {
-				txtCodigoAssembly.setText(abrirTxt(pathCompleto));
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+			String pathCompleto = obtenerRuta(frame, "asm", "Codigo assembly (.asm)");
+			if (pathCompleto != null){
+				String filename = pathCompleto.substring(pathCompleto.lastIndexOf("/") + 1);
+				filename = filename.substring(0,filename.lastIndexOf("."));
+				String directorio = pathCompleto.substring(0, pathCompleto.lastIndexOf("/") + 1);
+				lblRutaAssembly.setText(directorio);
+				txtNombreAssembly.setText(filename);
+				btnEjecutarAssembly.setEnabled(true);
+				try {
+					txtCodigoAssembly.setText(abrirTxt(pathCompleto));
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		}else if (e.getSource() == btnAbrirAbsoluto){
 			//
 			//ABRIR ABSOLUTO
 			//
-			String pathCompleto = obtenerRuta(frame,"maq", "Codigo de maquina");
-			String filename = pathCompleto.substring(pathCompleto.lastIndexOf("/") + 1);
-			filename = filename.substring(0,filename.lastIndexOf("."));
-			String directorio = pathCompleto.substring(0, pathCompleto.lastIndexOf("/") + 1);
-			lblRutaAbsoluto.setText(directorio);
-			txtNombreAbsoluto.setText(filename);
-			btnEjecutarAbsoluto.setEnabled(true);
-			try {
-				txtCodigoAbsoluto.setText(abrirTxt(pathCompleto));
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+			String pathCompleto = obtenerRuta(frame,"maq", "Codigo de maquina (.maq)");
+			if (pathCompleto != null){
+				String filename = pathCompleto.substring(pathCompleto.lastIndexOf("/") + 1);
+				filename = filename.substring(0,filename.lastIndexOf("."));
+				String directorio = pathCompleto.substring(0, pathCompleto.lastIndexOf("/") + 1);
+				lblRutaAbsoluto.setText(directorio);
+				txtNombreAbsoluto.setText(filename);
+				btnEjecutarAbsoluto.setEnabled(true);
+				try {
+					txtCodigoAbsoluto.setText(abrirTxt(pathCompleto));
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		}else if (e.getSource() == btnGuardarAbsoluto){
 			//
