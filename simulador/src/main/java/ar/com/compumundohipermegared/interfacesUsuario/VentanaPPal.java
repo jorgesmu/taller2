@@ -213,7 +213,7 @@ public class VentanaPPal implements ActionListener, MouseListener {
 		
 	
 		lblTitulo = new JLabel("Editor de código absoluto");
-		lblTitulo.setBounds(400, 15, 600, 40);
+		lblTitulo.setBounds(300, 15, 600, 40);
 		Font labelFont = lblTitulo.getFont();
 		lblTitulo.setFont(new Font(labelFont.getName(), Font.PLAIN, 40));
 		
@@ -257,7 +257,7 @@ public class VentanaPPal implements ActionListener, MouseListener {
 		btnRutaAbsoluto.setBounds(1010, 65, 215, 20);
 		panel.add(btnRutaAbsoluto);
 	
-		nombreHintAbsoluto = "Nombre del archivo (Modificar)";
+		nombreHintAbsoluto = "Nombre del archivo";
 		txtNombreAbsoluto = new JTextField();
 		txtNombreAbsoluto.setText(nombreHintAbsoluto);
 		txtNombreAbsoluto.setBounds(20,87,1208,20);
@@ -281,15 +281,22 @@ public class VentanaPPal implements ActionListener, MouseListener {
 		JTable tblProgramCounter;
 		JTable tblMemoria;
 		JTable tblRegistros;
+		JLabel lblColumnaMemoria;
+		JLabel lblFilasMemoria;
+		String hexaVerticalReference ="<html>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>A<br>"
+				+ "B<br>C<br>D<br>E<br>F</html>";
+		String pipelineReference ="<html>1<br>2<br>3</html>";
+		JLabel lblPipelineReference;
+		JLabel lblregistryReference;
 		
 		lblTitulo = new JLabel("Simulador");
-		lblTitulo.setBounds(450, 15, 900, 40);
+		lblTitulo.setBounds(450, 15, 900, 50);
 		Font labelFont = lblTitulo.getFont();
 		lblTitulo.setFont(new Font(labelFont.getName(), Font.PLAIN, 40));	
 		panel.add(lblTitulo);
 	
 		lblMemoria = new JLabel("Memoria principal");
-		lblMemoria.setBounds(25, 65, 400, 40);
+		lblMemoria.setBounds(25, 45, 400, 40);
 		Font labelFontMemoria = lblTitulo.getFont();
 		lblMemoria.setFont(new Font(labelFontMemoria.getName(), Font.PLAIN, 20));	
 		panel.add(lblMemoria);
@@ -370,8 +377,36 @@ public class VentanaPPal implements ActionListener, MouseListener {
 		lblReferencias = new JLabel("Verde: entrada, Amarillo: salida.");
 		lblReferencias.setBounds(920, 340, 900, 40);
 		Font labelReferencias = lblReferencias.getFont();
-		lblTitulo.setFont(new Font(labelReferencias.getName(), Font.PLAIN, 40));	
+		lblReferencias.setFont(new Font(labelReferencias.getName(), Font.PLAIN, 13));	
 		panel.add(lblReferencias);
+
+		lblregistryReference = new JLabel(hexaVerticalReference);
+		lblregistryReference.setBounds(15, 375, 10, 300);
+		Font labelReferenciasRegistry = lblregistryReference.getFont();
+		lblregistryReference.setFont(new Font(labelReferenciasRegistry.getName(), Font.PLAIN, 14));	
+		panel.add(lblregistryReference);
+		
+		lblPipelineReference = new JLabel(pipelineReference);
+		lblPipelineReference.setBounds(140, 273, 10, 300);
+		Font labelReferenciasPipeline = lblPipelineReference.getFont();
+		lblPipelineReference.setFont(new Font(labelReferenciasPipeline.getName(), Font.PLAIN, 14));	
+		panel.add(lblPipelineReference);
+		
+		lblFilasMemoria = new JLabel(hexaVerticalReference);
+		lblFilasMemoria.setBounds(15, 73, 10, 300);
+		Font labelFilas = lblFilasMemoria.getFont();
+		lblFilasMemoria.setFont(new Font(labelFilas.getName(), Font.PLAIN, 14));	
+		panel.add(lblFilasMemoria);
+		
+		lblColumnaMemoria = new JLabel("           0                     1                     2"
+				+ "                     3                     4                     5                     6"
+				+ "                     7                     8                     9                    A"
+				+ "                     B                     C                    D                     E"
+				+ "                     F");
+		lblColumnaMemoria.setBounds(25, 65, 1300, 40);
+		Font labelCol = lblColumnaMemoria.getFont();
+		lblColumnaMemoria.setFont(new Font(labelCol.getName(), Font.PLAIN, 10));	
+		panel.add(lblColumnaMemoria);
 		
 		btnPasoAPaso = new JButton("Proximo paso");
 		btnPasoAPaso.setEnabled(false);
