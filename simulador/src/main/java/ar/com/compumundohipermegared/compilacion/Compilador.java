@@ -96,13 +96,12 @@ public class Compilador {
 		while (!(parser.terminado())) {
 			try {
 				String[] lineaParseada = parser.parsearLinea();
-				int cant = 0;
+				String label = parser.obtenerLabelActual();
+				if (label != null) labels.put(label, "0x" + pcActual);
 				if (lineaParseada.length > 0) {
-					String label = parser.obtenerLabelActual();
-					if (label != null) labels.put(label, "0x" + pcActual);
-					cant = decoder.cantidadInstrucciones(lineaParseada[0]);
+					int cant = decoder.cantidadInstrucciones(lineaParseada[0]);
+					pcActual = actualizarPC(pcActual, cant);
 				}
-				pcActual = actualizarPC(pcActual, cant);
 				
 			} catch (LimitesExcedidosConversorException e1) {
 				throw new ProgramaMuyLargoException(ERROR_CAPACIDAD);

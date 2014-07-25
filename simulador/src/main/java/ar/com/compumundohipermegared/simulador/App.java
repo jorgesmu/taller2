@@ -25,15 +25,15 @@ import ar.com.compumundohipermegared.simulador.cicloInstruccion.ProgramaMalForma
 public class App {
 	/*
     public static void main (String[] args) {
-    	String rutaCompulacion = pruebaCompilacion();
-    	pruebaEjecucion(rutaCompulacion);
-    	//pruebaEjecucion("./Programa2.maq");
+    	//String rutaCompulacion = pruebaCompilacion();
+    	//pruebaEjecucion(rutaCompulacion);
+    	pruebaEjecucion("./Programa3.maq");
     }
     */
     private static String pruebaCompilacion() {
     	try {
-    		String ruta = crearProgramaAssembly();
-    		//String ruta = "./Programa2.asm";
+    		//String ruta = crearProgramaAssembly();
+    		String ruta = "./Programa3.asm";
 			Compilador comp = new Compilador(ruta);
 			String rutaCompilado = comp.compilar();
 			
@@ -86,11 +86,13 @@ public class App {
 	        ins.nextLine();
 	        memoriaPrincipal.escribirDispositivoEntrada((byte)1);
 	        ins.nextLine();
-	        memoriaPrincipal.escribirDispositivoEntrada((byte)-127);
+	        memoriaPrincipal.escribirDispositivoEntrada((byte)127);
 	        ins.nextLine();
-	        memoriaPrincipal.escribirDispositivoEntrada((byte)1);
+	        memoriaPrincipal.escribirDispositivoEntrada((byte)5);
 	        ins.nextLine();
-	        memoriaPrincipal.escribirDispositivoEntrada((byte)1);
+	        memoriaPrincipal.escribirDispositivoEntrada((byte)10);
+	        ins.nextLine();
+	        memoriaPrincipal.escribirDispositivoEntrada((byte)0);
 	        
 		} catch (FileNotFoundException | ProgramaMalFormadoException e) {
 			System.out.println("ERROR: " + e.getMessage());
