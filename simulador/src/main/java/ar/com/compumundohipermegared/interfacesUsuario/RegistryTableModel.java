@@ -56,15 +56,8 @@ public class RegistryTableModel extends AbstractTableModel{
     @Override
     public boolean isCellEditable(int row, int column)
     {
-       if (column == 0 || column == 1)
-   {
-        return false;
-   }
-   else
-   {
-	return true;
-   }
- }
+    	return false;
+    }
     
 
 }       

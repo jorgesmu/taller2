@@ -364,6 +364,8 @@ public class VentanaPPal implements ActionListener, MouseListener {
 		tblMemoria.setBorder(border);
 		tblMemoria.setGridColor(Color.BLUE);
 		tblMemoria.setBounds(25,95,1100,255);
+		tblMemoria.setFocusable(false);
+		tblMemoria.setCellSelectionEnabled(false);
 		panel.add(tblMemoria);
 		
 		lblRegistros = new JLabel("Registros");
@@ -379,6 +381,8 @@ public class VentanaPPal implements ActionListener, MouseListener {
 		tblRegistros.setBorder(border);
 		tblRegistros.setGridColor(Color.BLUE);
 		tblRegistros.setBounds(25,400,100,255);
+		tblRegistros.setFocusable(false);
+		tblRegistros.setCellSelectionEnabled(false);
 		panel.add(tblRegistros);
 
 		lblPipeline = new JLabel("Pipeline");
@@ -394,6 +398,8 @@ public class VentanaPPal implements ActionListener, MouseListener {
 		tblPipeline.setBorder(border);
 		tblPipeline.setGridColor(Color.BLUE);
 		tblPipeline.setBounds(150,400,200,48);
+		tblPipeline.setFocusable(false);
+		tblPipeline.setCellSelectionEnabled(false);
 		panel.add(tblPipeline);
 		
 		lblProgramCounter = new JLabel("Contador del programa");
@@ -409,6 +415,8 @@ public class VentanaPPal implements ActionListener, MouseListener {
 		tblProgramCounter.setBorder(border);
 		tblProgramCounter.setGridColor(Color.BLUE);
 		tblProgramCounter.setBounds(150,500,200,15);
+		tblProgramCounter.setFocusable(false);
+		tblProgramCounter.setCellSelectionEnabled(false);
 		panel.add(tblProgramCounter);
 		
 		btnConvertirDecimal = new JButton("Visualizar en decimal");
