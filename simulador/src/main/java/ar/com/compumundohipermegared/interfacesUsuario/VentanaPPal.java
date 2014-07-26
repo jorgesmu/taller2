@@ -23,6 +23,7 @@ import java.awt.BorderLayout;
 
 import javax.swing.JPanel;
 import javax.swing.JButton;
+import javax.swing.border.MatteBorder;
 import javax.swing.event.CaretEvent;
 import javax.swing.event.CaretListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -332,6 +333,7 @@ public class VentanaPPal implements ActionListener, MouseListener {
 		JTable tblRegistros;
 		JLabel lblColumnaMemoria;
 		JLabel lblFilasMemoria;
+		MatteBorder border = new MatteBorder(1, 1, 1, 1, Color.BLUE);
 		String hexaVerticalReference ="<html>0<br>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>A<br>"
 				+ "B<br>C<br>D<br>E<br>F</html>";
 		String pipelineReference ="<html>1<br>2<br>3</html>";
@@ -359,6 +361,7 @@ public class VentanaPPal implements ActionListener, MouseListener {
 		tblMemoria.getColumnModel().getColumn(15).setCellRenderer(new MemoriaTableRender());
 		tblMemoria.setShowGrid(true);
 		tblMemoria.setShowVerticalLines(true);
+		tblMemoria.setBorder(border);
 		tblMemoria.setGridColor(Color.BLUE);
 		tblMemoria.setBounds(25,95,1100,255);
 		panel.add(tblMemoria);
@@ -373,6 +376,7 @@ public class VentanaPPal implements ActionListener, MouseListener {
 		tblRegistros = new JTable(registryTableModel);
 		tblRegistros.setShowGrid(true);
 		tblRegistros.setShowVerticalLines(true);
+		tblRegistros.setBorder(border);
 		tblRegistros.setGridColor(Color.BLUE);
 		tblRegistros.setBounds(25,400,100,255);
 		panel.add(tblRegistros);
@@ -387,8 +391,9 @@ public class VentanaPPal implements ActionListener, MouseListener {
 		tblPipeline = new JTable(pipelineTableModel);
 		tblPipeline.setShowGrid(true);
 		tblPipeline.setShowVerticalLines(true);
+		tblPipeline.setBorder(border);
 		tblPipeline.setGridColor(Color.BLUE);
-		tblPipeline.setBounds(150,400,200,50);
+		tblPipeline.setBounds(150,400,200,48);
 		panel.add(tblPipeline);
 		
 		lblProgramCounter = new JLabel("Contador del programa");
@@ -401,8 +406,9 @@ public class VentanaPPal implements ActionListener, MouseListener {
 		tblProgramCounter = new JTable(pcTableModel);
 		tblProgramCounter.setShowGrid(true);
 		tblProgramCounter.setShowVerticalLines(true);
+		tblProgramCounter.setBorder(border);
 		tblProgramCounter.setGridColor(Color.BLUE);
-		tblProgramCounter.setBounds(150,500,200,17);
+		tblProgramCounter.setBounds(150,500,200,15);
 		panel.add(tblProgramCounter);
 		
 		btnConvertirDecimal = new JButton("Visualizar en decimal");
@@ -698,12 +704,13 @@ public class VentanaPPal implements ActionListener, MouseListener {
 		 int resultado = 0;
 		 boolean valorIngresadoNumerico = false;
 		 boolean CANCELO = true;
+		 int MINVALUE = -128, MAXVALUE = 127;
 		 while (!valorIngresadoNumerico) {
 			 String inputValue = JOptionPane.showInputDialog(null,"Ingresar valor dentro del rango [-128;127], si es valor es invalido o cancela, se toma cero por defecto. ","Ingrese un dato desde dispositivo", JOptionPane.INFORMATION_MESSAGE);
 			 if (inputValue != null){
 			 try {
 					resultado = Integer.parseInt(inputValue);
-					if (resultado < -128 || resultado > 127){
+					if (resultado < MINVALUE || resultado > MAXVALUE){
 						resultado = 0;
 					}
 					valorIngresadoNumerico = true;
