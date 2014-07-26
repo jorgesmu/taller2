@@ -332,7 +332,7 @@ public class VentanaPPal implements ActionListener, MouseListener {
 		JTable tblRegistros;
 		JLabel lblColumnaMemoria;
 		JLabel lblFilasMemoria;
-		String hexaVerticalReference ="<html>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>A<br>"
+		String hexaVerticalReference ="<html>0<br>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>A<br>"
 				+ "B<br>C<br>D<br>E<br>F</html>";
 		String pipelineReference ="<html>1<br>2<br>3</html>";
 		JLabel lblPipelineReference;
@@ -430,9 +430,9 @@ public class VentanaPPal implements ActionListener, MouseListener {
 		panel.add(lblReferencias);
 
 		lblregistryReference = new JLabel(hexaVerticalReference);
-		lblregistryReference.setBounds(15, 375, 10, 300);
+		lblregistryReference.setBounds(15, 376, 10, 300);
 		Font labelReferenciasRegistry = lblregistryReference.getFont();
-		lblregistryReference.setFont(new Font(labelReferenciasRegistry.getName(), Font.PLAIN, 14));	
+		lblregistryReference.setFont(new Font(labelReferenciasRegistry.getName(), Font.PLAIN, 13));	
 		panel.add(lblregistryReference);
 		
 		lblPipelineReference = new JLabel(pipelineReference);
@@ -442,9 +442,9 @@ public class VentanaPPal implements ActionListener, MouseListener {
 		panel.add(lblPipelineReference);
 		
 		lblFilasMemoria = new JLabel(hexaVerticalReference);
-		lblFilasMemoria.setBounds(15, 73, 10, 300);
+		lblFilasMemoria.setBounds(15, 72, 10, 300);
 		Font labelFilas = lblFilasMemoria.getFont();
-		lblFilasMemoria.setFont(new Font(labelFilas.getName(), Font.PLAIN, 14));	
+		lblFilasMemoria.setFont(new Font(labelFilas.getName(), Font.PLAIN, 13));	
 		panel.add(lblFilasMemoria);
 		
 		lblColumnaMemoria = new JLabel("           0                     1                     2"
@@ -493,7 +493,7 @@ public class VentanaPPal implements ActionListener, MouseListener {
 			//
 			//Ejecutar ASSEMBLY
 			//
-			tabbedPane.setSelectedIndex(2);
+
 			String path = lblRutaAssembly.getText();
 			String filename = txtNombreAssembly.getText();
 			guardarText(txtCodigoAssembly.getText(),path, filename,".asm");
@@ -508,6 +508,9 @@ public class VentanaPPal implements ActionListener, MouseListener {
 				txtCodigoAbsoluto.setText(abrirTxt(path + "/" + filename + ".maq"));
 				lblRutaAbsoluto.setText(lblRutaAssembly.getText());
 				txtNombreAbsoluto.setText(filename);
+				tabbedPane.setSelectedIndex(2);
+
+
 				JOptionPane.showMessageDialog(null,Modelo.getModelo().getCpu().resultado);
 			} catch (ExtensionInvalidaException
 					| ProgramaMuyLargoException | ProgramaYaCompiladoException
@@ -535,7 +538,6 @@ public class VentanaPPal implements ActionListener, MouseListener {
 			//
 			//EJECUTAR ABSOLUTO
 			//
-			tabbedPane.setSelectedIndex(2);
 			try {
 				String path = lblRutaAbsoluto.getText();
 				String filename = txtNombreAbsoluto.getText();
@@ -548,6 +550,7 @@ public class VentanaPPal implements ActionListener, MouseListener {
 					habilitarBotonesConversion();
 				}
 				JOptionPane.showMessageDialog(null,Modelo.getModelo().getCpu().resultado);
+				tabbedPane.setSelectedIndex(2);
 			} catch (FileNotFoundException | ProgramaMalFormadoException e1) {
 				JOptionPane.showMessageDialog(null,e1.getMessage());
 			}
