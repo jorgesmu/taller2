@@ -26,17 +26,19 @@ public class InstruccionMultiplicarFP extends InstruccionAlu {
 		double resultado = Alu.multi(operando1, operando2);
 		if (resultado == 0) flags = flags | Alu.BIT_FLAG_ZERO;
 		// no hay carry para punto flotante
-		
+		String a;
 		RuntimeException e1 = null;
 		try {
 			char resultadoCasteado = casteador.puntoFlotante(resultado);
 			cpu.escribirRegistro(idRegistroDestino, (byte)resultadoCasteado);
 		} catch (OverFlowCasteadorException e) {
 			flags = flags | Alu.BIT_FLAG_OV;
-			e1 = new RuntimeException(e);
+			e1 = new RuntimeException(e.getMessage(),e);
+			a = new String(e1.getMessage());		
 		} catch (UnderFlowCasteadorException e) {
 			flags = flags | Alu.BIT_FLAG_UV;
-			e1 = new RuntimeException(e);
+			e1 = new RuntimeException(e.getMessage(),e);
+			
 		}
 		
 		cpu.escribirRegistro(Cpu.REG_FLAGS_INT, (byte) flags);

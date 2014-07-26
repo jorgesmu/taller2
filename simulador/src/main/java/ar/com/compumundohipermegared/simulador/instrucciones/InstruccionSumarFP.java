@@ -33,10 +33,10 @@ public class InstruccionSumarFP extends InstruccionAlu {
 			cpu.escribirRegistro(idRegistroDestino, (byte)resultadoCasteado);
 		} catch (OverFlowCasteadorException e) {
 			flags = flags | Alu.BIT_FLAG_OV;
-			e1 = new RuntimeException(e);
+			e1 = new RuntimeException(e.getMessage(),e);
 		} catch (UnderFlowCasteadorException e) {
 			flags = flags | Alu.BIT_FLAG_UV;
-			e1 = new RuntimeException(e);
+			e1 = new RuntimeException(e.getMessage(),e);
 		}
 		
 		cpu.escribirRegistro(Cpu.REG_FLAGS_INT, (byte) flags);
