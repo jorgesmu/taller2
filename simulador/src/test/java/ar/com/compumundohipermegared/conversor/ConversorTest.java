@@ -17,6 +17,38 @@ public class ConversorTest extends TestCase{
 		assertEquals("80", Conversor.decimalToHexa(numero5) );
 	}
 	
+	public void testPasarDeIntABinario() throws LimitesExcedidosConversorException, OverFlowCasteadorException{
+		int numeroMenos128 = -128;
+		int numeroMenos1 = -1;
+		int numero1 = 1;
+		int numero127 = 127;
+		int numero85 = 85;
+		int numeroMenos85 = -85;
+		assertEquals("10000000", Conversor.decimalToComplemento(numeroMenos128) );
+		assertEquals("11111111", Conversor.decimalToComplemento(numeroMenos1) );
+		assertEquals("00000001", Conversor.decimalToComplemento(numero1) );
+		assertEquals("01111111", Conversor.decimalToComplemento(numero127) );
+		assertEquals("01010101", Conversor.decimalToComplemento(numero85) );
+		assertEquals("10101011", Conversor.decimalToComplemento(numeroMenos85) );
+		
+	}
+	
+	public void testPasarDeByteABinario() throws LimitesExcedidosConversorException, OverFlowCasteadorException{
+		byte numeroMenos128 = -128;
+		byte numeroMenos1 = -1;
+		byte numero1 = 1;
+		byte numero127 = 127;
+		byte numero85 = 85;
+		byte numeroMenos85 = -85;
+		assertEquals("10000000", Conversor.decimalToComplemento(numeroMenos128) );
+		assertEquals("11111111", Conversor.decimalToComplemento(numeroMenos1) );
+		assertEquals("00000001", Conversor.decimalToComplemento(numero1) );
+		assertEquals("01111111", Conversor.decimalToComplemento(numero127) );
+		assertEquals("01010101", Conversor.decimalToComplemento(numero85) );
+		assertEquals("10101011", Conversor.decimalToComplemento(numeroMenos85) );
+		
+	}
+	
 	public void testConvertirUnNumeroExcedido() throws LimitesExcedidosConversorException, OverFlowCasteadorException{
 		int numeroExcedido = -129;
 		try {
