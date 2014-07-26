@@ -88,6 +88,6 @@ public class Alu {
 		int numero = 1;
 		for (int i = 0; i < exponente; ++i) numero *= base;
 		return numero;
-	}
+	}	
 	
 }

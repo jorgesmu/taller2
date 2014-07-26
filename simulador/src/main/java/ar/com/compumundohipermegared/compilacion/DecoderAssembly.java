@@ -65,6 +65,8 @@ public class DecoderAssembly {
 		instrucciones.put("rrr", new FactoryInstruccionRrr(misLabels,operandos));
 		instrucciones.put("nop", new FactoryInstruccionNop(misLabels,operandos));
 		instrucciones.put("cmp", new FactoryInstruccionCmp(misLabels,operandos));
+		instrucciones.put("addfp", new FactoryInstruccionAddFp(misLabels,operandos));
+		instrucciones.put("multfp", new FactoryInstruccionMultFp(misLabels,operandos));
 	}
 
 	public String[] decodificar(String[] lineaParseada, String pcActual) throws InstruccionAssemblyInvalidaException {

@@ -9,6 +9,7 @@ import ar.com.compumundohipermegared.simulador.instrucciones.InstruccionAnd;
 import ar.com.compumundohipermegared.simulador.instrucciones.InstruccionCargar;
 import ar.com.compumundohipermegared.simulador.instrucciones.InstruccionCargarMemoria;
 import ar.com.compumundohipermegared.simulador.instrucciones.InstruccionCopiar;
+import ar.com.compumundohipermegared.simulador.instrucciones.InstruccionMultiplicarFP;
 import ar.com.compumundohipermegared.simulador.instrucciones.InstruccionOr;
 import ar.com.compumundohipermegared.simulador.instrucciones.InstruccionParar;
 import ar.com.compumundohipermegared.simulador.instrucciones.InstruccionShiftDerechaAritmetico;
@@ -62,6 +63,9 @@ public class ParserInstrucciones {
 			break;
 		case "C":
 			resultado = decodificarParar(instruccion);
+			break;
+		case "D":
+			resultado = decodificarMultiplicacionFlotingPoint(instruccion);
 			break;
 		}
 		return resultado;
@@ -122,10 +126,14 @@ public class ParserInstrucciones {
 	}	
 	
 	private static void validarFormato(String instruccion) throws Exception{
-		  Pattern pat = Pattern.compile("^[1-9A-C][0-9A-F][0-9A-F][0-9A-F]$");
+		  Pattern pat = Pattern.compile("^[1-9A-D][0-9A-F][0-9A-F][0-9A-F]$");
 		  Matcher mat = pat.matcher(instruccion);
 		  if (!mat.matches()) {
 			  throw new Exception("Formato de instrucción inválida.");
 		  }
+	}
+	
+	private static Instruccion decodificarMultiplicacionFlotingPoint(String instruccion){
+		return new InstruccionMultiplicarFP(new Parametros(instruccion));
 	}
 }
