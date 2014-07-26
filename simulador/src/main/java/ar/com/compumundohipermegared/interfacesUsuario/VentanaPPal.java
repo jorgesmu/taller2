@@ -6,6 +6,7 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Frame;
 
+import javax.swing.AbstractButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -22,7 +23,10 @@ import java.awt.BorderLayout;
 
 import javax.swing.JPanel;
 import javax.swing.JButton;
+import javax.swing.event.CaretEvent;
+import javax.swing.event.CaretListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.text.BadLocationException;
 
 import ar.com.compumundohipermegared.compilacion.Compilador;
 import ar.com.compumundohipermegared.compilacion.ExtensionInvalidaException;
@@ -143,6 +147,10 @@ public class VentanaPPal implements ActionListener, MouseListener {
 		panel_4.setLayout(null);
 
 	}
+	
+		
+		
+	
 	private void inicializarVentanaAssembly(JPanel panel){
 
 		JLabel lblTitulo;
@@ -207,6 +215,25 @@ public class VentanaPPal implements ActionListener, MouseListener {
 		lineByLineAssembly = new JCheckBox("Línea por línea");
 		lineByLineAssembly.setBounds(740,615,150,30);
 		panel.add(lineByLineAssembly);
+		/* Numeros Lineas */
+		final JLabel lbl2= new JLabel();
+		txtCodigoAssembly.addCaretListener( new CaretListener() {
+		     public void caretUpdate( CaretEvent e2 ) {
+		     int pos = e2.getDot();
+		        try {
+		           int row = txtCodigoAssembly .getLineOfOffset( pos ) + 1;
+		           int col = pos -txtCodigoAssembly .getLineStartOffset( row - 1 ) + 1;
+		           lbl2.setText("Línea: " + row + " Columna: " + col );
+		       }
+		       catch( BadLocationException exc ){ 
+		           System.out.println(exc); 
+		       }
+		    } 
+		  });
+		
+		lbl2.setBounds(300, 35, 900, 40);
+		panel.add(lbl2);
+	
 		
 	}
 	private void inicializarVentanaAbsoluto(JPanel panel) {
@@ -270,6 +297,25 @@ public class VentanaPPal implements ActionListener, MouseListener {
 		lineByLineAbsoluto = new JCheckBox("Línea por línea");
 		lineByLineAbsoluto.setBounds(740,615,150,30);
 		panel.add(lineByLineAbsoluto);
+		
+		/* Numeros Lineas */
+		final JLabel lbl= new JLabel();
+		txtCodigoAbsoluto.addCaretListener( new CaretListener() {
+		     public void caretUpdate( CaretEvent e ) {
+		     int pos = e.getDot();
+		        try {
+		           int row = txtCodigoAssembly .getLineOfOffset( pos ) + 1;
+		           int col = pos -txtCodigoAssembly .getLineStartOffset( row - 1 ) + 1;
+		           lbl.setText("Línea: " + row + " Columna: " + col );
+		       }
+		       catch( BadLocationException exc ){ 
+		           System.out.println(exc); 
+		       }
+		    } 
+		  });
+		
+		lbl.setBounds(300, 35, 900, 40);
+		panel.add(lbl);
 		
 	}
 	
