@@ -117,19 +117,19 @@ public class ArquitecturaPestana {
 		ventana.btnConvertirDecimal = new JButton("Visualizar en decimal");
 		ventana.btnConvertirDecimal.addActionListener(ventana);
 		ventana.btnConvertirDecimal.setEnabled(false);
-		ventana.btnConvertirDecimal.setBounds(500, 400, 200, 50);
+		ventana.btnConvertirDecimal.setBounds(500, 400, 250, 50);
 		panel.add(ventana.btnConvertirDecimal);
 		
 		ventana.btnConvertirHexa = new JButton("Visualizar en hexadecimal");
 		ventana.btnConvertirHexa.addActionListener(ventana);
 		ventana.btnConvertirHexa.setEnabled(false);
-		ventana.btnConvertirHexa.setBounds(500, 460, 200, 50);
+		ventana.btnConvertirHexa.setBounds(500, 460, 250, 50);
 		panel.add(ventana.btnConvertirHexa);
 		
 		ventana.btnConvertirA2 = new JButton("Visualizar en complemento");
 		ventana.btnConvertirA2.addActionListener(ventana);
 		ventana.btnConvertirA2.setEnabled(false);
-		ventana.btnConvertirA2.setBounds(500, 520, 200, 50);
+		ventana.btnConvertirA2.setBounds(500, 520, 250, 50);
 		panel.add(ventana.btnConvertirA2);
 		
 		lblReferencias = new JLabel("Verde: entrada, Amarillo: salida.");
