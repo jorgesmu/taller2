@@ -7,6 +7,7 @@ public class TextoAyuda {
 	+ ". ldm rd,port_addr (rd=mem[port_addr])\n      "
 	+ ". stm rd,port_addr (mem[port_addr]=rd)\n      "
 	+ ". add rd,rs,rt (rd=rs+rt)\n     "
+	+ ". addfp rd,rs,rt (rd=rs+rt)\n   "
 	+ ". sub rd,rs,rt (rd=rs-rt)\n      "
 	+ ". and rd,rs,rt (rd=rs and rt)\n      "
 	+ ". or  rd,rs,rt (rd=rs or rt)\n      "
@@ -28,7 +29,8 @@ public class TextoAyuda {
 	+ ". rrl rd (rd <= {rd[6:0],rd[7]})\n      "
 	+ ". rrr rd (rd <= {rd[0],rd[7:1])\n      "
 	+ ". not rd,rs (rd = not rs)\n      "
-	+ ". nop (se deja pasar un ciclo de reloj)\n"
+	+ ". nop (se deja pasar un ciclo de reloj)\n      "
+	+ ". multfp rd,rs,rt (rd=rs*rt)\n "
 	
 	+ "\nInstrucciones de máquina:\n      "
 	+ ". 1RXY CARGA el registro R con el patrón de bits que está en la celda de memoria cuya "
@@ -53,5 +55,7 @@ public class TextoAyuda {
 	+ ". AR3X DESPLAZAMIENTO, en X bits, a IZQUIERDA del patrón de bits del registro R rellenando con CEROS.\n      "
 	+ ". BRXY SALTA a la instrucción situada en la celda de memoria cuya dirección es XY si "
 	+ "el patrón de bits del registro R es igual al patrón de bits del registro número 0.\n      "
-	+ ". C000 PARA la ejecución.\n      ";
+	+ ". C000 PARA la ejecución.\n      "
+	+ ". DRST Multiplica los patrones de bits de los registros S y T en punto flotante y deja el "
+	+ "resultado en el registro R.\n      ";
 }
