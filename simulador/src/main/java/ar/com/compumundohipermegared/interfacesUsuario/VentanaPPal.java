@@ -216,14 +216,14 @@ public class VentanaPPal implements ActionListener, MouseListener {
 		lineByLineAssembly.setBounds(740,615,150,30);
 		panel.add(lineByLineAssembly);
 		/* Numeros Lineas */
-		final JLabel lbl2= new JLabel();
+		final JLabel lblLineColReferencia= new JLabel();
 		txtCodigoAssembly.addCaretListener( new CaretListener() {
-		     public void caretUpdate( CaretEvent e2 ) {
+		     public void caretUpdate(CaretEvent e2) {
 		     int pos = e2.getDot();
 		        try {
-		           int row = txtCodigoAssembly .getLineOfOffset( pos ) + 1;
-		           int col = pos -txtCodigoAssembly .getLineStartOffset( row - 1 ) + 1;
-		           lbl2.setText("Línea: " + row + " Columna: " + col );
+		           int row = txtCodigoAssembly .getLineOfOffset(pos) + 1;
+		           int col = pos -txtCodigoAssembly .getLineStartOffset(row - 1) + 1;
+		           lblLineColReferencia.setText("Línea: " + row + " Columna: " + col );
 		       }
 		       catch( BadLocationException exc ){ 
 		           System.out.println(exc); 
@@ -231,8 +231,8 @@ public class VentanaPPal implements ActionListener, MouseListener {
 		    } 
 		  });
 		
-		lbl2.setBounds(300, 35, 900, 40);
-		panel.add(lbl2);
+		lblLineColReferencia.setBounds(1080, 570, 900, 40);
+		panel.add(lblLineColReferencia);
 	
 		
 	}
@@ -299,14 +299,14 @@ public class VentanaPPal implements ActionListener, MouseListener {
 		panel.add(lineByLineAbsoluto);
 		
 		/* Numeros Lineas */
-		final JLabel lbl= new JLabel();
+		final JLabel lblLineaColReferencia= new JLabel();
 		txtCodigoAbsoluto.addCaretListener( new CaretListener() {
 		     public void caretUpdate( CaretEvent e ) {
 		     int pos = e.getDot();
 		        try {
-		           int row = txtCodigoAssembly .getLineOfOffset( pos ) + 1;
-		           int col = pos -txtCodigoAssembly .getLineStartOffset( row - 1 ) + 1;
-		           lbl.setText("Línea: " + row + " Columna: " + col );
+		           int row = txtCodigoAbsoluto .getLineOfOffset(pos) + 1;
+		           int col = pos - txtCodigoAbsoluto .getLineStartOffset( row - 1 ) + 1;
+		           lblLineaColReferencia.setText("Línea: " + row + " Columna: " + col );
 		       }
 		       catch( BadLocationException exc ){ 
 		           System.out.println(exc); 
@@ -314,8 +314,8 @@ public class VentanaPPal implements ActionListener, MouseListener {
 		    } 
 		  });
 		
-		lbl.setBounds(300, 35, 900, 40);
-		panel.add(lbl);
+		lblLineaColReferencia.setBounds(1080, 570, 900, 40);
+		panel.add(lblLineaColReferencia);
 		
 	}
 	
@@ -697,14 +697,22 @@ public class VentanaPPal implements ActionListener, MouseListener {
 	public int pedirEntradaUsuario() {
 		 int resultado = 0;
 		 boolean valorIngresadoNumerico = false;
+		 boolean CANCELO = true;
 		 while (!valorIngresadoNumerico) {
-			 String inputValue = JOptionPane.showInputDialog(null,"Ingresar valor por consola","Ingrese un dato desde dispositivo", JOptionPane.INFORMATION_MESSAGE);
+			 String inputValue = JOptionPane.showInputDialog(null,"Ingresar valor dentro del rango [-128;127], si es valor es invalido o cancela, se toma cero por defecto. ","Ingrese un dato desde dispositivo", JOptionPane.INFORMATION_MESSAGE);
+			 if (inputValue != null){
 			 try {
 					resultado = Integer.parseInt(inputValue);
+					if (resultado < -128 || resultado > 127){
+						resultado = 0;
+					}
 					valorIngresadoNumerico = true;
 				} catch (Exception e) {
 					JOptionPane.showMessageDialog(null, "ERROR: Se debe ingresar un valor numerico. Ingreselo nuevamente.", "Error: formato de entrada no valida", JOptionPane.ERROR_MESSAGE);
 				}
+			 }else {
+				 valorIngresadoNumerico = CANCELO;
+			 }
 		}
 		 return resultado;
 	}
