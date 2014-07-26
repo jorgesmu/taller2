@@ -7,15 +7,18 @@ import ar.com.compumundohipermegared.simulador.Modelo;
 public class ConversorController {
 	public void visualizarDecimal(ModelosInterfaz interfaz){
 		Modelo modelo = Modelo.getModelo();
-		ArquitecturaVisualizacionController.actualizacionInterfaz(modelo, interfaz, Representacion.DECIMAL);
+		ArquitecturaVisualizacionController visualizacionController = new ArquitecturaVisualizacionController();
+		visualizacionController.actualizacionInterfaz(modelo, interfaz, Representacion.DECIMAL);
 	}
 	public void visualizarHexa(ModelosInterfaz interfaz){
 		Modelo modelo = Modelo.getModelo();
-		ArquitecturaVisualizacionController.actualizacionInterfaz(modelo, interfaz, Representacion.HEXA);
+		ArquitecturaVisualizacionController visualizacionController = new ArquitecturaVisualizacionController();
+		visualizacionController.actualizacionInterfaz(modelo, interfaz, Representacion.HEXA);
 	}
 	public void visualizarComplemento(ModelosInterfaz interfaz){
 		Modelo modelo = Modelo.getModelo();
-		ArquitecturaVisualizacionController.actualizacionInterfaz(modelo, interfaz, Representacion.COMPLEMENTO);
+		ArquitecturaVisualizacionController visualizacionController = new ArquitecturaVisualizacionController();
+		visualizacionController.actualizacionInterfaz(modelo, interfaz, Representacion.COMPLEMENTO);
 	}
 
 }

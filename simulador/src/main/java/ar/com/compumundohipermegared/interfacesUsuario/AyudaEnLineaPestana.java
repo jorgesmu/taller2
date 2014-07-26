@@ -13,12 +13,11 @@ import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
 
 
-public class AyudaEnLineaVentana {
+public class AyudaEnLineaPestana {
 	
 		
-	public static void inicializarVentanaAyuda(JPanel panel) {
+	public void inicializarVentanaAyuda(JPanel panel) {
 		JLabel lblTitulo;
-		JLabel lblAyuda;
 		lblTitulo = new JLabel("Ayuda en linea");
 		lblTitulo.setBounds(450, 15, 900, 40);
 		Font labelFont = lblTitulo.getFont();

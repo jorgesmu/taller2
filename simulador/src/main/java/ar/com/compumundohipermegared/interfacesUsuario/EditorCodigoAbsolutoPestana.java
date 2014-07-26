@@ -21,7 +21,7 @@ import javax.swing.event.CaretListener;
 import javax.swing.text.BadLocationException;
 
 public class EditorCodigoAbsolutoPestana {
-	public static void inicializarVentanaAbsoluto(JPanel panel, final VentanaPPal ventana) {
+	public void inicializarVentanaAbsoluto(JPanel panel, final VentanaSimulador ventana) {
 		JLabel lblTitulo;
 		JScrollPane scrollCodigo;
 

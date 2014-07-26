@@ -19,7 +19,7 @@ import ar.com.compumundohipermegared.simulador.Modelo;
 
 public class ArquitecturaVisualizacionController {
 	public enum Representacion{DECIMAL, COMPLEMENTO, HEXA}
-	public static void actualizarMemoria(IMemoria memoria, MemoryTableModel memoryTableModel, Representacion representacion){
+	public void actualizarMemoria(IMemoria memoria, MemoryTableModel memoryTableModel, Representacion representacion){
 		for (int fila = 0; fila < memoria.getTamanio(); ++fila) {
 			for (int columna = 0; columna < memoria.getTamanio(); ++columna) {
 				try {
@@ -43,7 +43,7 @@ public class ArquitecturaVisualizacionController {
 			}
 		}
 	}
-	public static void actualizarRegistros(AreaRegistro registros, RegistryTableModel registryTableModel, Representacion representacion){
+	public void actualizarRegistros(AreaRegistro registros, RegistryTableModel registryTableModel, Representacion representacion){
 		for (int numReg=0; numReg < registros.getTamanio(); numReg++){
 			try {
 				String data = "";
@@ -66,13 +66,13 @@ public class ArquitecturaVisualizacionController {
 		}
 	}
 	
-	public static void actualizarPipeline(ArrayList<DireccionMasInstruccion> pipeline, PipelineTableModel pipelineTableModel){
+	public void actualizarPipeline(ArrayList<DireccionMasInstruccion> pipeline, PipelineTableModel pipelineTableModel){
 		for (int numReg=0; numReg < pipeline.size(); numReg++){
 			pipelineTableModel.setValueAt(pipeline.get(numReg).getInstruccion(), numReg);
 		}
 	}
 	
-	public static void actualizarPC(AreaRegistroCpu registros, ProgramCounterTableModel pcTableModel, Representacion representacion){
+	public void actualizarPC(AreaRegistroCpu registros, ProgramCounterTableModel pcTableModel, Representacion representacion){
 		try {
 			String data = "";
 			switch (representacion) {
@@ -91,7 +91,7 @@ public class ArquitecturaVisualizacionController {
 		}catch (Exception e){}
 	}
 	
-	public static void actualizacionInterfaz(Modelo modelo, ModelosInterfaz interfaz, Representacion representacion) {
+	public void actualizacionInterfaz(Modelo modelo, ModelosInterfaz interfaz, Representacion representacion) {
 		IMemoria memoria = modelo.getMemoria();
 		MemoryTableModel memoryTableModel = interfaz.getMemory();
 		actualizarMemoria(memoria, memoryTableModel, representacion);

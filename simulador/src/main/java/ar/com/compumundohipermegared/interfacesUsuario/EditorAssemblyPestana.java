@@ -24,7 +24,7 @@ import javax.swing.event.CaretListener;
 import javax.swing.text.BadLocationException;
 
 public class EditorAssemblyPestana  {
-	static void inicializarVentanaAssembly(JPanel panel, final VentanaPPal ventana){
+	public void inicializarVentanaAssembly(JPanel panel, final VentanaSimulador ventana){
 
 		JLabel lblTitulo;
 		JScrollPane scrollCodigo;

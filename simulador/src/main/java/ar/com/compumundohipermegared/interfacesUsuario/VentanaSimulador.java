@@ -1,35 +1,31 @@
 package ar.com.compumundohipermegared.interfacesUsuario;
 
-import java.awt.Color;
-import java.awt.Container;
+import java.awt.BorderLayout;
 import java.awt.EventQueue;
-import java.awt.Font;
-import java.awt.Frame;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 
-import javax.swing.AbstractButton;
+import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
+import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
-import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.ScrollPaneConstants;
-
-import java.awt.BorderLayout;
-
-import javax.swing.JPanel;
-import javax.swing.JButton;
-import javax.swing.border.MatteBorder;
-import javax.swing.event.CaretEvent;
-import javax.swing.event.CaretListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import javax.swing.text.BadLocationException;
 
-import ar.com.compumundohipermegared.compilacion.Compilador;
 import ar.com.compumundohipermegared.compilacion.ExtensionInvalidaException;
 import ar.com.compumundohipermegared.compilacion.InstruccionAssemblyInvalidaException;
 import ar.com.compumundohipermegared.compilacion.ProgramaMuyLargoException;
@@ -43,20 +39,7 @@ import ar.com.compumundohipermegared.simulador.Modelo;
 import ar.com.compumundohipermegared.simulador.cicloInstruccion.Cpu;
 import ar.com.compumundohipermegared.simulador.cicloInstruccion.ProgramaMalFormadoException;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.Scanner;
-
-public class VentanaPPal implements ActionListener, MouseListener {
+public class VentanaSimulador implements ActionListener, MouseListener {
 	public JFrame frame;
 	public JButton btnAbrirAssembly;
 	public JButton btnEjecutarAssembly;
@@ -96,7 +79,7 @@ public class VentanaPPal implements ActionListener, MouseListener {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					VentanaPPal window = new VentanaPPal();
+					VentanaSimulador window = new VentanaSimulador();
 					window.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 					window.frame.setVisible(true);
 				} catch (Exception e) {
@@ -107,7 +90,7 @@ public class VentanaPPal implements ActionListener, MouseListener {
 	}
 
 
-	public VentanaPPal() {
+	public VentanaSimulador() {
 		inicializar();
 	}
 
@@ -120,175 +103,199 @@ public class VentanaPPal implements ActionListener, MouseListener {
 		
 		JPanel pestana1 = new JPanel();
 		tabbedPane.addTab("Assembly", null, pestana1, null);
-		EditorAssemblyPestana.inicializarVentanaAssembly(pestana1, this);
+		EditorAssemblyPestana pestanaAssembly = new EditorAssemblyPestana();
+		pestanaAssembly.inicializarVentanaAssembly(pestana1, this);
 		pestana1.setLayout(null);
 
 		JPanel pestana2 = new JPanel();
 		tabbedPane.addTab("Absoluto", null, pestana2, null);
-		EditorCodigoAbsolutoPestana.inicializarVentanaAbsoluto(pestana2, this);
+		EditorCodigoAbsolutoPestana pestanaAbsoluto = new EditorCodigoAbsolutoPestana();
+		pestanaAbsoluto.inicializarVentanaAbsoluto(pestana2, this);
 		pestana2.setLayout(null);
 		
 		JPanel pestana3 = new JPanel();
 		tabbedPane.addTab("Arquitectura", null, pestana3, null);
-		ArquitecturaPestana.inicializarVentanaArquitectura(pestana3, this);
+		ArquitecturaPestana pestanaArquitectura = new ArquitecturaPestana();
+		pestanaArquitectura.inicializarVentanaArquitectura(pestana3, this);
 		pestana3.setLayout(null);
 
 		JPanel pestana4 = new JPanel();
 		tabbedPane.addTab("Ayuda en linea", null, pestana4, null);
-		AyudaEnLineaVentana.inicializarVentanaAyuda(pestana4);
+		AyudaEnLineaPestana pestanaAyuda = new AyudaEnLineaPestana();
+		pestanaAyuda.inicializarVentanaAyuda(pestana4);
 		pestana4.setLayout(null);
 
 	}
 
+	private void ejecutarAssemblyHandler(){
+		String path = lblRutaAssembly.getText();
+		String filename = txtNombreAssembly.getText();
+		guardarText(txtCodigoAssembly.getText(),path, filename,".asm");
+		try {
+			if (lineByLineAssembly.isSelected()){
+				CompilarYEjecutarPasoAPaso compilarPasoAPasoController = new CompilarYEjecutarPasoAPaso();
+				compilarPasoAPasoController.compilarYEjecutar(path + "/" + filename +".asm", modelosTablas, this);
+				btnPasoAPaso.setEnabled(true);
+			}else{
+				CompilarYEjecutar compilarController = new CompilarYEjecutar();
+				compilarController.compilarYEjecutar(path + "/" + filename +".asm", modelosTablas, this);
+				habilitarBotonesConversion();
+			}
+			txtCodigoAbsoluto.setText(abrirTxt(path + "/" + filename + ".maq"));
+			lblRutaAbsoluto.setText(lblRutaAssembly.getText());
+			txtNombreAbsoluto.setText(filename);
+			tabbedPane.setSelectedIndex(2);
+
+
+			JOptionPane.showMessageDialog(null,Modelo.getModelo().getCpu().resultado);
+		} catch (ExtensionInvalidaException
+				| ProgramaMuyLargoException | ProgramaYaCompiladoException
+				| InstruccionAssemblyInvalidaException
+				| ProgramaMalFormadoException | IOException e1) {
+			JOptionPane.showMessageDialog(null,e1.getMessage());
+		}
+	}
+	
+	private void rutaAssemblyHandler(){
+		int resultado = dialogAssembly.showOpenDialog(new JPanel());
+		if  (resultado == JFileChooser.APPROVE_OPTION){
+			btnEjecutarAssembly.setEnabled(true);
+			lblRutaAssembly.setText(dialogAssembly.getSelectedFile().getAbsolutePath());
+			btnGuardarAssembly.setEnabled(true);
+		}
+	}
+	
+	private void guardarAssemblyHandler(){
+		guardarText(txtCodigoAssembly.getText(),lblRutaAssembly.getText(),txtNombreAssembly.getText(),".asm");			
+	    JOptionPane.showMessageDialog(null,"Archivo assembly guardado correctamente");		
+	}
+	
+	private void ejecutarAbsolutoHandler(){
+		try {
+			String path = lblRutaAbsoluto.getText();
+			String filename = txtNombreAbsoluto.getText();
+			guardarText(txtCodigoAbsoluto.getText(),path, filename,".maq");
+			if (lineByLineAbsoluto.isSelected()){
+				EjecutarPasoAPasoController pasoAPasoController = new EjecutarPasoAPasoController();
+				pasoAPasoController.ejecutar(path + "/" + filename +".maq", modelosTablas, this);
+				btnPasoAPaso.setEnabled(true);
+			}else{
+				EjecutarContoller ejecucionController = new EjecutarPasoAPasoController();
+				ejecucionController.ejecutar(path + "/" + filename +".maq", modelosTablas, null);
+				habilitarBotonesConversion();
+			}
+			JOptionPane.showMessageDialog(null,Modelo.getModelo().getCpu().resultado);
+			tabbedPane.setSelectedIndex(2);
+		} catch (FileNotFoundException | ProgramaMalFormadoException e1) {
+			JOptionPane.showMessageDialog(null,e1.getMessage());
+		}
+		notificarCambiosTablas();
+	}
+	
+	private void rutaAbsolutoHandler(){
+		int resultado = dialogAbsoluto.showOpenDialog(new JPanel());
+		if  (resultado == JFileChooser.APPROVE_OPTION){
+			btnEjecutarAbsoluto.setEnabled(true);
+			lblRutaAbsoluto.setText(dialogAbsoluto.getSelectedFile().getAbsolutePath());
+		}
+	}
+	private String getFilename(String pathCompleto){
+		String filename = pathCompleto.substring(pathCompleto.lastIndexOf("/") + 1);
+		return 	filename.substring(0,filename.lastIndexOf("."));
+	}
+	private String getDirectory(String pathCompleto){
+		return pathCompleto.substring(0, pathCompleto.lastIndexOf("/") + 1);
+	}
+	private void abrirAssemblyHandler(){
+		String pathCompleto = obtenerRuta(frame, "asm", "Codigo assembly (.asm)");
+		if (pathCompleto != null){
+			String filename = getFilename(pathCompleto);
+			String directorio = getDirectory(pathCompleto);
+			lblRutaAssembly.setText(directorio);
+			txtNombreAssembly.setText(filename);
+			btnEjecutarAssembly.setEnabled(true);
+			try {
+				txtCodigoAssembly.setText(abrirTxt(pathCompleto));
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
+	}
+	
+	private void abrirAbsolutoHandler(){
+
+		String pathCompleto = obtenerRuta(frame,"maq", "Codigo de maquina (.maq)");
+		if (pathCompleto != null){
+			String filename = getFilename(pathCompleto);
+			String directorio = getDirectory(pathCompleto);
+			lblRutaAbsoluto.setText(directorio);
+			txtNombreAbsoluto.setText(filename);
+			btnEjecutarAbsoluto.setEnabled(true);
+			try {
+				txtCodigoAbsoluto.setText(abrirTxt(pathCompleto));
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
+	}
+	
+	private void guardarAbsolutoHandler(){
+		guardarText(txtCodigoAbsoluto.getText(),lblRutaAbsoluto.getText(),txtNombreAbsoluto.getText(),".maq");			
+	    JOptionPane.showMessageDialog(null,"Archivo absoluto guardado correctamente");
+	}
+	
+	private void convertirDecimalHandler(){
+		ConversorController controller = new ConversorController();
+		controller.visualizarDecimal(modelosTablas);
+		notificarCambiosTablas();
+	}
+	
+	private void convertirA2handler(){
+		ConversorController controller = new ConversorController();
+		controller.visualizarComplemento(modelosTablas);
+		notificarCambiosTablas();
+	}
+	
+	private void convertirHexaHandler(){
+		ConversorController controller = new ConversorController();
+		controller.visualizarHexa(modelosTablas);
+		notificarCambiosTablas();
+	}
+	
+	private void pasoAPasoHandler(){
+		ejecutarPasoAPaso();
+		habilitarBotonesConversion();
+		notificarCambiosTablas();
+	}
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btnEjecutarAssembly){
-			//
-			//Ejecutar ASSEMBLY
-			//
-
-			String path = lblRutaAssembly.getText();
-			String filename = txtNombreAssembly.getText();
-			guardarText(txtCodigoAssembly.getText(),path, filename,".asm");
-			try {
-				if (lineByLineAssembly.isSelected()){
-					CompilarYEjecutarPasoAPaso.compilarYEjecutar(path + "/" + filename +".asm", modelosTablas, this);
-					btnPasoAPaso.setEnabled(true);
-				}else{
-					CompilarYEjecutar.compilarYEjecutar(path + "/" + filename +".asm", modelosTablas, this);
-					habilitarBotonesConversion();
-				}
-				txtCodigoAbsoluto.setText(abrirTxt(path + "/" + filename + ".maq"));
-				lblRutaAbsoluto.setText(lblRutaAssembly.getText());
-				txtNombreAbsoluto.setText(filename);
-				tabbedPane.setSelectedIndex(2);
-
-
-				JOptionPane.showMessageDialog(null,Modelo.getModelo().getCpu().resultado);
-			} catch (ExtensionInvalidaException
-					| ProgramaMuyLargoException | ProgramaYaCompiladoException
-					| InstruccionAssemblyInvalidaException
-					| ProgramaMalFormadoException | IOException e1) {
-				JOptionPane.showMessageDialog(null,e1.getMessage());
-			}
+			ejecutarAssemblyHandler();
 		}else if (e.getSource() == btnRutaAssembly){
-			//
-			//RUTA ASSEMBLY
-			//
-			int resultado = dialogAssembly.showOpenDialog(new JPanel());
-			if  (resultado == JFileChooser.APPROVE_OPTION){
-				btnEjecutarAssembly.setEnabled(true);
-				lblRutaAssembly.setText(dialogAssembly.getSelectedFile().getAbsolutePath());
-				btnGuardarAssembly.setEnabled(true);
-			}
+			rutaAssemblyHandler();
 		}else if (e.getSource() == btnGuardarAssembly){
-			//
-			//GUARDAR ASSEMBLY
-			//
-			guardarText(txtCodigoAssembly.getText(),lblRutaAssembly.getText(),txtNombreAssembly.getText(),".asm");			
-		    JOptionPane.showMessageDialog(null,"Archivo assembly guardado correctamente");
+			guardarAssemblyHandler();
 		}else if (e.getSource() == btnEjecutarAbsoluto){
-			//
-			//EJECUTAR ABSOLUTO
-			//
-			try {
-				String path = lblRutaAbsoluto.getText();
-				String filename = txtNombreAbsoluto.getText();
-				guardarText(txtCodigoAbsoluto.getText(),path, filename,".maq");
-				if (lineByLineAbsoluto.isSelected()){
-					EjecutarPasoAPasoController.ejecutar(path + "/" + filename +".maq", modelosTablas, this);
-					btnPasoAPaso.setEnabled(true);
-				}else{
-					EjecutarContoller.ejecutar(path + "/" + filename +".maq", modelosTablas, null);
-					habilitarBotonesConversion();
-				}
-				JOptionPane.showMessageDialog(null,Modelo.getModelo().getCpu().resultado);
-				tabbedPane.setSelectedIndex(2);
-			} catch (FileNotFoundException | ProgramaMalFormadoException e1) {
-				JOptionPane.showMessageDialog(null,e1.getMessage());
-			}
-			notificarCambiosTablas();
+			ejecutarAbsolutoHandler();
 		}else if (e.getSource() == btnRutaAbsoluto){
-			//
-			//RUTA ABSOLUTO
-			//
-			int resultado = dialogAbsoluto.showOpenDialog(new JPanel());
-			if  (resultado == JFileChooser.APPROVE_OPTION){
-				btnEjecutarAbsoluto.setEnabled(true);
-				lblRutaAbsoluto.setText(dialogAbsoluto.getSelectedFile().getAbsolutePath());
-			}
+			rutaAbsolutoHandler();
 		}else if (e.getSource() == btnAbrirAssembly){
-			//
-			//ABRIR ASSEMBLY
-			//
-			String pathCompleto = obtenerRuta(frame, "asm", "Codigo assembly (.asm)");
-			if (pathCompleto != null){
-				String filename = pathCompleto.substring(pathCompleto.lastIndexOf("/") + 1);
-				filename = filename.substring(0,filename.lastIndexOf("."));
-				String directorio = pathCompleto.substring(0, pathCompleto.lastIndexOf("/") + 1);
-				lblRutaAssembly.setText(directorio);
-				txtNombreAssembly.setText(filename);
-				btnEjecutarAssembly.setEnabled(true);
-				try {
-					txtCodigoAssembly.setText(abrirTxt(pathCompleto));
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-			}
+			abrirAssemblyHandler();
 		}else if (e.getSource() == btnAbrirAbsoluto){
-			//
-			//ABRIR ABSOLUTO
-			//
-			String pathCompleto = obtenerRuta(frame,"maq", "Codigo de maquina (.maq)");
-			if (pathCompleto != null){
-				String filename = pathCompleto.substring(pathCompleto.lastIndexOf("/") + 1);
-				filename = filename.substring(0,filename.lastIndexOf("."));
-				String directorio = pathCompleto.substring(0, pathCompleto.lastIndexOf("/") + 1);
-				lblRutaAbsoluto.setText(directorio);
-				txtNombreAbsoluto.setText(filename);
-				btnEjecutarAbsoluto.setEnabled(true);
-				try {
-					txtCodigoAbsoluto.setText(abrirTxt(pathCompleto));
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-			}
+			abrirAbsolutoHandler();
 		}else if (e.getSource() == btnGuardarAbsoluto){
-			//
-			//GUARDAR ABSOLUTO
-			//
-			guardarText(txtCodigoAbsoluto.getText(),lblRutaAbsoluto.getText(),txtNombreAbsoluto.getText(),".maq");			
-		    JOptionPane.showMessageDialog(null,"Archivo absoluto guardado correctamente");
+				guardarAbsolutoHandler();
 		}else if (e.getSource() == btnConvertirDecimal){
-			//
-			//CONVERTIR DECIMAL
-			//
-			ConversorController controller = new ConversorController();
-			controller.visualizarDecimal(modelosTablas);
-			notificarCambiosTablas();
+				convertirDecimalHandler();
 		}else if (e.getSource() == btnConvertirA2){
-			//
-			//CONVERTIR A2
-			//
-			ConversorController controller = new ConversorController();
-			controller.visualizarComplemento(modelosTablas);
-			notificarCambiosTablas();
+				convertirA2handler();
 		}else if (e.getSource() == btnConvertirHexa){
-			//
-			//CONVERTIR A HEXA
-			//
-			ConversorController controller = new ConversorController();
-			controller.visualizarHexa(modelosTablas);
-			notificarCambiosTablas();
+				convertirHexaHandler();
 		}else if (e.getSource() == btnPasoAPaso){
-			//
-			//PASO A PASO
-			//
-			ejecutarPasoAPaso();
-			habilitarBotonesConversion();
-			notificarCambiosTablas();
+			pasoAPasoHandler();
 		}
 	}
 	private void habilitarBotonesConversion(){
@@ -303,7 +310,8 @@ public class VentanaPPal implements ActionListener, MouseListener {
 		pcTableModel.fireTableDataChanged();
 	}
 	private void ejecutarPasoAPaso(){
-		EjecutarPasoAPasoController.avanzarPaso(modelosTablas, this);
+		EjecutarPasoAPasoController pasoAPasoController = new EjecutarPasoAPasoController();
+		pasoAPasoController.avanzarPaso(modelosTablas, this);
 		notificarCambiosTablas();
 		Cpu cpu = Modelo.getModelo().getCpu();
 		if (cpu.terminoEjecucion()) {
@@ -386,26 +394,22 @@ public class VentanaPPal implements ActionListener, MouseListener {
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
+		return;
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
+		return;
 	}
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
+		return;
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
+		return;
 	}
 
 }

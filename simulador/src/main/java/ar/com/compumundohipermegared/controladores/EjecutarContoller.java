@@ -16,14 +16,14 @@ import ar.com.compumundohipermegared.interfacesUsuario.ModelosInterfaz;
 import ar.com.compumundohipermegared.interfacesUsuario.PipelineTableModel;
 import ar.com.compumundohipermegared.interfacesUsuario.ProgramCounterTableModel;
 import ar.com.compumundohipermegared.interfacesUsuario.RegistryTableModel;
-import ar.com.compumundohipermegared.interfacesUsuario.VentanaPPal;
+import ar.com.compumundohipermegared.interfacesUsuario.VentanaSimulador;
 import ar.com.compumundohipermegared.simulador.Modelo;
 import ar.com.compumundohipermegared.simulador.cicloInstruccion.Cpu;
 import ar.com.compumundohipermegared.simulador.cicloInstruccion.ProgramaMalFormadoException;
 
 public class EjecutarContoller {
 
-	public static void ejecutar(String Ruta, ModelosInterfaz interfaz, VentanaPPal ventana) throws FileNotFoundException, ProgramaMalFormadoException{
+	public void ejecutar(String Ruta, ModelosInterfaz interfaz, VentanaSimulador ventana) throws FileNotFoundException, ProgramaMalFormadoException{
 		Modelo.crearModelo(Ruta);
 		Modelo modelo = Modelo.getModelo();
 		modelo.ejecutar();
@@ -38,10 +38,11 @@ public class EjecutarContoller {
 				//e.printStackTrace();
 			}
 		}
-		ArquitecturaVisualizacionController.actualizacionInterfaz(modelo, interfaz, Representacion.DECIMAL);
+		ArquitecturaVisualizacionController visualizacionController = new ArquitecturaVisualizacionController();
+		visualizacionController.actualizacionInterfaz(modelo, interfaz, Representacion.DECIMAL);
 	}
 	
-	protected static byte pedirEntradaUsuario(VentanaPPal ventana) {
+	protected byte pedirEntradaUsuario(VentanaSimulador ventana) {
 		return (byte) ventana.pedirEntradaUsuario();
 	}
 }

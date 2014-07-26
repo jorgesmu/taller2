@@ -15,7 +15,7 @@ import javax.swing.border.MatteBorder;
 
 
 public class ArquitecturaPestana {
-	public static void inicializarVentanaArquitectura(JPanel panel, VentanaPPal ventana) {	
+	public void inicializarVentanaArquitectura(JPanel panel, VentanaSimulador ventana) {	
 		JLabel lblReferencias;
 		JLabel lblTitulo;
 		JLabel lblRegistros;

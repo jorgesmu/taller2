@@ -8,15 +8,16 @@ import ar.com.compumundohipermegared.compilacion.InstruccionAssemblyInvalidaExce
 import ar.com.compumundohipermegared.compilacion.ProgramaMuyLargoException;
 import ar.com.compumundohipermegared.compilacion.ProgramaYaCompiladoException;
 import ar.com.compumundohipermegared.interfacesUsuario.ModelosInterfaz;
-import ar.com.compumundohipermegared.interfacesUsuario.VentanaPPal;
+import ar.com.compumundohipermegared.interfacesUsuario.VentanaSimulador;
 import ar.com.compumundohipermegared.simulador.cicloInstruccion.ProgramaMalFormadoException;
 
 public class CompilarYEjecutar {
 	
-	public static void compilarYEjecutar(String ruta, ModelosInterfaz interfaz, VentanaPPal ventana) throws FileNotFoundException, ExtensionInvalidaException, ProgramaMuyLargoException, ProgramaYaCompiladoException, InstruccionAssemblyInvalidaException, ProgramaMalFormadoException {
+	public void compilarYEjecutar(String ruta, ModelosInterfaz interfaz, VentanaSimulador ventana) throws FileNotFoundException, ExtensionInvalidaException, ProgramaMuyLargoException, ProgramaYaCompiladoException, InstruccionAssemblyInvalidaException, ProgramaMalFormadoException {
 		Compilador comp = new Compilador(ruta);
 		String rutaCompilado = comp.compilar();
-		EjecutarContoller.ejecutar(rutaCompilado, interfaz, ventana);
+		EjecutarPasoAPasoController pasoAPasoController = new EjecutarPasoAPasoController();
+		pasoAPasoController.ejecutar(rutaCompilado, interfaz, ventana);
 	}
 	
 }
