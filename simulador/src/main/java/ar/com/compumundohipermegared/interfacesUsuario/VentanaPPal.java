@@ -57,44 +57,40 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class VentanaPPal implements ActionListener, MouseListener {
-	private JFrame frame;
-	/**
-	 * Launch the application.
-	 */
-	//instance object declaration
-	JButton btnAbrirAssembly;
-	JButton btnEjecutarAssembly;
-	JButton btnGuardarAssembly;
-	JButton btnRutaAssembly;
-	JButton btnAbrirAbsoluto;
-	JButton btnEjecutarAbsoluto;
-	JButton btnGuardarAbsoluto;
-	JButton btnRutaAbsoluto;
-	JButton btnConvertirDecimal;
-	JButton btnConvertirA2;
-	JButton btnConvertirHexa;
-	JButton btnPasoAPaso;
-	boolean enEjecucion = false;
-	JCheckBox lineByLineAssembly;
-	JCheckBox lineByLineAbsoluto;
-	JTextArea txtCodigoAssembly;
-	JFileChooser dialogAssembly;
-	JLabel lblRutaAssembly;
-	JTextField txtNombreAssembly;
-	JFileChooser dialogAbsoluto;
-	JLabel lblRutaAbsoluto;
-	JTextArea txtCodigoAbsoluto;
-	JTextField txtNombreAbsoluto;
-	String codigoHintAbsoluto;
-	String nombreHintAbsoluto;
-	String codigoHintAssembly;
-	String nombreHintAssembly;	
-	JTabbedPane tabbedPane;
-	MemoryTableModel memoryTableModel;
-	RegistryTableModel registryTableModel;
-	PipelineTableModel pipelineTableModel;
-	ProgramCounterTableModel pcTableModel;
-	ModelosInterfaz modelosTablas;
+	public JFrame frame;
+	public JButton btnAbrirAssembly;
+	public JButton btnEjecutarAssembly;
+	public JButton btnGuardarAssembly;
+	public JButton btnRutaAssembly;
+	public JButton btnAbrirAbsoluto;
+	public JButton btnEjecutarAbsoluto;
+	public JButton btnGuardarAbsoluto;
+	public JButton btnRutaAbsoluto;
+	public JButton btnConvertirDecimal;
+	public JButton btnConvertirA2;
+	public JButton btnConvertirHexa;
+	public JButton btnPasoAPaso;
+	public boolean enEjecucion = false;
+	public JCheckBox lineByLineAssembly;
+	public JCheckBox lineByLineAbsoluto;
+	public JTextArea txtCodigoAssembly;
+	public JFileChooser dialogAssembly;
+	public JLabel lblRutaAssembly;
+	public JTextField txtNombreAssembly;
+	public JFileChooser dialogAbsoluto;
+	public JLabel lblRutaAbsoluto;
+	public JTextArea txtCodigoAbsoluto;
+	public JTextField txtNombreAbsoluto;
+	public String codigoHintAbsoluto;
+	public String nombreHintAbsoluto;
+	public String codigoHintAssembly;
+	public String nombreHintAssembly;	
+	public JTabbedPane tabbedPane;
+	public MemoryTableModel memoryTableModel;
+	public RegistryTableModel registryTableModel;
+	public PipelineTableModel pipelineTableModel;
+	public ProgramCounterTableModel pcTableModel;
+	public ModelosInterfaz modelosTablas;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -110,16 +106,11 @@ public class VentanaPPal implements ActionListener, MouseListener {
 		});
 	}
 
-	/**
-	 * Create the application.
-	 */
+
 	public VentanaPPal() {
 		inicializar();
 	}
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
 	private void inicializar() {
 		frame = new JFrame();
 		frame.getContentPane().setLayout(new BorderLayout(0, 0));
@@ -127,378 +118,26 @@ public class VentanaPPal implements ActionListener, MouseListener {
 		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		frame.getContentPane().add(tabbedPane, BorderLayout.CENTER);
 		
-		JPanel panel_1 = new JPanel();
-		tabbedPane.addTab("Assembly", null, panel_1, null);
-		inicializarVentanaAssembly(panel_1);
-		panel_1.setLayout(null);
+		JPanel pestana1 = new JPanel();
+		tabbedPane.addTab("Assembly", null, pestana1, null);
+		EditorAssemblyPestana.inicializarVentanaAssembly(pestana1, this);
+		pestana1.setLayout(null);
 
-		JPanel panel_2 = new JPanel();
-		tabbedPane.addTab("Absoluto", null, panel_2, null);
-		inicializarVentanaAbsoluto(panel_2);
-		panel_2.setLayout(null);
+		JPanel pestana2 = new JPanel();
+		tabbedPane.addTab("Absoluto", null, pestana2, null);
+		EditorCodigoAbsolutoPestana.inicializarVentanaAbsoluto(pestana2, this);
+		pestana2.setLayout(null);
 		
-		JPanel panel_3 = new JPanel();
-		tabbedPane.addTab("Arquitectura", null, panel_3, null);
-		inicializarVentanaArquitectura(panel_3);
-		panel_3.setLayout(null);
+		JPanel pestana3 = new JPanel();
+		tabbedPane.addTab("Arquitectura", null, pestana3, null);
+		ArquitecturaPestana.inicializarVentanaArquitectura(pestana3, this);
+		pestana3.setLayout(null);
 
-		JPanel panel_4 = new JPanel();
-		tabbedPane.addTab("Ayuda en linea", null, panel_4, null);
-		inicializarVentanaAyuda(panel_4);
-		panel_4.setLayout(null);
+		JPanel pestana4 = new JPanel();
+		tabbedPane.addTab("Ayuda en linea", null, pestana4, null);
+		AyudaEnLineaVentana.inicializarVentanaAyuda(pestana4);
+		pestana4.setLayout(null);
 
-	}
-	
-		
-		
-	
-	private void inicializarVentanaAssembly(JPanel panel){
-
-		JLabel lblTitulo;
-		JScrollPane scrollCodigo;
-
-
-		lblTitulo = new JLabel("Editor de código Assembly");
-		lblTitulo.setBounds(300, 15, 900, 40);
-		Font labelFont = lblTitulo.getFont();
-		lblTitulo.setFont(new Font(labelFont.getName(), Font.PLAIN, 40));
-		
-		panel.add(lblTitulo);
-	
-		btnAbrirAssembly = new JButton("Abrir");
-		btnAbrirAssembly.addActionListener(this);
-		btnAbrirAssembly.setBounds(25, 600, 300, 60);
-		panel.add(btnAbrirAssembly);
-		
-	
-		btnGuardarAssembly = new JButton("Guardar");
-		btnGuardarAssembly.addActionListener(this);
-		btnGuardarAssembly.setBounds(380, 600, 300, 60);
-		btnGuardarAssembly.setEnabled(false);;
-		panel.add(btnGuardarAssembly);
-	
-		
-		btnEjecutarAssembly = new JButton("Compilar y Ejecutar");
-		btnEjecutarAssembly.addActionListener(this);
-		btnEjecutarAssembly.setBounds(925, 600, 300, 60);
-		btnEjecutarAssembly.setEnabled(false);
-		panel.add(btnEjecutarAssembly);
-		
-	
-		codigoHintAssembly = "Ingrese su código assembler aquí";
-		txtCodigoAssembly = new JTextArea(codigoHintAssembly);
-		txtCodigoAssembly.addMouseListener(this);
-		scrollCodigo = new JScrollPane(txtCodigoAssembly);
-		scrollCodigo.setBounds(25, 110, 1200, 470);
-		scrollCodigo.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		panel.add(scrollCodigo);
-		
-		dialogAssembly = new JFileChooser();
-		dialogAssembly.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-		
-		lblRutaAssembly = new JLabel();
-		lblRutaAssembly.setText("Ruta destino para archivos ejecutables");
-		lblRutaAssembly.setBounds(25, 65, 1000, 20);
-		panel.add(lblRutaAssembly);
-		
-		btnRutaAssembly = new JButton("Guardar en");
-		btnRutaAssembly.addActionListener(this);
-		btnRutaAssembly.setBounds(1010, 65, 215, 20);
-		panel.add(btnRutaAssembly);
-	
-		nombreHintAssembly = "Nombre del archivo";
-		txtNombreAssembly = new JTextField();
-		txtNombreAssembly.setText(nombreHintAssembly);
-		txtNombreAssembly.setBounds(22,87,1208,20);
-		txtNombreAssembly.addMouseListener(this);
-		panel.add(txtNombreAssembly);
-		
-		lineByLineAssembly = new JCheckBox("Línea por línea");
-		lineByLineAssembly.setBounds(740,615,150,30);
-		panel.add(lineByLineAssembly);
-		/* Numeros Lineas */
-		final JLabel lblLineColReferencia= new JLabel();
-		txtCodigoAssembly.addCaretListener( new CaretListener() {
-		     public void caretUpdate(CaretEvent e2) {
-		     int pos = e2.getDot();
-		        try {
-		           int row = txtCodigoAssembly .getLineOfOffset(pos) + 1;
-		           int col = pos -txtCodigoAssembly .getLineStartOffset(row - 1) + 1;
-		           lblLineColReferencia.setText("Línea: " + row + " Columna: " + col );
-		       }
-		       catch( BadLocationException exc ){ 
-		           System.out.println(exc); 
-		       }
-		    } 
-		  });
-		
-		lblLineColReferencia.setBounds(1080, 570, 900, 40);
-		panel.add(lblLineColReferencia);
-	
-		
-	}
-	private void inicializarVentanaAbsoluto(JPanel panel) {
-		JLabel lblTitulo;
-		JScrollPane scrollCodigo;
-
-		
-	
-		lblTitulo = new JLabel("Editor de código absoluto");
-		lblTitulo.setBounds(300, 15, 600, 40);
-		Font labelFont = lblTitulo.getFont();
-		lblTitulo.setFont(new Font(labelFont.getName(), Font.PLAIN, 40));
-		
-		panel.add(lblTitulo);
-	
-		btnAbrirAbsoluto = new JButton("Abrir");
-		btnAbrirAbsoluto.addActionListener(this);
-		btnAbrirAbsoluto.setBounds(25, 600, 300, 60);
-		panel.add(btnAbrirAbsoluto);
-	
-		btnGuardarAbsoluto = new JButton("Guardar");
-		btnGuardarAbsoluto.addActionListener(this);
-		btnGuardarAbsoluto.setBounds(380, 600, 300, 60);
-		panel.add(btnGuardarAbsoluto);
-		
-		btnEjecutarAbsoluto = new JButton("Ejecutar");
-		btnEjecutarAbsoluto.addActionListener(this);
-		btnEjecutarAbsoluto.setBounds(925, 600, 300, 60);
-		btnEjecutarAbsoluto.setEnabled(false);;
-		panel.add(btnEjecutarAbsoluto);
-		
-	
-		codigoHintAbsoluto = "Ingrese su código absoluto aquí";
-		txtCodigoAbsoluto = new JTextArea(codigoHintAbsoluto);
-		txtCodigoAbsoluto.addMouseListener(this);
-		scrollCodigo = new JScrollPane(txtCodigoAbsoluto);
-		scrollCodigo.setBounds(25, 110, 1200, 470);
-		scrollCodigo.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		panel.add(scrollCodigo);
-		
-		dialogAbsoluto = new JFileChooser();
-		dialogAbsoluto.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-		
-		lblRutaAbsoluto = new JLabel();
-		lblRutaAbsoluto.setText("Ruta destino para archivos ejecutables");
-		lblRutaAbsoluto.setBounds(25, 65, 1000, 20);
-		panel.add(lblRutaAbsoluto);
-		
-		btnRutaAbsoluto = new JButton("Guardar en");
-		btnRutaAbsoluto.addActionListener(this);
-		btnRutaAbsoluto.setBounds(1010, 65, 215, 20);
-		panel.add(btnRutaAbsoluto);
-	
-		nombreHintAbsoluto = "Nombre del archivo";
-		txtNombreAbsoluto = new JTextField();
-		txtNombreAbsoluto.setText(nombreHintAbsoluto);
-		txtNombreAbsoluto.setBounds(22,87,1208,20);
-		txtNombreAbsoluto.addMouseListener(this);
-		panel.add(txtNombreAbsoluto);
-	
-		lineByLineAbsoluto = new JCheckBox("Línea por línea");
-		lineByLineAbsoluto.setBounds(740,615,150,30);
-		panel.add(lineByLineAbsoluto);
-		
-		/* Numeros Lineas */
-		final JLabel lblLineaColReferencia= new JLabel();
-		txtCodigoAbsoluto.addCaretListener( new CaretListener() {
-		     public void caretUpdate( CaretEvent e ) {
-		     int pos = e.getDot();
-		        try {
-		           int row = txtCodigoAbsoluto .getLineOfOffset(pos) + 1;
-		           int col = pos - txtCodigoAbsoluto .getLineStartOffset( row - 1 ) + 1;
-		           lblLineaColReferencia.setText("Línea: " + row + " Columna: " + col );
-		       }
-		       catch( BadLocationException exc ){ 
-		           System.out.println(exc); 
-		       }
-		    } 
-		  });
-		
-		lblLineaColReferencia.setBounds(1080, 570, 900, 40);
-		panel.add(lblLineaColReferencia);
-		
-	}
-	
-	private void inicializarVentanaArquitectura(JPanel panel) {	
-		JLabel lblReferencias;
-		JLabel lblTitulo;
-		JLabel lblRegistros;
-		JLabel lblMemoria;
-		JLabel lblPipeline;
-		JTable tblPipeline;
-		JLabel lblProgramCounter;
-		JTable tblProgramCounter;
-		JTable tblMemoria;
-		JTable tblRegistros;
-		JLabel lblColumnaMemoria;
-		JLabel lblFilasMemoria;
-		MatteBorder border = new MatteBorder(1, 1, 1, 1, Color.BLUE);
-		String hexaVerticalReference ="<html>0<br>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>A<br>"
-				+ "B<br>C<br>D<br>E<br>F</html>";
-		String pipelineReference ="<html>1<br>2<br>3</html>";
-		JLabel lblPipelineReference;
-		JLabel lblregistryReference;
-		
-		lblTitulo = new JLabel("Simulador");
-		lblTitulo.setBounds(450, 15, 900, 50);
-		Font labelFont = lblTitulo.getFont();
-		lblTitulo.setFont(new Font(labelFont.getName(), Font.PLAIN, 40));	
-		panel.add(lblTitulo);
-	
-		lblMemoria = new JLabel("Memoria principal");
-		lblMemoria.setBounds(25, 45, 400, 40);
-		Font labelFontMemoria = lblTitulo.getFont();
-		lblMemoria.setFont(new Font(labelFontMemoria.getName(), Font.PLAIN, 20));	
-		panel.add(lblMemoria);
-		
-		memoryTableModel = new MemoryTableModel();
-		tblMemoria = new JTable(memoryTableModel);
-		//Basado en ejemplo: http://stackoverflow.com/questions/14563799/jtable-cellrenderer-changes-backgroundcolor-of-cells-while-running
-		tblMemoria.getColumnModel().getColumn(12).setCellRenderer(new MemoriaTableRender());
-		tblMemoria.getColumnModel().getColumn(13).setCellRenderer(new MemoriaTableRender());
-		tblMemoria.getColumnModel().getColumn(14).setCellRenderer(new MemoriaTableRender());
-		tblMemoria.getColumnModel().getColumn(15).setCellRenderer(new MemoriaTableRender());
-		tblMemoria.setShowGrid(true);
-		tblMemoria.setShowVerticalLines(true);
-		tblMemoria.setBorder(border);
-		tblMemoria.setGridColor(Color.BLUE);
-		tblMemoria.setBounds(25,95,1100,255);
-		tblMemoria.setFocusable(false);
-		tblMemoria.setCellSelectionEnabled(false);
-		panel.add(tblMemoria);
-		
-		lblRegistros = new JLabel("Registros");
-		lblRegistros.setBounds(25, 370, 400, 40);
-		Font labelFontRegistros = lblRegistros.getFont();
-		lblRegistros.setFont(new Font(labelFontRegistros.getName(), Font.PLAIN, 20));	
-		panel.add(lblRegistros);
-		
-		registryTableModel = new RegistryTableModel();
-		tblRegistros = new JTable(registryTableModel);
-		tblRegistros.setShowGrid(true);
-		tblRegistros.setShowVerticalLines(true);
-		tblRegistros.setBorder(border);
-		tblRegistros.setGridColor(Color.BLUE);
-		tblRegistros.setBounds(25,400,100,255);
-		tblRegistros.setFocusable(false);
-		tblRegistros.setCellSelectionEnabled(false);
-		panel.add(tblRegistros);
-
-		lblPipeline = new JLabel("Pipeline");
-		lblPipeline.setBounds(150, 370, 400, 40);
-		Font labelFontPipeline = lblPipeline.getFont();
-		lblPipeline.setFont(new Font(labelFontPipeline.getName(), Font.PLAIN, 20));	
-		panel.add(lblPipeline);
-		
-		pipelineTableModel = new PipelineTableModel();
-		tblPipeline = new JTable(pipelineTableModel);
-		tblPipeline.setShowGrid(true);
-		tblPipeline.setShowVerticalLines(true);
-		tblPipeline.setBorder(border);
-		tblPipeline.setGridColor(Color.BLUE);
-		tblPipeline.setBounds(150,400,200,48);
-		tblPipeline.setFocusable(false);
-		tblPipeline.setCellSelectionEnabled(false);
-		panel.add(tblPipeline);
-		
-		lblProgramCounter = new JLabel("Contador del programa");
-		lblProgramCounter.setBounds(150, 470, 400, 40);
-		Font labelFontProgramCounter = lblProgramCounter.getFont();
-		lblProgramCounter.setFont(new Font(labelFontProgramCounter.getName(), Font.PLAIN, 20));	
-		panel.add(lblProgramCounter);
-		
-		pcTableModel = new ProgramCounterTableModel();
-		tblProgramCounter = new JTable(pcTableModel);
-		tblProgramCounter.setShowGrid(true);
-		tblProgramCounter.setShowVerticalLines(true);
-		tblProgramCounter.setBorder(border);
-		tblProgramCounter.setGridColor(Color.BLUE);
-		tblProgramCounter.setBounds(150,500,200,15);
-		tblProgramCounter.setFocusable(false);
-		tblProgramCounter.setCellSelectionEnabled(false);
-		panel.add(tblProgramCounter);
-		
-		btnConvertirDecimal = new JButton("Visualizar en decimal");
-		btnConvertirDecimal.addActionListener(this);
-		btnConvertirDecimal.setEnabled(false);
-		btnConvertirDecimal.setBounds(500, 400, 200, 50);
-		panel.add(btnConvertirDecimal);
-		
-		btnConvertirHexa = new JButton("Visualizar en hexadecimal");
-		btnConvertirHexa.addActionListener(this);
-		btnConvertirHexa.setEnabled(false);
-		btnConvertirHexa.setBounds(500, 460, 200, 50);
-		panel.add(btnConvertirHexa);
-		
-		btnConvertirA2 = new JButton("Visualizar en complemento");
-		btnConvertirA2.addActionListener(this);
-		btnConvertirA2.setEnabled(false);
-		btnConvertirA2.setBounds(500, 520, 200, 50);
-		panel.add(btnConvertirA2);
-		
-		lblReferencias = new JLabel("Verde: entrada, Amarillo: salida.");
-		lblReferencias.setBounds(920, 340, 900, 40);
-		Font labelReferencias = lblReferencias.getFont();
-		lblReferencias.setFont(new Font(labelReferencias.getName(), Font.PLAIN, 13));	
-		panel.add(lblReferencias);
-
-		lblregistryReference = new JLabel(hexaVerticalReference);
-		lblregistryReference.setBounds(15, 376, 10, 300);
-		Font labelReferenciasRegistry = lblregistryReference.getFont();
-		lblregistryReference.setFont(new Font(labelReferenciasRegistry.getName(), Font.PLAIN, 13));	
-		panel.add(lblregistryReference);
-		
-		lblPipelineReference = new JLabel(pipelineReference);
-		lblPipelineReference.setBounds(140, 273, 10, 300);
-		Font labelReferenciasPipeline = lblPipelineReference.getFont();
-		lblPipelineReference.setFont(new Font(labelReferenciasPipeline.getName(), Font.PLAIN, 14));	
-		panel.add(lblPipelineReference);
-		
-		lblFilasMemoria = new JLabel(hexaVerticalReference);
-		lblFilasMemoria.setBounds(15, 72, 10, 300);
-		Font labelFilas = lblFilasMemoria.getFont();
-		lblFilasMemoria.setFont(new Font(labelFilas.getName(), Font.PLAIN, 13));	
-		panel.add(lblFilasMemoria);
-		
-		lblColumnaMemoria = new JLabel("           0                     1                     2"
-				+ "                     3                     4                     5                     6"
-				+ "                     7                     8                     9                    A"
-				+ "                     B                     C                    D                     E"
-				+ "                     F");
-		lblColumnaMemoria.setBounds(25, 65, 1300, 40);
-		Font labelCol = lblColumnaMemoria.getFont();
-		lblColumnaMemoria.setFont(new Font(labelCol.getName(), Font.PLAIN, 10));	
-		panel.add(lblColumnaMemoria);
-		
-		btnPasoAPaso = new JButton("Proximo paso");
-		btnPasoAPaso.setEnabled(false);
-		btnPasoAPaso.addActionListener(this);
-		btnPasoAPaso.setBounds(930, 400, 200, 50);
-		panel.add(btnPasoAPaso);
-		
-		modelosTablas = new ModelosInterfaz(memoryTableModel, pipelineTableModel, pcTableModel, registryTableModel);
-			
-	}
-	private void inicializarVentanaAyuda(JPanel panel) {
-		JLabel lblTitulo;
-		JLabel lblAyuda;
-		lblTitulo = new JLabel("Ayuda en linea");
-		lblTitulo.setBounds(450, 15, 900, 40);
-		Font labelFont = lblTitulo.getFont();
-		lblTitulo.setFont(new Font(labelFont.getName(), Font.PLAIN, 40));	
-		panel.add(lblTitulo);
-		
-		
-		JTextArea ayuda = new JTextArea(TextoAyuda.TEXTO);
-		ayuda.setEditable(false);
-		Font labelFontAyuda = lblTitulo.getFont();
-		ayuda.setFont(new Font(labelFontAyuda.getName(), Font.PLAIN, 15));
-		
-		JScrollPane scroll = new JScrollPane(ayuda);
-		scroll.setBounds(10, 65, 1345, 600);
-		scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		panel.add(scroll);	
 	}
 
 	@Override

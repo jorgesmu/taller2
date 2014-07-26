@@ -13,21 +13,12 @@ import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
 
 
-public class AyudaEnLineaVentana extends JFrame implements ActionListener{
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+public class AyudaEnLineaVentana {
 	
-	JPanel panel;
-	JButton btnMenu;
-	JLabel lblTitulo;
-	JLabel lblAyuda;
-	
-	public AyudaEnLineaVentana(){
-		panel = new JPanel();
-		panel.setLayout(null);
-	
+		
+	public static void inicializarVentanaAyuda(JPanel panel) {
+		JLabel lblTitulo;
+		JLabel lblAyuda;
 		lblTitulo = new JLabel("Ayuda en linea");
 		lblTitulo.setBounds(450, 15, 900, 40);
 		Font labelFont = lblTitulo.getFont();
@@ -43,26 +34,8 @@ public class AyudaEnLineaVentana extends JFrame implements ActionListener{
 		JScrollPane scroll = new JScrollPane(ayuda);
 		scroll.setBounds(10, 65, 1345, 600);
 		scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		panel.add(scroll);
-		
-		btnMenu = new JButton("Menú Principal");
-		btnMenu.addActionListener(this);
-		btnMenu.setBounds(25, 680, 300, 60);
-		panel.add(btnMenu);
-		
-		this.getContentPane().add(panel);
-		this.setLocationRelativeTo (null);
+		panel.add(scroll);	
 	}
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == btnMenu){
-		    MenuVentana menu = new MenuVentana();
-	        menu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	        menu.setBounds(0, 0, 300, 325);
-	        menu.setVisible(true);
-			this.dispose();		
-		}
-	}
-
+	
 
 }
