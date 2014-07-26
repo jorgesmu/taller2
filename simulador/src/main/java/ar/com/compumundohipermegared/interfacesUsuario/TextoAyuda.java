@@ -57,5 +57,12 @@ public class TextoAyuda {
 	+ "el patrón de bits del registro R es igual al patrón de bits del registro número 0.\n      "
 	+ ". C000 PARA la ejecución.\n      "
 	+ ". DRST Multiplica los patrones de bits de los registros S y T en punto flotante y deja el "
-	+ "resultado en el registro R.\n      ";
+	+ "resultado en el registro R.\n      "
+	+ "\nDesarrolladores:\n\n"
+	+ "  Daniel Fernandez\n"
+	+ "  Nicolás Ortoleva\n"
+	+ "  Maximiliano Schultheis\n"
+	+ "  Jorge Smulevici\n\n"
+	+ "Por cualquier consulta o reporte de errores contactarse con: ayuda.simulador@gmail.com\n"
+	+ "Software desarrollado en el año 2014.";
 }
