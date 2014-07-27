@@ -385,6 +385,20 @@ public class VentanaSimulador implements ActionListener, MouseListener {
 		 return resultado;
 	}
 	
+ 	@Override
+ 	public void mouseClicked(MouseEvent e) {
+ 		if (e.getSource() == txtCodigoAbsoluto){
+ 			if (txtCodigoAbsoluto.getText().equals(codigoHintAbsoluto)) txtCodigoAbsoluto.setText("");
+ 		}else if (e.getSource() == txtNombreAbsoluto){
+ 			if (txtNombreAbsoluto.getText().equals(nombreHintAbsoluto)) txtNombreAbsoluto.setText("");
+ 		}else if (e.getSource() == txtCodigoAssembly){
+ 			if (txtCodigoAssembly.getText().equals(codigoHintAssembly)) txtCodigoAssembly.setText("");
+ 		}else if (e.getSource() == txtNombreAssembly){
+ 			if (txtNombreAssembly.getText().equals(nombreHintAssembly)) txtNombreAssembly.setText("");
+ 		}	
+ 	}
+
+	
 	@Override
 	public void mousePressed(MouseEvent e) {
 		return;
@@ -405,9 +419,5 @@ public class VentanaSimulador implements ActionListener, MouseListener {
 		return;
 	}
 
-
-	@Override
-	public void mouseClicked(MouseEvent e) {
-	}
 
 }
