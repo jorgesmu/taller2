@@ -66,7 +66,16 @@ public class ArquitecturaVisualizacionController {
 		}
 	}
 	
+	public void reiniciarPipiline(PipelineTableModel pipelineTableModel){
+		//es necesario puesto que puede ser que un programa no tenga instrucciones y cuando se actualiza queda valor
+		//anterior
+		int PIPELINESIZE = 3;
+		for (int i = 0; i < PIPELINESIZE; i++){
+			pipelineTableModel.setValueAt( "basura", i);
+		}		
+	}
 	public void actualizarPipeline(ArrayList<DireccionMasInstruccion> pipeline, PipelineTableModel pipelineTableModel){
+		reiniciarPipiline(pipelineTableModel);
 		for (int numReg=0; numReg < pipeline.size(); numReg++){
 			pipelineTableModel.setValueAt(pipeline.get(numReg).getInstruccion(), numReg);
 		}
