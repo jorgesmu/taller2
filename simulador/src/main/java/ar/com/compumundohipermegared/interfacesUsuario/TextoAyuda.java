@@ -6,8 +6,8 @@ public class TextoAyuda {
 	+ ". ldi rd,imm (rd=imm)\n      "
 	+ ". ldm rd,port_addr (rd=mem[port_addr])\n      "
 	+ ". stm rd,port_addr (mem[port_addr]=rd)\n      "
-	+ ". add rd,rs,rt (rd=rs+rt)\n     "
-	+ ". addfp rd,rs,rt (rd=rs+rt)\n   "
+	+ ". add rd,rs,rt (rd=rs+rt)\n      "
+	+ ". addfp rd,rs,rt (rd=rs+rt)\n      "
 	+ ". sub rd,rs,rt (rd=rs-rt)\n      "
 	+ ". and rd,rs,rt (rd=rs and rt)\n      "
 	+ ". or  rd,rs,rt (rd=rs or rt)\n      "
@@ -64,5 +64,5 @@ public class TextoAyuda {
 	+ "  Maximiliano Schultheis\n"
 	+ "  Jorge Smulevici\n\n"
 	+ "Por cualquier consulta o reporte de errores contactarse con: ayuda.simulador@gmail.com\n"
-	+ "Software desarrollado en el año 2014.";
+	+ "Software desarrollado en el año 2014. Facultad de Ingenieria Universidad de Buenos Aires.";
 }
