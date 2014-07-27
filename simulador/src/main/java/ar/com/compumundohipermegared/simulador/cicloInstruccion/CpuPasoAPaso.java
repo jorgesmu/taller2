@@ -16,6 +16,7 @@ public class CpuPasoAPaso extends Cpu {
 		resultado = "Ejecutando";
 		try {
 			while (pipeline.size() > 0) {
+				Thread.sleep(100);
 				if (ejecutarPaso) {
 					ejecutarProximaInstruccion();
 					ejecutarPaso = false;
