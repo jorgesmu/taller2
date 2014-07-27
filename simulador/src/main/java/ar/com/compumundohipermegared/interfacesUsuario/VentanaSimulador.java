@@ -144,9 +144,8 @@ public class VentanaSimulador implements ActionListener, MouseListener {
 			txtCodigoAbsoluto.setText(abrirTxt(path + "/" + filename + ".maq"));
 			lblRutaAbsoluto.setText(lblRutaAssembly.getText());
 			txtNombreAbsoluto.setText(filename);
+			
 			tabbedPane.setSelectedIndex(2);
-
-
 			JOptionPane.showMessageDialog(null,Modelo.getModelo().getCpu().resultado);
 		} catch (ExtensionInvalidaException
 				| ProgramaMuyLargoException | ProgramaYaCompiladoException
@@ -180,8 +179,8 @@ public class VentanaSimulador implements ActionListener, MouseListener {
 				pasoAPasoController.ejecutar(path + "/" + filename +".maq", modelosTablas, this);
 				btnPasoAPaso.setEnabled(true);
 			}else{
-				EjecutarContoller ejecucionController = new EjecutarPasoAPasoController();
-				ejecucionController.ejecutar(path + "/" + filename +".maq", modelosTablas, null);
+				EjecutarContoller ejecucionController = new EjecutarContoller();
+				ejecucionController.ejecutar(path + "/" + filename +".maq", modelosTablas, this);
 				habilitarBotonesConversion();
 			}
 			JOptionPane.showMessageDialog(null,Modelo.getModelo().getCpu().resultado);

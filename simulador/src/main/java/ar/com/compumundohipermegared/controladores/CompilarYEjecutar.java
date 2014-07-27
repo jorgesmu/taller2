@@ -16,8 +16,8 @@ public class CompilarYEjecutar {
 	public void compilarYEjecutar(String ruta, ModelosInterfaz interfaz, VentanaSimulador ventana) throws FileNotFoundException, ExtensionInvalidaException, ProgramaMuyLargoException, ProgramaYaCompiladoException, InstruccionAssemblyInvalidaException, ProgramaMalFormadoException {
 		Compilador comp = new Compilador(ruta);
 		String rutaCompilado = comp.compilar();
-		EjecutarPasoAPasoController pasoAPasoController = new EjecutarPasoAPasoController();
-		pasoAPasoController.ejecutar(rutaCompilado, interfaz, ventana);
+		EjecutarContoller ejecucionController = new EjecutarContoller();
+		ejecucionController.ejecutar(rutaCompilado, interfaz, ventana);
 	}
 	
 }

@@ -12,7 +12,7 @@ import ar.com.compumundohipermegared.simulador.cicloInstruccion.ProgramaMalForma
 
 public class EjecutarPasoAPasoController extends EjecutarContoller {
 	
-	public  void avanzarPaso(ModelosInterfaz interfaz, VentanaSimulador ventana) {
+	public void avanzarPaso(ModelosInterfaz interfaz, VentanaSimulador ventana) {
 		Modelo modelo = ModeloPasoAPaso.getModelo();
 		CpuPasoAPaso cpu = (CpuPasoAPaso) modelo.getCpu();
 		cpu.avanzar();
@@ -41,7 +41,7 @@ public class EjecutarPasoAPasoController extends EjecutarContoller {
 		ModeloPasoAPaso.crearModelo(Ruta);
 		Modelo modelo = Modelo.getModelo();
 		modelo.ejecutar();
-		actualizaciones (modelo, interfaz, ventana);
+		actualizaciones(modelo, interfaz, ventana);
 	}
 	
 }
