@@ -35,6 +35,7 @@ import ar.com.compumundohipermegared.controladores.CompilarYEjecutarPasoAPaso;
 import ar.com.compumundohipermegared.controladores.ConversorController;
 import ar.com.compumundohipermegared.controladores.EjecutarContoller;
 import ar.com.compumundohipermegared.controladores.EjecutarPasoAPasoController;
+import ar.com.compumundohipermegared.conversor.Casteador;
 import ar.com.compumundohipermegared.simulador.Modelo;
 import ar.com.compumundohipermegared.simulador.cicloInstruccion.Cpu;
 import ar.com.compumundohipermegared.simulador.cicloInstruccion.ProgramaMalFormadoException;
@@ -354,23 +355,29 @@ public class VentanaSimulador implements ActionListener, MouseListener {
 	//
 	// PEDIR DATO DE ENTRADA
 	//
-	public int pedirEntradaUsuario() {
-		 int resultado = 0;
+	public byte pedirEntradaUsuario() {
+		 byte resultado = 0;
 		 boolean valorIngresadoNumerico = false;
 		 boolean CANCELO = true;
 		 int MINVALUE = -128, MAXVALUE = 127;
 		 while (!valorIngresadoNumerico) {
 			 String inputValue = JOptionPane.showInputDialog(null,"Ingresar valor dentro del rango [-128;127], si es valor es invalido o cancela, se toma cero por defecto. ","Ingrese un dato desde dispositivo", JOptionPane.INFORMATION_MESSAGE);
 			 if (inputValue != null){
-			 try {
-					resultado = Integer.parseInt(inputValue);
-					if (resultado < MINVALUE || resultado > MAXVALUE){
-						resultado = 0;
+				 try { 
+					double numeroConComa = Double.parseDouble(inputValue);
+					if (inputValue.contains(".")){
+						Casteador casteador = new Casteador();
+						resultado = (byte)casteador.puntoFlotante(numeroConComa);
+					}else {
+						resultado = (byte) Integer.parseInt(inputValue);
+						if (resultado < MINVALUE || resultado > MAXVALUE){
+							resultado = 0;
+						}
 					}
 					valorIngresadoNumerico = true;
-				} catch (Exception e) {
-					JOptionPane.showMessageDialog(null, "ERROR: Se debe ingresar un valor numerico. Ingreselo nuevamente.", "Error: formato de entrada no valida", JOptionPane.ERROR_MESSAGE);
-				}
+				 } catch (Exception e) {
+						JOptionPane.showMessageDialog(null, "ERROR: Se debe ingresar un valor numerico. Ingreselo nuevamente.", "Error: formato de entrada no valida", JOptionPane.ERROR_MESSAGE);
+				 }
 			 }else {
 				 valorIngresadoNumerico = CANCELO;
 			 }
@@ -378,19 +385,6 @@ public class VentanaSimulador implements ActionListener, MouseListener {
 		 return resultado;
 	}
 	
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		if (e.getSource() == txtCodigoAbsoluto){
-			if (txtCodigoAbsoluto.getText().equals(codigoHintAbsoluto)) txtCodigoAbsoluto.setText("");
-		}else if (e.getSource() == txtNombreAbsoluto){
-			if (txtNombreAbsoluto.getText().equals(nombreHintAbsoluto)) txtNombreAbsoluto.setText("");
-		}else if (e.getSource() == txtCodigoAssembly){
-			if (txtCodigoAssembly.getText().equals(codigoHintAssembly)) txtCodigoAssembly.setText("");
-		}else if (e.getSource() == txtNombreAssembly){
-			if (txtNombreAssembly.getText().equals(nombreHintAssembly)) txtNombreAssembly.setText("");
-		}	
-	}
-
 	@Override
 	public void mousePressed(MouseEvent e) {
 		return;
@@ -409,6 +403,11 @@ public class VentanaSimulador implements ActionListener, MouseListener {
 	@Override
 	public void mouseExited(MouseEvent e) {
 		return;
+	}
+
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
 	}
 
 }
