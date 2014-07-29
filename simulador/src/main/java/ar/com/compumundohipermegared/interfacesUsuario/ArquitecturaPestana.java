@@ -156,14 +156,14 @@ public class ArquitecturaPestana {
 		lblFilasMemoria.setFont(new Font(labelFilas.getName(), Font.PLAIN, 13));	
 		panel.add(lblFilasMemoria);
 		
-		lblColumnaMemoria = new JLabel("           0                     1                     2"
-				+ "                     3                     4                     5                     6"
-				+ "                     7                     8                     9                    A"
-				+ "                     B                     C                    D                     E"
-				+ "                     F");
+		lblColumnaMemoria = new JLabel("       0               1                2"
+				+ "               3               4               5               6"
+				+ "               7               8               9               A"
+				+ "               B               C               D               E"
+				+ "               F");
 		lblColumnaMemoria.setBounds(25, 65, 1300, 40);
 		Font labelCol = lblColumnaMemoria.getFont();
-		lblColumnaMemoria.setFont(new Font(labelCol.getName(), Font.PLAIN, 10));	
+		lblColumnaMemoria.setFont(new Font(labelCol.getName(), Font.PLAIN, 13));	
 		panel.add(lblColumnaMemoria);
 		
 		ventana.btnPasoAPaso = new JButton("Proximo paso");
